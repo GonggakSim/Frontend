@@ -12,36 +12,37 @@
 ## branch 전략
 
 main branch와 하위 각 팀원별 branch 이용
-- main branch: 전체 맡은 부분을 통합하여 사용하는 branch
-- 하위 branch: 각자 맡은 부분에 대한 작업물을 올리고 저장해둘 branch
+- main branch: 배포 직전 단계의 브랜치. develop branch에서 개발이 끝나면 사용
+- develop branch : main branch의 하위 브랜치로써, 개발 프로세스를 진행하는 브랜치
+- 개인 branch : develop branch의 하위 브랜치로, 팀원 개개인이 담당한 기능을 개발하는 브랜치
 
 ---
 
 ## issue 전략
 
 태그로 구분하며 두가지 종류의 이슈를 다룸
-- [request]: 개선이 필요한 사항에 대한 요청 이슈
-- [error]: 오류가 있는 경우에 대한 이슈
+- [Request]: 개선이 필요한 사항에 대한 요청 이슈
+- [Error]: 오류가 있는 경우에 대한 이슈
 
 ---
 
 ## Pull request 전략
 
 태그로 구분하며 개발 및 기능 추가를 다룸
-- [develop]: 개발 완료에 대한 태그
-- [add]: 개선사항에 따른 기능 추가 태그
+- [Develop]: 개발 완료에 대한 태그
+- [Add]: 개선사항에 따른 기능 추가 태그
 
 ---
 
 ## commit 컨벤션
 
 각 태그를 이용하여 어떤 내용이 변경되었는지를 나타내는 규칙
-- [feat]: 새로운 기능 추가
-- [fix]: 버그 수정
-- [docs]: 문서 수정
-- [design]: UI 수정
-- [rename]: 파일명, 폴더명 변경
-- [remove]: 파일 삭제
+- [Feat]: 새로운 기능 추가
+- [Fix]: 버그 수정
+- [Docs]: 문서 수정
+- [Design]: UI 수정
+- [Rename]: 파일명, 폴더명 변경
+- [Remove]: 파일 삭제
 
 ---
 
@@ -56,6 +57,6 @@ main branch와 하위 각 팀원별 branch 이용
 
 ## 안드로이드 스튜디오 세팅
 
-- 버전: 레이디 버그(작성일 기준 최신 버전)
+- 버전: Ladybug(2024.2.1)
 - targetSDK, minSDK: 34로 설정
 - 테스트: IDE 내 Emulator로 테스트

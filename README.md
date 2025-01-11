@@ -9,6 +9,15 @@
 
 ---
 
+## 사용할 기술 스택
+
+- 개발 툴: Android Studio - Ladybug(2024.2.1)
+- 사용 언어: Kotlin(앱 개발), XML(UI 설계)
+- Android SDK: 34
+- 작업물 저장 및 공유: GitHub
+
+---
+
 ## branch 전략
 
 main branch와 하위 각 팀원별 branch 이용

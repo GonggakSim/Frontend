@@ -18,6 +18,17 @@
 
 ---
 
+## 사용할 라이브러리
+
+-  Modal BottomSheet: 로그아웃 안내 및 계정 탈퇴 안내에 사용
+-  Glide: 이미지 표시해주는 라이브러리로, 마이페이지 프로필 세팅에 사용
+-  Lottie: 퀴즈 OX, 인터넷 요청 등 로딩화면 애니메이션에 사용
+-  MaterialCalendarView: 다양한 커스터마이징이 가능한 캘린더 라이브러리
+-  CompactCalendarView: 간단하고 가벼운 캘린더 뷰 제공, 이벤트 표시와 애니메이션 기능
+-  ObjectAnimator: Android의 기본 애니메이션 API로, 뷰 흔드는 동작 구현에 사용
+
+---
+
 ## branch 전략
 
 main branch와 하위 각 팀원별 branch 이용

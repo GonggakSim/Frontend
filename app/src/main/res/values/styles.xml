@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.BottomNavigationView."
+        parent="Widget.Design.BottomNavigationView">
+        <item name = "fontFamily">@font/npsfont_regular</item>
+    </style>
+
+    <style name="ActiveTabText" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">12sp</item> <!-- 활성 상태 라벨 크기 -->
+        <item name="android:paddingTop">4dp</item> <!-- 텍스트 여백 -->
+    </style>
+
+    <style name="InactiveTabText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">10sp</item> <!-- 비활성 상태 라벨 크기 -->
+        <item name="android:paddingTop">2dp</item> <!-- 텍스트 여백 -->
+    </style>
+
+</resources>

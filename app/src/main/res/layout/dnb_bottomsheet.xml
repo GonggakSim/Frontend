@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/numpick_start"
+        android:layout_width="182dp"
+        android:layout_height="147dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+        app:layout_constraintVertical_bias="0.0">
+
+        <NumberPicker
+            android:id="@+id/number_picker_am_pm2"
+            android:layout_width="43dp"
+            android:layout_height="wrap_content" />
+
+        <NumberPicker
+            android:id="@+id/number_picker_hour2"
+            android:layout_width="47dp"
+            android:layout_height="wrap_content" />
+
+        <NumberPicker
+            android:id="@+id/number_picker_minute2"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/numpick_end"
+        android:layout_width="182dp"
+        android:layout_height="147dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!-- 오전/오후 -->
+
+        <NumberPicker
+            android:id="@+id/number_picker_am_pm"
+            android:layout_width="43dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp" />
+
+        <!-- 시간 -->
+        <NumberPicker
+            android:id="@+id/number_picker_hour"
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp" />
+
+        <!-- 분 -->
+        <NumberPicker
+            android:id="@+id/number_picker_minute"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        style="@style/CustomChipStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="11dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_done">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Mon"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="월"
+            app:chipBackgroundColor="@color/white"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/chip_stroke"
+            tools:textAppearance="@style/CustomChipTextAppearance"
+            tools:textColor="@color/chip_stroke" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Tue"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="화"
+            app:chipBackgroundColor="@color/white"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/chip_stroke"
+            tools:textAppearance="@style/CustomChipTextAppearance"
+            tools:textColor="@color/chip_stroke" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Wed"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="수"
+            app:chipBackgroundColor="@color/white"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/chip_stroke"
+            tools:textAppearance="@style/CustomChipTextAppearance"
+            tools:textColor="@color/chip_stroke" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Thu"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="목"
+            app:chipBackgroundColor="@color/white"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/chip_stroke"
+            tools:textAppearance="@style/CustomChipTextAppearance"
+            tools:textColor="@color/chip_stroke" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Fri"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="금"
+            app:chipBackgroundColor="@color/white"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/chip_stroke"
+            tools:textAppearance="@style/CustomChipTextAppearance"
+            tools:textColor="@color/chip_stroke" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Sat"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="토"
+            app:chipBackgroundColor="@color/white"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/chip_stroke"
+            tools:textAppearance="@style/CustomChipTextAppearance"
+            tools:textColor="@color/chip_stroke" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/Sun"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="일"
+            app:chipBackgroundColor="@color/white"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/chip_stroke"
+            tools:textAppearance="@style/CustomChipTextAppearance"
+            tools:textColor="@color/chip_stroke" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/btn_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="9dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="완료"
+        app:layout_constraintBottom_toTopOf="@+id/chipGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_close"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="329dp"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/chipGroup"
+        app:layout_constraintEnd_toStartOf="@+id/btn_done"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/btn_close" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"></LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

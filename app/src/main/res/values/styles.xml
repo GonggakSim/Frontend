@@ -15,4 +15,26 @@
         <item name="android:paddingTop">2dp</item> <!-- 텍스트 여백 -->
     </style>
 
+    <style name="CustomChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="fontFamily">@font/npsfont_regular</item> <!-- 커스텀 글꼴 -->
+        <item name="android:textSize">14sp</item> <!-- 필요하면 크기도 설정 -->
+        <item name="android:textColor">@color/black</item> <!-- 필요 시 색상도 변경 -->
+    </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <!-- 배경색 -->
+        <item name="chipBackgroundColor">@color/chip_background</item>
+
+        <!-- 외곽선 색상 및 두께 -->
+        <item name="chipStrokeColor">@color/chip_stroke</item>
+        <item name="chipStrokeWidth">1.5dp</item>
+
+        <!-- 텍스트 색상 -->
+        <item name="android:textColor">@color/chip_text</item>
+    </style>
+
+    <style name="CustomCheckBoxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <!-- 선택/미선택 버튼 색상 적용 -->
+        <item name="buttonTint">@color/chip_selected_color</item>
+    </style>
 </resources>

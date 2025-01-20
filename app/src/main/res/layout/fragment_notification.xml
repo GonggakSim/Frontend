@@ -292,40 +292,35 @@
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="컴활 2급"
-            android:textAppearance="@style/CustomChipTextAppearance" />
+            android:text="컴활 2급" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip15"
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="토익"
-            android:textAppearance="@style/CustomChipTextAppearance" />
+            android:text="토익" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip14"
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="워드"
-            android:textAppearance="@style/CustomChipTextAppearance" />
+            android:text="워드" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip11"
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HSK"
-            android:textAppearance="@style/CustomChipTextAppearance" />
+            android:text="HSK" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip12"
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="정보처리기사"
-            android:textAppearance="@style/CustomChipTextAppearance" />
+            android:text="정보처리기사" />
     </com.google.android.material.chip.ChipGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

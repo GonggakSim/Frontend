@@ -13,3 +13,14 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Gradle 관련 파일
+.gradle/
+build/
+gradle/caches/
+gradle/wrapper/
+
+# Android 관련 파일
+*.apk
+*.iml
+/local.properties
+/.idea/

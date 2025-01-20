@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notiAllowtxt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NotificationFragment">
+
+    <TextView
+        android:id="@+id/tabTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="190dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="알림"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/notiSwitch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/notiSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:lineSpacingExtra="6.4sp"
+        android:switchMinWidth="0dp"
+        android:text="알림 받기"
+        android:textSize="16sp"
+        android:thumb="@drawable/switch_thumb"
+        android:thumbTextPadding="24dp"
+        android:track="@drawable/switch_track"
+        app:layout_constraintBottom_toTopOf="@+id/dndText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabTitle" />
+
+    <TextView
+        android:id="@+id/dndText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="방해금지 시간대 설정"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notiSwitch" />
+
+    <TextView
+        android:id="@+id/quizSelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="13dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="알림 퀴즈 선택"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/chipGroup3"
+        app:layout_constraintEnd_toStartOf="@+id/quizSelDuplicate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addDND"
+        tools:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/quizSelDuplicate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="123dp"
+        android:layout_marginEnd="228dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="*중복선택 가능"
+        android:textColor="@color/material_dynamic_neutral60"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quizSelText"
+        app:layout_constraintTop_toBottomOf="@+id/dndText" />
+
+    <TextView
+        android:id="@+id/addDND"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="348dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="일정 추가"
+        android:textColor="#EB4335"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/quizSelText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dndText" />
+
+    <TextView
+        android:id="@+id/quizTypeSelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="퀴즈 유형 선택"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/quizSelDuplicate2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup3"
+        tools:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/quizSelDuplicate2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="232dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="*중복선택 가능"
+        android:textColor="@color/material_dynamic_neutral60"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quizTypeSelText"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup3" />
+
+    <CheckBox
+        android:id="@+id/ox4"
+        android:layout_width="162dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="211dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="알림만"
+        app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ox"
+        app:layout_constraintTop_toBottomOf="@+id/ox7" />
+
+    <CheckBox
+        android:id="@+id/ox"
+        android:layout_width="162dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="39dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="받아적기"
+        app:layout_constraintBottom_toTopOf="@+id/quizTypeSelText2"
+        app:layout_constraintEnd_toStartOf="@+id/ox4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ox6" />
+
+    <CheckBox
+        android:id="@+id/ox7"
+        android:layout_width="162dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="44dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="기출문제"
+        app:layout_constraintBottom_toTopOf="@+id/ox4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ox6"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup3" />
+
+    <CheckBox
+        android:id="@+id/ox6"
+        android:layout_width="162dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="27dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="개념 OX 퀴즈"
+        app:layout_constraintBottom_toTopOf="@+id/ox"
+        app:layout_constraintEnd_toStartOf="@+id/ox7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quizSelDuplicate2" />
+
+    <TextView
+        android:id="@+id/quizTypeSelText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="퀴즈 범위 설정"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/quizSelDuplicate3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ox"
+        tools:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/quizSelDuplicate3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="228dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="*중복선택 가능"
+        android:textColor="@color/material_dynamic_neutral60"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quizTypeSelText2"
+        app:layout_constraintTop_toBottomOf="@+id/ox" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="209dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quizSelDuplicate3">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip8"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1과목"
+            tools:textAppearance="@style/CustomChipTextAppearance" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip9"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2과목"
+            tools:textAppearance="@style/CustomChipTextAppearance" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip10"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3과목"
+            tools:textAppearance="@style/CustomChipTextAppearance" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="356dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="91dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="103dp"
+        android:backgroundTint="#6996F2"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="저장"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup2" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup3"
+        android:layout_width="234dp"
+        android:layout_height="103dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="123dp"
+        android:layout_marginBottom="88dp"
+        app:layout_constraintBottom_toTopOf="@+id/quizTypeSelText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quizSelDuplicate"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip16"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="컴활 2급"
+            android:textAppearance="@style/CustomChipTextAppearance" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip15"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="토익"
+            android:textAppearance="@style/CustomChipTextAppearance" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip14"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="워드"
+            android:textAppearance="@style/CustomChipTextAppearance" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip11"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HSK"
+            android:textAppearance="@style/CustomChipTextAppearance" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip12"
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="정보처리기사"
+            android:textAppearance="@style/CustomChipTextAppearance" />
+    </com.google.android.material.chip.ChipGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

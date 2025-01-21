@@ -5,13 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.gonggaksim_frontend.databinding.FragmentCalenderBinding
 
 class CalenderFragment : Fragment() {
+
+    private lateinit var binding: FragmentCalenderBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_calender, container, false)
-    }
 
+        binding = FragmentCalenderBinding.inflate(inflater, container, false)
+
+        binding.plsBtn.setOnClickListener {
+            val fragmentExamInput = ExamInputFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_container, fragmentExamInput)
+                .commit()
+        }
+
+        return binding.root
+
+
+    }
 }

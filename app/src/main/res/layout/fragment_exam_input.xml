@@ -126,49 +126,24 @@
         android:layout_marginBottom="8dp"
         android:visibility="visible"/>
 
-    <TextView
-        android:id="@+id/reminder_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="리마인드 알림"
+    <Switch
+        android:id="@+id/reminder"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
         android:fontFamily="@font/npsfont_regular"
-        android:textColor="#000000"
+        android:lineSpacingExtra="6.4sp"
+        android:switchMinWidth="0dp"
+        android:text="리마인드 알림"
+        android:textSize="16sp"
+        android:thumb="@drawable/switch_thumb"
+        android:thumbTextPadding="24dp"
+        android:track="@drawable/switch_track"
         app:layout_constraintTop_toBottomOf="@id/exam_date_et"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="59dp"
-        android:layout_marginStart="16dp"/>
-    
-    <ImageView
-        android:id="@+id/reminder_background"
-        android:layout_width="48dp"
-        android:layout_height="26dp"
-        android:src="@drawable/reminder_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/reminder_tv"
-        app:layout_constraintBottom_toBottomOf="@id/reminder_tv"
-        android:layout_marginEnd="16dp" />
-
-    <ImageView
-        android:id="@+id/reminder_btn_off"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:src="@drawable/reminder_front"
-        app:layout_constraintStart_toStartOf="@id/reminder_background"
-        app:layout_constraintTop_toTopOf="@id/reminder_background"
-        app:layout_constraintBottom_toBottomOf="@id/reminder_background"
-        android:layout_marginStart="2dp"
-        android:visibility="visible"/>
-
-    <ImageView
-        android:id="@+id/reminder_btn_on"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:src="@drawable/reminder_front"
-        app:layout_constraintEnd_toEndOf="@id/reminder_background"
-        app:layout_constraintTop_toTopOf="@id/reminder_background"
-        app:layout_constraintBottom_toBottomOf="@id/reminder_background"
-        android:layout_marginEnd="2dp"
-        android:visibility="gone"/>
+        android:layout_marginTop="59dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/esf_btn"

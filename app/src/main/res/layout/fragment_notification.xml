@@ -292,35 +292,84 @@
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="컴활 2급" />
+            android:text="컴활 2급"
+            tools:textAppearance="@style/CustomChipTextAppearance" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip15"
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="토익" />
+            android:text="토익"
+            tools:textAppearance="@style/CustomChipTextAppearance" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip14"
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="워드" />
+            android:text="워드"
+            tools:textAppearance="@style/CustomChipTextAppearance" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip11"
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HSK" />
+            android:text="HSK"
+            tools:textAppearance="@style/CustomChipTextAppearance" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip12"
             style="@style/CustomChipStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="정보처리기사" />
+            android:text="정보처리기사"
+            tools:textAppearance="@style/CustomChipTextAppearance" />
     </com.google.android.material.chip.ChipGroup>
+
+    <Button
+        android:id="@+id/oxbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="18dp"
+        android:text="팝업OX"
+        app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+        app:layout_constraintEnd_toStartOf="@+id/multibtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup2" />
+
+    <Button
+        android:id="@+id/multibtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="18dp"
+        android:text="팝업객관식"
+        app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+        app:layout_constraintEnd_toStartOf="@+id/dictatebtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/dictatebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="18dp"
+        android:text="팝업받아쓰기"
+        app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup2"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

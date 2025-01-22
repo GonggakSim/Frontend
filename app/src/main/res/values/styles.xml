@@ -37,4 +37,5 @@
         <!-- 선택/미선택 버튼 색상 적용 -->
         <item name="buttonTint">@color/chip_selected_color</item>
     </style>
+
 </resources>

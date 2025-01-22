@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/test_noti_design"
+    android:gravity="center"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/apptitle_ox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:text="공각심"
+        android:textColor="@color/chip_selected_color" />
+
+    <TextView
+        android:id="@+id/multiplequiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:text="기출문제"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/testname_ox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:text="sample_test_name"
+        android:textColor="#535353" />
+
+    <TextView
+        android:id="@+id/quiz_multi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:lineSpacingExtra="8sp"
+        android:padding="16sp"
+        android:text="Q. 다음 중 컴퓨터 운영체제의 주요 기능으로 올바른 것은?"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/test_noti_rect">
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="1. 하드웨어 장치의 제조" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="2. 사용자 인터페이스 제공" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="3. 소프트웨어 개발 도구 제공" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="4. 전원 공급" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonX"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#6996F2"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="확인"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

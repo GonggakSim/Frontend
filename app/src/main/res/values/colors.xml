@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="chip_selected_color">#6996F2</color> <!-- 선택 시 외곽선 및 텍스트 -->
+    <color name="chip_unselected_color">#878787</color> <!-- 미선택 시 외곽선 및 텍스트 -->
+    <color name="chip_background">#fdf5ff</color> <!-- 배경색 (흰색) -->
+</resources>

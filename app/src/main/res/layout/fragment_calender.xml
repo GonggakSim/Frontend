@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/calendar_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="44dp">
+
+        <TextView
+            android:id="@+id/calendar_main"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:text="캘린더"
+            android:textSize="16dp"
+            android:fontFamily="@font/npsfont_regular"
+            android:textColor="#000000"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/calendar_v"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintTop_toBottomOf="@id/calendar_ll"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/fc_pls_string_cv"
+        android:layout_width="94dp"
+        android:layout_height="32dp"
+        android:backgroundTint="#7B7B7B"
+        app:cardCornerRadius="8dp"
+        android:elevation="0dp"
+        app:strokeColor="#7B7B7B"
+        app:layout_constraintBottom_toTopOf="@id/pls_btn"
+        app:layout_constraintEnd_toEndOf="@id/pls_btn"
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="-2dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="시험정보직접입력"
+            android:textSize="10sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/npsfont_regular"
+            android:layout_gravity="center"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@drawable/sub_polygon"
+        app:layout_constraintStart_toStartOf="@id/pls_btn"
+        app:layout_constraintEnd_toEndOf="@id/pls_btn"
+        app:layout_constraintTop_toBottomOf="@id/fc_pls_string_cv"
+        android:layout_marginTop="-2dp" />
+    
+    <androidx.cardview.widget.CardView
+        android:id="@+id/pls_btn"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="140dp"
+        app:cardCornerRadius="90dp"
+        app:cardElevation="8dp">
+
+        <ImageView
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:src="@drawable/btn_pls"
+            android:layout_gravity="center"/>
+
+    </androidx.cardview.widget.CardView>
+    
+    
+    <FrameLayout
+        android:id="@+id/fc_fl"
+        android:layout_width="328dp"
+        android:layout_height="180dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="150dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

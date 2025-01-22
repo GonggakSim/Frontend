@@ -1,9 +1,11 @@
 package com.example.gonggaksim_frontend
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.gonggaksim_frontend.databinding.FragmentExamInputBinding
 
@@ -18,6 +20,7 @@ class ExamInputFragment : Fragment() {
         binding = FragmentExamInputBinding.inflate(inflater, container, false)
 
         clickButtonEvent()
+        editTextEvent()
 
         return binding.root
     }
@@ -28,27 +31,37 @@ class ExamInputFragment : Fragment() {
             modalBottomSheet.show(parentFragmentManager, "ModalBottomSheet")
         }
 
-//        binding.reminderBtnOn.setOnClickListener {
-//            binding.reminderBtnOn.visibility = View.GONE
-//            binding.reminderBtnOff.visibility = View.VISIBLE
-//        }
-//        binding.reminderBtnOff.setOnClickListener {
-//            binding.reminderBtnOn.visibility = View.VISIBLE
-//            binding.reminderBtnOff.visibility = View.GONE
-//        }
-//        binding.reminderBackground.setOnClickListener {
-//            if(binding.reminderBtnOn.visibility == View.GONE) {
-//                binding.reminderBtnOn.visibility = View.VISIBLE
-//                binding.reminderBtnOff.visibility = View.GONE
-//            }
-//            else {
-//                binding.reminderBtnOn.visibility = View.GONE
-//                binding.reminderBtnOff.visibility = View.VISIBLE
-//            }
-//        }
+        binding.examNameBtn.setOnClickListener {
+
+        }
+        binding.examDateBtn.setOnClickListener {
+
+        }
 
         binding.esfBtn.setOnClickListener {
+            val fragmentCalendar = CalenderFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_container, fragmentCalendar)
+                .commit()
+        }
+    }
+    private fun editTextEvent() {
+        binding.examNameEt.addTextChangedListener {
+            val text = binding.examNameEt.text.toString()
+            if(text.isEmpty()) {
+                binding.examNameBtn.visibility = View.GONE
+            } else {
+                binding.examNameBtn.visibility = View.VISIBLE
+            }
+        }
 
+        binding.examDateEt.addTextChangedListener {
+            val text = binding.examDateEt.text.toString()
+            if(text.isEmpty()) {
+                binding.examDateBtn.visibility = View.GONE
+            } else {
+                binding.examDateBtn.visibility = View.VISIBLE
+            }
         }
     }
 }

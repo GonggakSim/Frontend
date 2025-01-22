@@ -21,6 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ExamDivPointActivity"
+            android:exported="true"/>
+
+        <activity android:name=".ExamSuggestionActivity"
+            android:exported="true"/>
+
+        <activity android:name=".ExamDivSuccfailActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -42,30 +42,22 @@
     <EditText
         android:id="@+id/exam_name_et"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         app:layout_constraintTop_toBottomOf="@id/exam_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="#1877F2"/>
-
-    <TextView
-        android:id="@+id/exam_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="시험명을 입력해주세요."
-        android:fontFamily="@font/npsfont_regular"
-        android:textColor="#B4B4B4"
+        android:layout_marginTop="-7dp"
+        android:backgroundTint="#1877F2"
+        android:hint="시험명을 입력해주세요."
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/exam_name_et"
-        app:layout_constraintTop_toTopOf="@id/exam_name_et"
-        app:layout_constraintBottom_toBottomOf="@id/exam_name_et"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="visible"/>
+        android:fontFamily="@font/npsfont_regular"
+        android:textColor="#000000"
+        android:maxLines="1"/>
 
     <ImageView
+        android:id="@+id/exam_name_btn"
         android:layout_width="13dp"
         android:layout_height="13dp"
         android:src="@drawable/btn_delete"
@@ -91,16 +83,21 @@
     <EditText
         android:id="@+id/exam_date_et"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         app:layout_constraintTop_toBottomOf="@id/exam_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="-7dp"
         android:backgroundTint="#1877F2"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:hint="시험날짜를 선택해주세요"
+        android:textSize="14sp"
+        android:fontFamily="@font/npsfont_regular"/>
 
     <ImageView
+        android:id="@+id/exam_date_btn"
         android:layout_width="13dp"
         android:layout_height="13dp"
         android:src="@drawable/btn_delete"
@@ -110,21 +107,6 @@
         android:layout_marginEnd="5dp"
         android:visibility="gone"/>
 
-
-    <TextView
-        android:id="@+id/exam_date_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="시험날짜를 선택해주세요."
-        android:fontFamily="@font/npsfont_regular"
-        android:textColor="#B4B4B4"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@id/exam_date_et"
-        app:layout_constraintTop_toTopOf="@id/exam_date_et"
-        app:layout_constraintBottom_toBottomOf="@id/exam_date_et"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="visible"/>
 
     <Switch
         android:id="@+id/reminder"

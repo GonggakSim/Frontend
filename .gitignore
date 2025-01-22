@@ -24,3 +24,4 @@ gradle/wrapper/
 *.iml
 /local.properties
 /.idea/
+*.profile

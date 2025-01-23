@@ -1,17 +1,20 @@
 package com.example.gonggaksim_frontend
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.gonggaksim_frontend.databinding.FragmentCalenderBinding
 
 class CalenderFragment : Fragment() {
 
     private var _binding: FragmentCalenderBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var monthAdapter: MonthAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,7 +41,28 @@ class CalenderFragment : Fragment() {
 //            startActivity(Intent(requireContext(), ExamSuggestionActivity()::class.java))
 //        }
 
+        setListener()
+
         return binding.root
+    }
+
+    fun setListener() {
+        initCalendar()
+    }
+
+    fun initCalendar(){
+        var date = arrayListOf<String>("2025년 01월 01일","2025년 01월 28일","2025년 01월 09일","2025년 01월 18일")
+
+        monthAdapter = MonthAdapter(this, date)
+        binding.customCalendar.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+            adapter = monthAdapter
+            scrollToPosition(Int.MAX_VALUE/2)
+        }
+        val snap = PagerSnapHelper()
+        if(binding.customCalendar.onFlingListener == null){
+            snap.attachToRecyclerView(binding.customCalendar)
+        }
     }
 
     override fun onDestroyView() {

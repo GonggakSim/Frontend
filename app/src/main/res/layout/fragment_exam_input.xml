@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="44dp">
 
         <TextView
             android:id="@+id/fei_main"
@@ -22,7 +22,7 @@
             android:textSize="16dp"
             android:textColor="#000000"
             android:fontFamily="@font/npsfont_regular"
-            android:layout_marginTop="6dp" />
+            android:layout_marginTop="12dp" />
 
     </LinearLayout>
 

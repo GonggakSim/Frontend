@@ -62,7 +62,7 @@
 
     </ImageView>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/kakaologin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,11 +74,9 @@
         android:textColor="@color/cardview_dark_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo">
+        app:layout_constraintTop_toBottomOf="@+id/logo"/>
 
-    </Button>
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/naverlogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -90,11 +88,9 @@
         android:background="@drawable/solid_button_naver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kakaologin">
+        app:layout_constraintTop_toBottomOf="@+id/kakaologin"/>
 
-    </Button>
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/googlelogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,9 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/naverlogin">
-
-    </Button>
+        app:layout_constraintTop_toBottomOf="@+id/naverlogin"/>
 
     <TextView
         android:layout_width="wrap_content"

@@ -11,16 +11,16 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: ArrayList<String>) : RecyclerView.Adapter<DayAdapter.DayViewHolder>(){
+class DayAdapter2(val tmpMonth:Int, val dayList:MutableList<Date>, val date: ArrayList<String>) : RecyclerView.Adapter<DayAdapter2.Day2ViewHolder>(){
     val ROW = 6
-    inner class DayViewHolder(val layout: View) : RecyclerView.ViewHolder(layout)
+    inner class Day2ViewHolder(val layout: View) : RecyclerView.ViewHolder(layout)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayViewHolder {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.item_calendar_day,parent,false)
-        return DayViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Day2ViewHolder {
+        var view = LayoutInflater.from(parent.context).inflate(R.layout.item_calendar_day2,parent,false)
+        return Day2ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: DayViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: Day2ViewHolder, position: Int) {
         var day = holder.layout.findViewById<TextView>(R.id.fragment_calender_dayTv)
         day.text = dayList[position].date.toString()
         day.setTextColor(when(position%7){

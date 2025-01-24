@@ -31,9 +31,6 @@
             android:name=".Membership1Activity"
             android:exported="false" />
         <activity
-            android:name=".Mmbership1Activity"
-            android:exported="false" />
-        <activity
             android:name=".OnboardingActivity"
             android:exported="false" />
         <activity

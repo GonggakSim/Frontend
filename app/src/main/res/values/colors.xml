@@ -5,4 +5,24 @@
     <color name="chip_selected_color">#6996F2</color> <!-- 선택 시 외곽선 및 텍스트 -->
     <color name="chip_unselected_color">#878787</color> <!-- 미선택 시 외곽선 및 텍스트 -->
     <color name="chip_background">#fdf5ff</color> <!-- 배경색 (흰색) -->
+
+    <!-- Grayscale Colors -->
+    <color name="grayscale_10">#110801</color>
+    <color name="grayscale_09">#332D29</color>
+    <color name="grayscale_08">#66625F</color>
+    <color name="grayscale_07">#999592</color>
+    <color name="grayscale_06">#CCCCCC</color>
+    <color name="grayscale_05">#DDDDDD</color>
+    <color name="grayscale_04">#ECEFF1</color>
+    <color name="grayscale_03">#FAFAFA</color>
+    <color name="grayscale_02">#FDFDFD</color>
+    <color name="grayscale_01">#FFFFFF</color>
+
+    <!-- Main Colors -->
+    <color name="main_01">#6996F2</color>
+    <color name="main_02">#2F6EEE</color>
+    <color name="main_03">#A8C2F7</color>
+
+    <!-- Alert Color -->
+    <color name="alert_01">#EB4335</color>
 </resources>

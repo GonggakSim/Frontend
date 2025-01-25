@@ -1,5 +1,6 @@
 package com.example.gonggaksim_frontend
 
+import OxDialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -67,13 +68,6 @@ class NotificationFragment : Fragment() {
 
         bottomSheetDialog.show()
     }
-    fun showOXDialog(context: Context, title: String, content: String) {
-        val dialog = Dialog(context)
-        dialog.setContentView(R.layout.test_noti_ox)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent) // 배경 투명
-
-        dialog.show()
-    }
     fun showMultiDialog(context: Context, title: String, content: String) {
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.test_noti_multi)
@@ -86,6 +80,10 @@ class NotificationFragment : Fragment() {
         dialog.setContentView(R.layout.test_noti_dictate)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent) // 배경 투명
 
+        dialog.show()
+    }
+    fun showOXDialog(context: Context, title: String, content: String) {
+        val dialog = OxDialog(context)
         dialog.show()
     }
 }

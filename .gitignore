@@ -18,6 +18,8 @@ local.properties
 build/
 gradle/caches/
 gradle/wrapper/
+# Gradle Daemon files
+gradle/daemon/
 
 # Android 관련 파일
 *.apk

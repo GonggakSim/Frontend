@@ -13,6 +13,27 @@
         android:theme="@style/Theme.GongGakSim_FrontEnd"
         tools:targetApi="31">
         <activity
+            android:name=".ServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PushNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MembershipSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Membership2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Membership1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".OnboardingActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -21,6 +42,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ExamDivPointActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ExamSuggestionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ExamDivSuccfailActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

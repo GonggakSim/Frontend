@@ -21,9 +21,11 @@
         <item name="android:textColor">@color/black</item> <!-- 필요 시 색상도 변경 -->
     </style>
 
+
+
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
         <!-- 배경색 -->
-        <item name="chipBackgroundColor">@color/chip_background</item>
+        <item name="chipBackgroundColor">@color/grayscale_01</item>
 
         <!-- 외곽선 색상 및 두께 -->
         <item name="chipStrokeColor">@color/chip_stroke</item>
@@ -31,6 +33,13 @@
 
         <!-- 텍스트 색상 -->
         <item name="android:textColor">@color/chip_text</item>
+
+        <!-- 모서리 둥글기 설정 -->
+        <item name="shapeAppearanceOverlay">@style/CustomChipShape</item>
+    </style>
+
+    <style name="CustomChipShape" parent="ShapeAppearanceOverlay.MaterialComponents.Chip">
+        <item name="cornerSize">16dp</item>
     </style>
 
     <style name="CustomCheckBoxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">

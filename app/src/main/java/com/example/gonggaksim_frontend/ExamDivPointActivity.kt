@@ -59,7 +59,7 @@ class ExamDivPointActivity : Activity() {
             binding.threeTv.setTextColor(ContextCompat.getColor(this, R.color.color_ggs_gray))
             binding.fourTv.setTextColor(ContextCompat.getColor(this, R.color.color_ggs_gray))
         }
-        binding.two.setOnClickListener {
+        binding.three.setOnClickListener {
             binding.zero.setStrokeColor(ContextCompat.getColor(this, R.color.color_ggs_gray))
             binding.one.setStrokeColor(ContextCompat.getColor(this, R.color.color_ggs_gray))
             binding.two.setStrokeColor(ContextCompat.getColor(this, R.color.color_ggs_gray))
@@ -72,7 +72,7 @@ class ExamDivPointActivity : Activity() {
             binding.threeTv.setTextColor(ContextCompat.getColor(this, R.color.color_ggs_blue))
             binding.fourTv.setTextColor(ContextCompat.getColor(this, R.color.color_ggs_gray))
         }
-        binding.two.setOnClickListener {
+        binding.four.setOnClickListener {
             binding.zero.setStrokeColor(ContextCompat.getColor(this, R.color.color_ggs_gray))
             binding.one.setStrokeColor(ContextCompat.getColor(this, R.color.color_ggs_gray))
             binding.two.setStrokeColor(ContextCompat.getColor(this, R.color.color_ggs_gray))

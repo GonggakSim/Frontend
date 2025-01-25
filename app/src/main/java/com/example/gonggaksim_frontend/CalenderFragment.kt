@@ -5,17 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.gonggaksim_frontend.databinding.FragmentCalenderBinding
 
 class CalenderFragment : Fragment() {
 
-    private lateinit var binding: FragmentCalenderBinding
+    private var _binding: FragmentCalenderBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var monthAdapter: MonthAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentCalenderBinding.inflate(inflater, container, false)
+        _binding = FragmentCalenderBinding.inflate(inflater, container, false)
 
         binding.plsBtn.setOnClickListener {
             val fragmentExamInput = ExamInputFragment()
@@ -24,8 +29,44 @@ class CalenderFragment : Fragment() {
                 .commit()
         }
 
+        // 액티비티 테스트용
+//        binding.plsBtn.setOnClickListener {
+            //시험일정추천(점수)
+//            startActivity(Intent(requireContext(), ExamDivPointActivity()::class.java))
+//
+            //시험일정추천(점수x)
+//            startActivity(Intent(requireContext(), ExamDivSuccfailActivity()::class.java))
+//
+            //ai 분석
+//            startActivity(Intent(requireContext(), ExamSuggestionActivity()::class.java))
+//        }
+
+        setListener()
+
         return binding.root
+    }
 
+    fun setListener() {
+        initCalendar()
+    }
 
+    fun initCalendar(){
+        var date = arrayListOf<String>("2025년 01월 01일","2025년 01월 28일","2025년 01월 09일","2025년 01월 18일")
+
+        monthAdapter = MonthAdapter(this, date)
+        binding.customCalendar.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+            adapter = monthAdapter
+            scrollToPosition(Int.MAX_VALUE/2)
+        }
+        val snap = PagerSnapHelper()
+        if(binding.customCalendar.onFlingListener == null){
+            snap.attachToRecyclerView(binding.customCalendar)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

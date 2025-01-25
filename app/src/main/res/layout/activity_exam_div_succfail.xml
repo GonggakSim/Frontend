@@ -76,7 +76,7 @@
                 android:fontFamily="@font/npsfont_regular"
                 app:layout_constraintTop_toBottomOf="@id/edsf_info_q"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="16dp"/>
 
             <TextView

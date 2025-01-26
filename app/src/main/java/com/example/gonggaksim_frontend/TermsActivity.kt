@@ -45,6 +45,14 @@ class TermsActivity : AppCompatActivity() {
             startActivity(navigateToPushNotification)
         }
 
+        // 다음 버튼 이동
+        val navigateToMembership1 = Intent(this,Membership1Activity::class.java)
+
+        confirmButton.setOnClickListener{
+            startActivity(navigateToMembership1)
+            finish()
+        }
+
         // 전체 동의 체크박스 로직
         checkAll.setOnCheckedChangeListener { _, isChecked ->
             checkTerms.isChecked = isChecked

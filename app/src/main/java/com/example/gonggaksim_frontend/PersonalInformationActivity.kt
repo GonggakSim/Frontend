@@ -20,6 +20,7 @@ class PersonalInformationActivity : AppCompatActivity() {
 
         backButton.setOnClickListener{
             startActivity(PreviousScreen)
+            finish()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

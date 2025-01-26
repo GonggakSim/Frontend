@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".Membership1Activity">
+    tools:context=".WorkActivity">
 
     <ImageView
-        android:layout_width="117dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fullline"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="21dp"
-        android:src="@drawable/line1"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -28,7 +25,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="102dp"
         android:layout_marginEnd="57dp"
-        android:text="공각심에서 사용할 닉네임을 \n 알려주세요!"
+        android:text="성공적인 학습을 위한 첫걸음을 \n 시작해봐요!"
         android:textColor="@color/black"
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,63 +35,45 @@
     </TextView>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/work"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="208dp"
-        android:text="닉네임"
-        android:textColor="@color/gray"
+        android:text="재직상태"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </TextView>
 
-    <EditText
-        android:id="@+id/nicknameEditText"
+    <Spinner
+        android:id="@+id/spinner_work"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="공부하는 취준생"
-        android:textColorHint="@color/gray"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="51dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:prompt="@string/select_work"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        android:backgroundTint="#1877F2">
+        app:layout_constraintTop_toBottomOf="@id/work">
 
-    </EditText>
+    </Spinner>
 
-
-<!--    <Button
-        android:id="@+id/nextButton"
+    <Button
+        android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="29dp"
-        android:background="@drawable/solid_button_next"
+        android:background="@drawable/solid_gray"
         android:text="다음"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-    </Button>-->
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/nextButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="29dp"
-        android:background="@drawable/solid_button_next"
-        android:text="다음"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

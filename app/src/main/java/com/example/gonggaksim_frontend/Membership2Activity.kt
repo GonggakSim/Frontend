@@ -1,6 +1,7 @@
 package com.example.gonggaksim_frontend
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -24,6 +25,12 @@ class Membership2Activity : AppCompatActivity() {
         val yearSpinner: Spinner = findViewById(R.id.spinner_year)
 
         val nextButton: Button = findViewById(R.id.btn_next)
+
+        val navigateToWork = Intent(this,WorkActivity::class.java)
+        nextButton.setOnClickListener{
+            startActivity(navigateToWork)
+            finish()
+        }
 
         // 데이터 리스트 설정
         val ageList = (18..30).map { it.toString() }

@@ -51,6 +51,7 @@
     </TextView>
 
     <EditText
+        android:id="@+id/nicknameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="공부하는 취준생"
@@ -66,7 +67,8 @@
     </EditText>
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
+        android:id="@+id/nextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -77,6 +79,21 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent">
+
+    </Button>
+
+<!--    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="29dp"
+        android:background="@drawable/solid_button_next"
+        android:text="다음"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

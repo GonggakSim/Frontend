@@ -71,12 +71,6 @@ class TermsActivity : AppCompatActivity() {
         checkPrivacy.setOnCheckedChangeListener { _, isChecked -> checkListener(isChecked) }
         checkPush.setOnCheckedChangeListener { _, isChecked -> checkListener(isChecked) }
 
-        // 확인 버튼 클릭 이벤트
-        confirmButton.setOnClickListener {
-            // 약관 동의 완료 처리
-            finish() // 이전 화면으로 돌아가기
-        }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

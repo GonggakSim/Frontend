@@ -19,7 +19,7 @@
         android:textColor="@color/chip_selected_color" />
 
     <TextView
-        android:id="@+id/multiplequiz"
+        android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/npsfont_bold"
@@ -37,7 +37,7 @@
         android:textColor="#535353" />
 
     <TextView
-        android:id="@+id/quiz_multi"
+        android:id="@+id/quiz_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"

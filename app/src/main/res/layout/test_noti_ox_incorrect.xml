@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AlertLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/test_noti_design_incorrect"
+    android:gravity="center"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:paddingBottom="12sp"
+        android:text="!!틀렸습니다!!"
+        android:textColor="#D83034"
+        android:textSize="20sp"
+        tools:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/test_noti_rect"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/quiz_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:drawableRight="@drawable/icon_incorrect"
+            android:fontFamily="@font/npsfont_regular"
+            android:gravity="center"
+            android:lineSpacingExtra="8sp"
+            android:padding="16sp"
+            android:text="정답 : "
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/quiz_explain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/npsfont_regular"
+            android:lineSpacingExtra="8sp"
+            android:padding="16sp"
+            android:text="SMTP는 사용자가 작성한 이메일을 다른 사람의 계정으로 전송하는 역할을 한다"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/quiz_advice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_regular"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="퀴즈 조언 예시 텍스트" />
+
+    <Button
+        android:id="@+id/buttonO"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#B7CCF5"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="확인"
+        android:textColor="#4A85FB"
+        android:textSize="24sp" />
+
+</LinearLayout>

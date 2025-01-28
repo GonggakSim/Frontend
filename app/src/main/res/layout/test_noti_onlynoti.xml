@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/AlertLayout"
     android:layout_width="match_parent"
@@ -25,7 +26,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/npsfont_bold"
         android:gravity="center"
-        android:text="개념 O/X 퀴즈"
+        android:text="{UserName} 님"
         android:textSize="20sp" />
 
     <TextView
@@ -37,42 +38,33 @@
         android:text="sample_test_name"
         android:textColor="#535353" />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="192dp"
+        android:layout_height="219dp"
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
+        app:srcCompat="@drawable/mainlogo" />
+
     <TextView
-        android:id="@+id/quiz_answer"
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@drawable/test_noti_rect"
+        android:layout_marginBottom="16sp"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:text="시험이 얼마 남지 않았어요!"
+        android:textColor="@color/alert_01"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonX"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#6996F2"
         android:fontFamily="@font/npsfont_regular"
-        android:lineSpacingExtra="8sp"
-        android:padding="16sp"
-        android:text="Q.SMTP는 웹 브라우저에서 제공하지 않는 멀티미디어 파일을 확인하여 실행시켜주는 프로토콜이다"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/buttonO"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#B7CCF5"
-            android:text="O"
-            android:textColor="#4A85FB"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/buttonX"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#6996F2"
-            android:text="X"
-            android:textSize="24sp" />
-    </LinearLayout>
+        android:text="확인"
+        android:textSize="24sp" />
 
 </LinearLayout>

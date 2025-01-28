@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 그라데이션 정의 -->
     <gradient
-        android:startColor="#FFD6D6"
+        android:startColor="#B5CAF3"
         android:endColor="#FFFFFF"
         android:angle="270">
 

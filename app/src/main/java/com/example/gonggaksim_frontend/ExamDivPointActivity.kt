@@ -307,6 +307,7 @@ class ExamDivPointActivity : Activity() {
         // 다음 버튼 처리
         binding.edpfBtn.setOnClickListener {
             val intent = Intent(this, ExamSuggestionActivity::class.java)
+            finishAffinity()
             startActivity(intent)
         }
     }

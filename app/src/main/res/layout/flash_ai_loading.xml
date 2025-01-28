@@ -14,6 +14,18 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="220dp"
         android:layout_marginStart="5dp"/>
+    
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lotti"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        app:lottie_rawRes="@raw/animation"
+        app:layout_constraintTop_toBottomOf="@id/alf_icon"
+        app:layout_constraintStart_toStartOf="@id/alf_icon"
+        app:layout_constraintEnd_toEndOf="@id/alf_icon"
+        android:layout_marginTop="34dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
 
     <ImageView
         android:id="@+id/loading_1"

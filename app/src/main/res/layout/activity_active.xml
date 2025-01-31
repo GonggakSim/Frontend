@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".Membership2Activity">
+    tools:context=".ActiveActivity">
 
     <ImageView
-        android:layout_width="175dp"
+        android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:src="@drawable/line2"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="21dp"
+        android:src="@drawable/fullline"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -37,12 +35,12 @@
     </TextView>
 
     <TextView
-        android:id="@+id/age"
+        android:id="@+id/work"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="208dp"
-        android:text="나이"
+        android:text="재직상태"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -50,7 +48,7 @@
     </TextView>
 
     <Spinner
-        android:id="@+id/spinner_age"
+        android:id="@+id/spinner_work2"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
@@ -58,75 +56,53 @@
         android:prompt="@string/select_age"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/age">
+        app:layout_constraintTop_toBottomOf="@id/work">
 
     </Spinner>
 
     <TextView
-        android:id="@+id/major"
+        android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="70dp"
-        android:text="학과"
+        android:text=""
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/age">
+        app:layout_constraintTop_toTopOf="@id/work">
 
     </TextView>
 
     <Spinner
-        android:id="@+id/spinner_major"
+        android:id="@+id/spinner_type"
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:prompt="@string/select_age"
+        android:prompt="@string/select_type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/major">
+        app:layout_constraintTop_toBottomOf="@id/type">
 
     </Spinner>
 
-    <TextView
-        android:id="@+id/grade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="70dp"
-        android:text="학년"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/major">
 
-    </TextView>
-
-    <Spinner
-        android:id="@+id/spinner_year"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:prompt="@string/select_age"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/grade">
-
-    </Spinner>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_next_membership2"
+        android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="378dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="29dp"
         android:background="@drawable/solid_button_next"
         android:text="다음"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
 
+    </androidx.appcompat.widget.AppCompatButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

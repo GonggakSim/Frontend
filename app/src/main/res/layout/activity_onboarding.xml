@@ -62,7 +62,57 @@
 
     </ImageView>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageButton
+        android:id="@+id/kakaologin"
+        android:layout_width="328dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="101dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/solid_button_kakao"
+        android:scaleType="centerCrop"
+        android:scrollbarSize="13dp"
+        android:src="@drawable/kakaologin1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/naverlogin"
+        android:layout_width="328dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/solid_button_naver"
+        android:scaleType="centerCrop"
+        android:src="@drawable/naverlogin1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kakaologin">
+
+    </ImageButton>
+
+
+    <ImageButton
+        android:id="@+id/googlelogin"
+        android:layout_width="328dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/solid_button_google"
+        android:scaleType="centerCrop"
+        android:src="@drawable/googlelogin1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/naverlogin">
+
+    </ImageButton>
+
+<!--    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/kakaologin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -103,7 +153,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/naverlogin"/>
+        app:layout_constraintTop_toBottomOf="@+id/naverlogin"/>-->
 
     <TextView
         android:id="@+id/forgottenbtn"

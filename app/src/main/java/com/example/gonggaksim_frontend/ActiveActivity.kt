@@ -1,7 +1,11 @@
 package com.example.gonggaksim_frontend
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class ActiveActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,6 +37,13 @@ class ActiveActivity : AppCompatActivity() {
         // 새로운 Spinner에 어댑터 연결
         workSpinner2.adapter = workAdapter
         newSpinner.adapter = newSpinnerAdapter
+
+        val navigatetoMain = Intent(this,MainActivity::class.java)
+        val nextButton = findViewById<Button>(R.id.btn_go_to_main)
+        nextButton.setOnClickListener{
+            startActivity(navigatetoMain)
+        }
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

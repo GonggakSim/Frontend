@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gonggaksim_frontend.databinding.ItemCalendarDay2Binding
+import com.example.gonggaksim_frontend.databinding.ItemCalendarDayBinding
 import java.util.*
 
 class DayAdapter2(val tmpMonth:Int, val dayList:MutableList<Date>, val date: ArrayList<String>) : RecyclerView.Adapter<DayAdapter2.Day2ViewHolder>(){
@@ -55,12 +57,32 @@ class DayAdapter2(val tmpMonth:Int, val dayList:MutableList<Date>, val date: Arr
 
             if(checkDay.equals(strDay)){
                 if(strDate.equals(comDate)){
-                    holder.itemView.findViewById<CardView>(R.id.fragment_calendar_day_eventCv1).visibility = View.VISIBLE
-                    holder.itemView.findViewById<CardView>(R.id.fragment_calendar_day_eventCv2).visibility = View.VISIBLE
+//                    holder.itemView.findViewById<CardView>(R.id.fragment_calendar_day_eventCv1).visibility = View.VISIBLE
+//                    holder.itemView.findViewById<CardView>(R.id.fragment_calendar_day_eventCv2).visibility = View.VISIBLE
                 }
             }
 
         }
+    }
+
+    private fun ItemCalendarDay2Binding.setOnSelected() {
+        itemLineMid12.visibility = View.VISIBLE
+        itemLineMid12.setBackgroundResource(R.drawable.task_line_circle)
+    }
+    private fun ItemCalendarDay2Binding.setHead() {
+        itemLineMid12.visibility = View.VISIBLE
+        itemLineMid12.setBackgroundResource(R.drawable.task_line_start)
+    }
+    private fun ItemCalendarDay2Binding.setMid() {
+        itemLineMid12.visibility = View.VISIBLE
+        itemLineMid12.setBackgroundResource(R.drawable.task_line_mid)
+    }
+    private fun ItemCalendarDay2Binding.setTail() {
+        itemLineMid12.visibility = View.VISIBLE
+        itemLineMid12.setBackgroundResource(R.drawable.task_line_end)
+    }
+    private fun ItemCalendarDay2Binding.reset() {
+        itemLineMid12.visibility = View.GONE
     }
 
     override fun getItemCount(): Int {

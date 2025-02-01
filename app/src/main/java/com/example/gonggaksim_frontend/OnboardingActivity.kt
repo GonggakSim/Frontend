@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +18,9 @@ class OnboardingActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_onboarding)
 
-        val kakaoButton = findViewById<Button>(R.id.kakaologin)
-        val naverButton = findViewById<Button>(R.id.naverlogin)
-        val googleButton = findViewById<Button>(R.id.googlelogin)
+        val kakaoButton = findViewById<ImageButton>(R.id.kakaologin)
+        val naverButton = findViewById<ImageButton>(R.id.naverlogin)
+        val googleButton = findViewById<ImageButton>(R.id.googlelogin)
 
         //계정 세팅 화면으로 이동
         val forgottenButton = findViewById<TextView>(R.id.forgottenbtn)

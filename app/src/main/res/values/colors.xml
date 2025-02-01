@@ -31,5 +31,5 @@
     <color name="main_03">#A8C2F7</color>
 
     <!-- Alert Color -->
-    <color name="alert_01">#EB4335</color>
+    <color name="red">#EB4335</color>
 </resources>

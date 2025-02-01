@@ -25,6 +25,16 @@ class MypageFragment : Fragment() {
             val intent = Intent(requireContext(), HelpActivity::class.java)
             startActivity(intent) // HelpActivity로 이동
         }
+
+        val btnwithdrawal = view.findViewById<ImageButton>(R.id.tvDeleteAccountBtn)
+
+        btnwithdrawal.setOnClickListener{
+            val intent = Intent(requireContext(),MembershipWithdrawalActivity::class.java)
+            startActivity(intent) //MembershipWithdrawalActivity 이동
+        }
+
+
+
     }
 
 

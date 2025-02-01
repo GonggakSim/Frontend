@@ -1,6 +1,7 @@
 package com.example.gonggaksim_frontend
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import com.example.gonggaksim_frontend.databinding.ActivityExamSuggestionBinding
 
@@ -26,7 +27,9 @@ class ExamSuggestionActivity : Activity() {
         }
 
         binding.esfBtn.setOnClickListener {
-
+            val intent = Intent(this, MainActivity::class.java)
+            finishAffinity()
+            startActivity(intent)
         }
     }
 }

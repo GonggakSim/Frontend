@@ -13,6 +13,12 @@
         android:theme="@style/Theme.GongGakSim_FrontEnd"
         tools:targetApi="31">
         <activity
+            android:name=".ActiveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityActivity"
+            android:exported="false" />
+        <activity
             android:name=".WorkActivity"
             android:exported="false" />
         <activity
@@ -20,7 +26,7 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".ServiceActivity"
             android:exported="false" />

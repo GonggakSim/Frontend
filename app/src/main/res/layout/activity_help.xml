@@ -29,6 +29,7 @@
         android:layout_marginTop="58dp"
         android:textSize="18dp"
         android:text="도움말"
+        android:fontFamily="@font/npsfont_regular"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -81,21 +81,24 @@
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:text="약관동의"
+            android:fontFamily="@font/npsfont_regular"
             android:textColor="#000000"
             android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="21dp">
 
             <!-- 체크박스: 전체 동의 -->
-            <CheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkAll"
                 android:layout_width="350dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:padding="8dp"
                 android:text="전체동의"
+                android:fontFamily="@font/npsfont_regular"
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
@@ -115,11 +118,12 @@
             android:orientation="horizontal">
 
             <!-- 체크박스: 이용약관 동의 -->
-            <CheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkTerms"
                 android:layout_width="350dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:padding="8dp"
+                android:fontFamily="@font/npsfont_regular"
                 android:text="이용약관 동의 (필수)"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -141,11 +145,12 @@
 
             <!-- 체크박스: 개인정보 수집 및 이용 -->
 
-            <CheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkPrivacy"
                 android:layout_width="350dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:padding="8dp"
+                android:fontFamily="@font/npsfont_regular"
                 android:text="개인정보 수집 및 이용 동의 (필수)"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -166,11 +171,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <!-- 체크박스: 푸시 알림 -->
-            <CheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkPush"
                 android:layout_width="350dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:padding="8dp"
+                android:fontFamily="@font/npsfont_regular"
                 android:text="푸시 알림 수신 동의 (선택)"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -187,13 +193,15 @@
         </LinearLayout>
 
         <!-- 확인 버튼 -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/confirmButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:enabled="false"
             android:text="확인"
+            android:textSize="14dp"
+            android:textColor="#FFFFFF"
             android:background="@drawable/solid_button_next" />
     </LinearLayout>
 

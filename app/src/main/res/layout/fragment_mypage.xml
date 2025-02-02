@@ -13,10 +13,10 @@
         android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="운OO님"
+        android:text="윤OO님"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#3A5FFF"
+        android:fontFamily="@font/npsfont_regular"
+        android:textColor="#6996F2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="80dp"
@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:text="오늘도 화이팅하세요!"
         android:textSize="16sp"
+        android:fontFamily="@font/npsfont_regular"
         app:layout_constraintTop_toBottomOf="@id/tvUserName"
         app:layout_constraintStart_toStartOf="@id/tvUserName"
         android:layout_marginTop="4dp"/>
@@ -39,6 +40,7 @@
         android:text="물류 · 유통 · 어학 · 전산"
         android:textSize="14sp"
         android:textColor="#888888"
+        android:fontFamily="@font/npsfont_regular"
         app:layout_constraintTop_toBottomOf="@id/tvGreeting"
         app:layout_constraintStart_toStartOf="@id/tvUserName"
         android:layout_marginTop="2dp"/>
@@ -85,6 +87,7 @@
                 android:layout_weight="1"
                 android:text="컴퓨터활용능력 1급 필기"
                 android:textSize="18sp"
+                android:fontFamily="@font/npsfont_regular"
                 android:layout_marginStart="21dp"
                 android:textColor="@android:color/white"/>
 
@@ -116,6 +119,7 @@
                 android:layout_weight="1"
                 android:text="물류관리사"
                 android:textSize="14sp"
+                android:fontFamily="@font/npsfont_regular"
                 android:layout_marginStart="21dp"
                 android:textColor="@android:color/white"/>
 
@@ -138,8 +142,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="설정"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="@font/npsfont_regular"
         app:layout_constraintTop_toBottomOf="@id/layoutExam"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="24dp"
@@ -165,8 +169,9 @@
                 android:layout_width="390dp"
                 android:layout_height="wrap_content"
                 android:text="회원정보 변경"
+                android:fontFamily="@font/npsfont_regular"
                 android:textSize="16sp"
-                android:padding="12dp"
+                android:padding="16dp"
                 android:clickable="true"
                 android:background="?attr/selectableItemBackground"/>
 
@@ -192,8 +197,9 @@
                 android:layout_width="390dp"
                 android:layout_height="wrap_content"
                 android:text="도움말"
+                android:fontFamily="@font/npsfont_regular"
                 android:textSize="16sp"
-                android:padding="12dp"
+                android:padding="16dp"
                 android:clickable="true"
                 android:background="?attr/selectableItemBackground"/>
 
@@ -219,8 +225,9 @@
                 android:layout_width="390dp"
                 android:layout_height="wrap_content"
                 android:text="로그아웃"
+                android:fontFamily="@font/npsfont_regular"
                 android:textSize="16sp"
-                android:padding="12dp"
+                android:padding="16dp"
                 android:clickable="true"
                 android:background="?attr/selectableItemBackground"/>
 
@@ -246,8 +253,9 @@
                 android:layout_width="390dp"
                 android:layout_height="wrap_content"
                 android:text="회원탈퇴"
+                android:fontFamily="@font/npsfont_regular"
                 android:textSize="16sp"
-                android:padding="12dp"
+                android:padding="16dp"
                 android:clickable="true"
                 android:textColor="#FF3B30"
                 android:background="?attr/selectableItemBackground"/>

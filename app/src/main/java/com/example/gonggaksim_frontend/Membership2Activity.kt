@@ -3,6 +3,7 @@ package com.example.gonggaksim_frontend
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -24,18 +25,17 @@ class Membership2Activity : AppCompatActivity() {
         val majorSpinner: Spinner = findViewById(R.id.spinner_major)
         val yearSpinner: Spinner = findViewById(R.id.spinner_year)
 
-        val nextButton: Button = findViewById(R.id.btn_next)
-
+        val nextButton: Button = findViewById(R.id.btn_next_membership2)
         val navigateToWork = Intent(this,WorkActivity::class.java)
         nextButton.setOnClickListener{
+            Log.d("Membership2Activity", "Next button clicked!")
             startActivity(navigateToWork)
-            finish()
         }
 
         // 데이터 리스트 설정
         val ageList = (18..30).map { it.toString() }
-        val majorList = listOf("컴퓨터공학", "전자공학", "기계공학", "경영학", "영문학")
-        val yearList = listOf("1학년", "2학년", "3학년", "4학년")
+        val majorList = listOf("학과를 선택해 주세요","컴퓨터공학", "전자공학", "기계공학", "경영학", "영문학")
+        val yearList = listOf("학년을 선택해 주세요","1학년", "2학년", "3학년", "4학년")
 
         // 어댑터 설정
         val ageAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ageList)
@@ -67,6 +67,7 @@ class Membership2Activity : AppCompatActivity() {
         ageSpinner.onItemSelectedListener = onItemSelectedListener
         majorSpinner.onItemSelectedListener = onItemSelectedListener
         yearSpinner.onItemSelectedListener = onItemSelectedListener
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

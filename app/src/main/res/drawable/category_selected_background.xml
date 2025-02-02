@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 배경 (투명) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- 언더바 -->
+    <item
+        android:gravity="bottom"
+        android:bottom="-2dp">
+        <shape android:shape="rectangle">
+            <size android:height="4dp" /> <!-- 언더바 높이 -->
+            <solid android:color="@color/main_01" /> <!-- 언더바 색상 -->
+        </shape>
+    </item>
+</layer-list>

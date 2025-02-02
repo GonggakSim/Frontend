@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/main_03" /> <!-- 흰색 배경 -->
+    <corners android:radius="50dp" /> <!-- 완전한 원 형태 -->
+</shape>

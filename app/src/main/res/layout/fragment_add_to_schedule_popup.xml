@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="328dp"
+    android:layout_height="180dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="4dp"
+    android:layout_gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 텍스트 -->
+        <TextView
+            android:id="@+id/delete_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="내 일정에 추가하시겠습니까?"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="44dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_yes"
+            android:layout_marginBottom="16dp" />
+
+        <!-- '네' 버튼 -->
+
+        <!-- '아니요' 버튼 -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_yes"
+            android:layout_width="120dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/btn_delete_scadule_on"
+            android:fontFamily="@font/npsfont_bold"
+            android:text="네"
+            android:textColor="#4A86FB"
+            app:layout_constraintEnd_toStartOf="@+id/btn_no"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/delete_tv" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_no"
+            android:layout_width="120dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/btn_delete_scadule_off"
+            android:fontFamily="@font/npsfont_bold"
+            android:text="아니요"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_yes"
+            app:layout_constraintTop_toBottomOf="@id/delete_tv" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -16,12 +16,6 @@
             android:name=".DialogLogoutActivity"
             android:exported="false" />
         <activity
-            android:name=".DiaLogoutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LogOutPopUpActivity"
-            android:exported="false" />
-        <activity
             android:name=".MembershipWithdrawalActivity"
             android:exported="false" />
         <activity
@@ -29,9 +23,6 @@
             android:exported="false" />
         <activity
             android:name=".ActiveActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ActivityActivity"
             android:exported="false" />
         <activity
             android:name=".WorkActivity"

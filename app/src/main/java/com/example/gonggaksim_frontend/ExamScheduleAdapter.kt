@@ -64,7 +64,7 @@ class ExamScheduleAdapter(
                     // 동일한 버튼 클릭 시 선택 해제
                     selectedPosition = RecyclerView.NO_POSITION
                     notifyItemChanged(position)
-                    onSelectionChanged(false) // 🔹 일정 추가하기 버튼 숨김
+                    onSelectionChanged(false) //일정 추가하기 버튼 숨김
                 } else {
                     // 이전 선택된 버튼 초기화
                     val previousPosition = selectedPosition
@@ -75,7 +75,7 @@ class ExamScheduleAdapter(
 
                     // 새로 선택된 버튼 갱신
                     notifyItemChanged(selectedPosition)
-                    onSelectionChanged(true) // 🔹 일정 추가하기 버튼 보이기
+                    onSelectionChanged(true) //일정 추가하기 버튼 보이기
                 }
             }
         }

@@ -2,7 +2,7 @@ package com.example.gonggaksim_frontend
 
 object ExamDataProvider {
     val exams = mapOf(
-        "정보처리기사" to Exam(
+        "정보처리기사" to ExamInfo(
             category = "전산/IT",
             name = "정보처리기사",
             qualification = "제한없음",
@@ -14,7 +14,7 @@ object ExamDataProvider {
             fee = "25,700원",
             announcement = "시험일 다음날 오전 10시"
         ),
-        "컴퓨터활용능력 1급 필기" to Exam(
+        "컴퓨터활용능력 1급 필기" to ExamInfo(
             category = "전산/IT",
             name = "컴퓨터활용능력 1급 필기",
             qualification = "제한없음",
@@ -26,7 +26,7 @@ object ExamDataProvider {
             fee = "25,700원",
             announcement = "시험일 다음날 오전 10시"
         ),
-        "전산회계" to Exam(
+        "전산회계" to ExamInfo(
             category = "회계/재무",
             name = "전산회계",
             qualification = "제한없음",

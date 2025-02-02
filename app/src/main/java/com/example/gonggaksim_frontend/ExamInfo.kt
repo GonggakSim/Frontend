@@ -1,6 +1,6 @@
 package com.example.gonggaksim_frontend
 
-data class Exam(
+data class ExamInfo(
     val category: String,
     val name: String,
     val qualification: String,

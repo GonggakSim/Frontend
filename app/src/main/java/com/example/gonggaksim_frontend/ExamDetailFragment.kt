@@ -64,7 +64,7 @@ class ExamDetailFragment : Fragment() {
         return view
     }
 
-    private fun bindExamData(exam: Exam) {
+    private fun bindExamData(exam: ExamInfo) {
         examCategory.text = exam.category
         examName.text = exam.name
         examQualification.text = exam.qualification

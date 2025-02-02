@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/numpick_start"
@@ -19,17 +20,17 @@
         app:layout_constraintVertical_bias="0.0">
 
         <NumberPicker
-            android:id="@+id/number_picker_am_pm2"
+            android:id="@+id/number_picker_am_pm_end"
             android:layout_width="43dp"
             android:layout_height="wrap_content" />
 
         <NumberPicker
-            android:id="@+id/number_picker_hour2"
+            android:id="@+id/number_picker_hour_end"
             android:layout_width="47dp"
             android:layout_height="wrap_content" />
 
         <NumberPicker
-            android:id="@+id/number_picker_minute2"
+            android:id="@+id/number_picker_minute_end"
             android:layout_width="50dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -50,21 +51,21 @@
         <!-- 오전/오후 -->
 
         <NumberPicker
-            android:id="@+id/number_picker_am_pm"
+            android:id="@+id/number_picker_am_pm_start"
             android:layout_width="43dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp" />
 
         <!-- 시간 -->
         <NumberPicker
-            android:id="@+id/number_picker_hour"
+            android:id="@+id/number_picker_hour_start"
             android:layout_width="47dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp" />
 
         <!-- 분 -->
         <NumberPicker
-            android:id="@+id/number_picker_minute"
+            android:id="@+id/number_picker_minute_start"
             android:layout_width="50dp"
             android:layout_height="wrap_content" />
     </LinearLayout>

@@ -44,6 +44,14 @@ class MypageFragment : Fragment() {
             val intent = Intent(requireContext(),MembershipWithdrawalActivity::class.java)
             startActivity(intent) //MembershipWithdrawalActivity 이동
         }
+
+        val btnmodifyinformation = view.findViewById<ImageButton>(R.id.checkServiceBtn2)
+
+        btnmodifyinformation.setOnClickListener{
+            val intent = Intent(requireContext(),ModifyInformationActivity::class.java)
+            startActivity(intent)  //ModifyInformationActivity 이동
+        }
+
     }
 
     @SuppressLint("MissingInflatedId")

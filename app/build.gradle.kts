@@ -54,4 +54,7 @@ dependencies {
     implementation("com.airbnb.android:lottie:5.0.2")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // 구글 로그인
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
 }

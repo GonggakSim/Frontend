@@ -25,14 +25,25 @@
             android:layout_marginTop="12dp" />
     </LinearLayout>
 
-    <CalendarView
-        android:id="@+id/calendar_v"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="1dp"
+        android:src="#D8D8D8"
         app:layout_constraintTop_toBottomOf="@id/calendar_ll"
+        android:layout_marginTop="-8dp"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/customCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendar_ll"/>
+
+
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/fc_pls_string_cv"
         android:layout_width="94dp"

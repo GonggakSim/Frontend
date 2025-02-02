@@ -4,13 +4,14 @@
     android:layout_height="553dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <CalendarView
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mds_calendar"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="489dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mbs_btn"

@@ -2,6 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="yellow">#FFE812</color>
+    <color name="green">#03CF5D</color>
+    <color name="blue">#6996F2</color>
+    <color name="gray">#999592</color>
+    <color name="lightgray">#DDDDDD</color>
+
     <color name="chip_selected_color">#6996F2</color> <!-- 선택 시 외곽선 및 텍스트 -->
     <color name="chip_unselected_color">#878787</color> <!-- 미선택 시 외곽선 및 텍스트 -->
     <color name="chip_background">#fdf5ff</color> <!-- 배경색 (흰색) -->

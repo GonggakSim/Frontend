@@ -54,7 +54,7 @@
         android:fontFamily="@font/npsfont_bold"
         android:gravity="center"
         android:text="시험이 얼마 남지 않았어요!"
-        android:textColor="@color/alert_01"
+        android:textColor="@color/red"
         android:textSize="20sp" />
 
     <Button

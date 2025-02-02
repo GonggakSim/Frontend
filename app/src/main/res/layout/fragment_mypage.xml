@@ -93,13 +93,14 @@
 
             <TextView
                 android:id="@+id/tvExam1Dday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/solid_profile"
-                android:text="D-3"
-                android:textSize="18sp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_marginEnd="21dp"
-                android:textColor="@color/blue"/>
+                android:background="@drawable/solid_profile"
+                android:gravity="center"
+                android:text="D-3"
+                android:textColor="@color/blue"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <!-- 시험 2 -->
@@ -125,13 +126,14 @@
 
             <TextView
                 android:id="@+id/tvExam2Dday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/solid_profile"
-                android:text="D-14"
-                android:textSize="10sp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="21dp"
-                android:textColor="@color/blue"/>
+                android:background="@drawable/solid_profile"
+                android:gravity="center"
+                android:text="D-14"
+                android:textColor="@color/blue"
+                android:textSize="10sp" />
 
         </LinearLayout>
     </LinearLayout>

@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#FFFFFF"
+    android:background="@color/white"
     android:fillViewport="true"
     android:scrollbars="none">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FFFFFF">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tabTitle"
@@ -145,6 +144,7 @@
             android:text="*중복선택 가능"
             android:textColor="@color/material_dynamic_neutral60"
             android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/ox6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/quizTypeSelText"
             app:layout_constraintTop_toBottomOf="@+id/chipGroup3" />
@@ -154,10 +154,10 @@
             android:layout_width="162dp"
             android:layout_height="32dp"
             android:layout_marginEnd="44dp"
-            android:layout_marginBottom="211dp"
+            android:layout_marginBottom="144dp"
             android:fontFamily="@font/npsfont_regular"
             android:text="알림만"
-            app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+            app:layout_constraintBottom_toTopOf="@+id/multibtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ox"
             app:layout_constraintTop_toBottomOf="@+id/ox7" />

@@ -19,8 +19,10 @@ build/
 gradle/caches/
 gradle/wrapper/
 
+
 # Android 관련 파일
 *.apk
 *.iml
 /local.properties
 /.idea/
+*.profile

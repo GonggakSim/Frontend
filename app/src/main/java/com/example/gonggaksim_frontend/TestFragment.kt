@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -19,6 +21,8 @@ class TestFragment : Fragment() {
     private lateinit var backButton: ImageView
     private lateinit var mainRecyclerView: RecyclerView
     private lateinit var searchIcon: ImageView
+    private lateinit var btnInputExam: Button
+    private lateinit var scrollUpButton: ImageButton
 
     private lateinit var categoryAll: TextView
     private lateinit var categoryIT: TextView
@@ -32,7 +36,6 @@ class TestFragment : Fragment() {
     private lateinit var categoryOthers: TextView
 
     private val filteredData = mutableListOf<String>()
-    private var currentItemCount = 7// 초기 데이터 개수
     private val totalData = DataProvider.allData // 전체 데이터를 가져옴
 
     override fun onCreateView(
@@ -46,6 +49,8 @@ class TestFragment : Fragment() {
         backButton = view.findViewById(R.id.back_button)
         mainRecyclerView = view.findViewById(R.id.exam_list)
         searchIcon = view.findViewById(R.id.search_icon)
+        btnInputExam = view.findViewById(R.id.btn_input_exam)
+        scrollUpButton = view.findViewById(R.id.scroll_up_button)
 
         // 카테고리 버튼 초기화
         categoryAll = view.findViewById(R.id.category_all)
@@ -71,13 +76,28 @@ class TestFragment : Fragment() {
         // 카테고리 버튼 클릭 이벤트 설정
         setupCategoryButtons()
 
+        // **초기 선택: "전체" 카테고리**
+        setInitialCategorySelection()
+
         // 검색바 클릭 이벤트 설정
         setupSearchBarClickListener()
+
+        // btn_input_exam 클릭 이벤트 설정
+        btnInputExam.setOnClickListener {
+            navigateToExamInputFragment()
+        }
         // Divider 추가
         val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         mainRecyclerView.addItemDecoration(itemDecoration)
 
+        startScrollButtonAnimation()
+
         return view
+    }
+
+    private fun startScrollButtonAnimation() {
+        val blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in_out)
+        scrollUpButton.startAnimation(blinkAnimation)
     }
 
     // 검색바 클릭 시 SearchFragment로 이동
@@ -107,6 +127,15 @@ class TestFragment : Fragment() {
             .commit()
     }
 
+    // ExamInputFragment로 이동하는 함수
+    private fun navigateToExamInputFragment() {
+        val fragment = ExamInputFragment()
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
     private fun setupCategoryButtons() {
         val categories = mapOf(
             categoryAll to "All",
@@ -123,17 +152,27 @@ class TestFragment : Fragment() {
 
         categories.forEach { (button, categoryKey) ->
             button.setOnClickListener {
-                // 모든 카테고리 버튼의 텍스트 색상 초기화
-                categories.keys.forEach { it.setTextColor(resources.getColor(R.color.grayscale_08, null)) }
+                // 1. 모든 버튼의 배경을 기본 배경으로 초기화
+                categories.keys.forEach {
+                    it.background = resources.getDrawable(R.drawable.category_default_background, null)
+                    it.setTextColor(resources.getColor(R.color.grayscale_08, null)) // 텍스트 색상 초기화
+                }
 
-                // 클릭한 버튼의 텍스트 색상 변경
-                button.setTextColor(resources.getColor(R.color.main_02, null))
+                // 2. 클릭된 버튼에 선택된 배경과 텍스트 색상 설정
+                button.background = resources.getDrawable(R.drawable.category_selected_background, null)
+                button.setTextColor(resources.getColor(R.color.main_01, null))
 
-                // 해당 카테고리 데이터로 RecyclerView 업데이트
+                // 3. RecyclerView 데이터 업데이트
                 val filteredDataList = DataProvider.categoryDataMap[categoryKey] ?: DataProvider.allData
                 updateMainRecyclerView(filteredDataList)
             }
         }
+    }
+
+    private fun setInitialCategorySelection() {
+        // 초기 상태: "전체" 카테고리 선택
+        categoryAll.background = resources.getDrawable(R.drawable.category_selected_background, null)
+        categoryAll.setTextColor(resources.getColor(R.color.main_01, null))
     }
 
     private fun updateMainRecyclerView(data: List<String>) {
@@ -141,5 +180,4 @@ class TestFragment : Fragment() {
         filteredData.addAll(data)
         mainRecyclerView.adapter?.notifyDataSetChanged()
     }
-
 }

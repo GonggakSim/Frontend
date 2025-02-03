@@ -26,6 +26,7 @@
         android:id="@+id/btmNav"
         android:layout_width="0dp"
         android:layout_height="70dp"
+        android:background="@color/white"
         app:itemIconTint="@color/btm_nav_colorset"
         app:itemTextAppearanceActive="@style/ActiveTabText"
         app:itemTextAppearanceInactive="@style/InactiveTabText"

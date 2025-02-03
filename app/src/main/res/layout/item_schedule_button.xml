@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.Button
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/schedule_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/btn_schedule"
+    android:gravity="center"
+    android:text="8일\n09:20"
+    android:textSize="16sp"
+    android:fontFamily="@font/npsfont_bold"
+    android:paddingVertical="12dp"
+    android:paddingHorizontal="20dp"/>

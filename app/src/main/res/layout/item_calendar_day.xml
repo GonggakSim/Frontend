@@ -22,90 +22,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
     
-    <ImageView
-        android:id="@+id/fragment_calendar_point"
-        android:layout_width="5dp"
-        android:layout_height="5dp"
-        android:layout_marginTop="10dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_calender_dayTv"
-        android:src="#000000"/>
-    
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/fragment_calendar_day_eventRv1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="12dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/fragment_calender_dayTv"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_marginTop="3dp"/>-->
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/fragment_calendar_day_eventRv2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="12dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/fragment_calendar_day_eventRv1"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_marginTop="2dp"/>-->
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/fragment_calendar_day_eventCv1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="12dp"
-        app:cardCornerRadius="10dp"
+        android:layout_height="26dp"
         app:layout_constraintTop_toBottomOf="@id/fragment_calender_dayTv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="3dp"
-        android:backgroundTint="#A769F2"
-        android:visibility="gone">
+        android:layout_marginTop="1dp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/fragment_calendar_day_eventTv1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="토익"
-            android:textSize="8sp"
-            android:fontFamily="@font/npsfont_regular"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center"/>
-    </com.google.android.material.card.MaterialCardView>
+        <ImageView
+            android:id="@+id/item_line_mid_1"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="@drawable/task_line_mid"
+            android:visibility="gone"/>
 
+        <ImageView
+            android:id="@+id/item_line_mid_2"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="@drawable/task_line_mid"
+            android:visibility="gone"
+            android:layout_marginTop="2dp"/>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/fragment_calendar_day_eventCv2"
-        android:layout_width="match_parent"
-        android:layout_height="12dp"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@id/fragment_calendar_day_eventCv1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="2dp"
-        android:backgroundTint="#6996F2"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/fragment_calendar_day_eventTv3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="토익"
-            android:textSize="8sp"
-            android:fontFamily="@font/npsfont_regular"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center"/>
-    </com.google.android.material.card.MaterialCardView>
-
-
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:src="#DDDDDD"
-        android:visibility="visible"/>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

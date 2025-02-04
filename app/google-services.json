@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "848643775452",
+    "project_id": "gonggaksim-5eb94",
+    "storage_bucket": "gonggaksim-5eb94.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848643775452:android:86a9947ee549717a9d8d19",
+        "android_client_info": {
+          "package_name": "com.example.gonggaksim_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGbctolVQ2r98tShvSaR07nDphOudG0Go"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

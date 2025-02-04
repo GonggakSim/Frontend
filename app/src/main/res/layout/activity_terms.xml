@@ -19,6 +19,7 @@
         android:background="@color/blue"
         android:textColor="@color/white"
         android:text="당신의 학습의 경각심을 불러일으키다!"
+        android:fontFamily="@font/npsfont_regular"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +39,7 @@
         android:background="@color/blue"
         android:text="공각심"
         android:textSize="36dp"
-        android:textStyle="bold"
+        android:fontFamily="@font/npsfont_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="13dp"
@@ -48,8 +49,8 @@
     <!-- 아래에 위치할 이미지 -->
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="121dp"
+        android:layout_height="138dp"
         android:layout_marginStart="82dp"
         android:layout_marginTop="23dp"
         android:layout_marginEnd="82dp"
@@ -94,7 +95,7 @@
             <!-- 체크박스: 전체 동의 -->
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkAll"
-                android:layout_width="350dp"
+                android:layout_width="370dp"
                 android:layout_height="40dp"
                 android:padding="8dp"
                 android:text="전체동의"
@@ -120,7 +121,7 @@
             <!-- 체크박스: 이용약관 동의 -->
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkTerms"
-                android:layout_width="350dp"
+                android:layout_width="370dp"
                 android:layout_height="40dp"
                 android:padding="8dp"
                 android:fontFamily="@font/npsfont_regular"
@@ -130,11 +131,11 @@
 
             <ImageButton
                 android:id="@+id/checkServiceBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="5dp"
+                android:layout_height="10dp"
                 android:background="@color/white"
+                android:scaleType="fitXY"
                 android:src="@drawable/btnnext">
-
             </ImageButton>
         </LinearLayout>
 
@@ -147,7 +148,7 @@
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkPrivacy"
-                android:layout_width="350dp"
+                android:layout_width="370dp"
                 android:layout_height="40dp"
                 android:padding="8dp"
                 android:fontFamily="@font/npsfont_regular"
@@ -157,9 +158,10 @@
 
             <ImageButton
                 android:id="@+id/checkPrivacyBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="5dp"
+                android:layout_height="10dp"
                 android:background="@color/white"
+                android:scaleType="fitXY"
                 android:src="@drawable/btnnext">
 
             </ImageButton>
@@ -173,7 +175,7 @@
             <!-- 체크박스: 푸시 알림 -->
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/checkPush"
-                android:layout_width="350dp"
+                android:layout_width="370dp"
                 android:layout_height="40dp"
                 android:padding="8dp"
                 android:fontFamily="@font/npsfont_regular"
@@ -183,9 +185,10 @@
 
             <ImageButton
                 android:id="@+id/checkPushBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="5dp"
+                android:layout_height="10dp"
                 android:background="@color/white"
+                android:scaleType="fitXY"
                 android:src="@drawable/btnnext">
 
             </ImageButton>

@@ -231,6 +231,7 @@
                 android:textSize="16sp"
                 android:padding="16dp"
                 android:clickable="true"
+                android:textColor="@color/black"
                 android:background="?attr/selectableItemBackground"/>
 
 
@@ -256,10 +257,10 @@
                 android:layout_height="wrap_content"
                 android:text="회원탈퇴"
                 android:fontFamily="@font/npsfont_regular"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:padding="16dp"
                 android:clickable="true"
-                android:textColor="#FF3B30"
+                android:textColor="@color/black"
                 android:background="?attr/selectableItemBackground"/>
 
             <ImageButton

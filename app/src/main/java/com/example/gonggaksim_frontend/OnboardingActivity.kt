@@ -32,8 +32,6 @@ class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
-    private val getResult = MutableLiveData<Intent?>()
-
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +40,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         // 구글 로그인 옵션 설정
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("process.env.PASSPORT_GOOGLE_CLIENT_ID")
+            .requestIdToken("1000824761596-rs97cbs8ud0f51o8pk98m3r5tuquk2oh.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
@@ -97,9 +95,16 @@ class OnboardingActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)
                 val idToken = account?.idToken
-                idToken?.let { sendTokenToServer(it) }
+
+                Log.d("GoogleSignIn", "ID Token: $idToken")
+
+                if (idToken != null) {
+                    sendTokenToServer(idToken)
+                } else {
+                    Log.e("GoogleSignIn", "ID Token is null")
+                }
             } catch (e: ApiException) {
-                Log.w("GoogleSignIn", "Sign-in failed", e)
+                Log.w("GoogleSignIn", "Sign-in failed: ${e.statusCode}", e)
             }
         }
     }
@@ -115,34 +120,39 @@ class OnboardingActivity : AppCompatActivity() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                Log.e("API_ERROR", "Request Failed", e)
+                Log.e("API_ERROR", "Request Failed: ${e.message}", e)
             }
 
             override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body()?.string()
+                Log.d("API_RESPONSE", "Response: $responseBody")
+
                 if (response.isSuccessful) {
-                    response.body()?.string()?.let { responseBody ->
-                        try {
-                            val json = JSONObject(responseBody)
-                            val isNewUser = json.getBoolean("isNewUser")
+                    try {
+                        val json = JSONObject(responseBody ?: "{}")
+                        val isNewUser = json.optBoolean("isNewUser", false)
 
-                            runOnUiThread {
-                                if (isNewUser) {
-                                    startActivity(Intent(this@OnboardingActivity, ActiveActivity::class.java))
-                                } else {
-                                    startActivity(Intent(this@OnboardingActivity, MainActivity::class.java))
-                                }
+                        runOnUiThread {
+                            if (isNewUser) {
+                                Log.d("API_RESPONSE", "New User - Redirecting to ConsentActivity")
+                                startActivity(Intent(this@OnboardingActivity, Membership1Activity::class.java))
+                            } else {
+                                Log.d("API_RESPONSE", "Existing User - Redirecting to ConsentActivity")
+                                startActivity(Intent(this@OnboardingActivity, MainActivity::class.java))
                             }
-
-                            val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
-                            with(sharedPreferences.edit()) {
-                                putString("accessToken", json.getString("accessToken"))
-                                putString("refreshToken", json.getString("refreshToken"))
-                                apply()
-                            }
-                        } catch (e: JSONException) {
-                            Log.e("API_ERROR", "JSON Parsing Error", e)
                         }
+
+                        val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
+                        with(sharedPreferences.edit()) {
+                            putString("accessToken", json.getString("accessToken"))
+                            putString("refreshToken", json.getString("refreshToken"))
+                            apply()
+                        }
+                    } catch (e: JSONException) {
+                        Log.e("API_ERROR", "JSON Parsing Error", e)
                     }
+                } else {
+                    Log.e("API_ERROR", "Response Failed: ${response.code()}")
                 }
             }
         })

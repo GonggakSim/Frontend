@@ -4,6 +4,7 @@
 
     <!-- 인터넷 사용 권한 설정-->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GongGakSim_FrontEnd"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.auth.api.signin.CLIENT_ID"
+            android:value="1000824761596-rs97cbs8ud0f51o8pk98m3r5tuquk2oh.apps.googleusercontent.com"/>
+
         <activity
             android:name=".DialogLogoutActivity"
             android:exported="false" />

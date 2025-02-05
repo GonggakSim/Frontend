@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309686694249",
+    "project_id": "gonggaksim-cf524",
+    "storage_bucket": "gonggaksim-cf524.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309686694249:android:e8981b7cb6072134054df8",
+        "android_client_info": {
+          "package_name": "umc.gonggaksim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOCRyO1aMAIumuPaWFDesDLp62CHcHLYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

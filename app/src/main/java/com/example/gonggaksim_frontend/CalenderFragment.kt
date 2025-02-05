@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.gonggaksim_frontend.databinding.FragmentCalenderBinding
+import java.time.LocalDate
 
 class CalenderFragment : Fragment() {
 
@@ -51,7 +52,7 @@ class CalenderFragment : Fragment() {
     }
 
     fun initCalendar(){
-        var date = arrayListOf<String>("2025년 01월 01일 ~ 2025년 01월 04일","2025년 01월 28일","2025년 01월 09일","2025년 01월 18일")
+        var date = arrayListOf<String>("2025년 02월 02일")
 
         monthAdapter = MonthAdapter(this, date)
         binding.customCalendar.apply {

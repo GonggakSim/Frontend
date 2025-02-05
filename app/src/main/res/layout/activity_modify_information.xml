@@ -117,6 +117,7 @@
             android:layout_marginEnd="16dp"
             android:prompt="@string/select_age"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/major">
 
@@ -149,6 +150,7 @@
         </Spinner>
 
         <TextView
+            android:id="@+id/fivechoice"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="16dp"
@@ -165,16 +167,118 @@
         </TextView>
 
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="209dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fivechoice">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="물류/유통"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전산/IT"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip3"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="생산/품질관리"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip4"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="금융/회계"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip5"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="디자인"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip6"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="교육/상담"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip7"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="건축/설계"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip8"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="환경/에너지"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip9"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="영어"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip10"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="중국어"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip11"
+                style="@style/CustomChipStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일본어"
+                tools:textAppearance="@style/CustomChipTextAppearance" />
+
+        </com.google.android.material.chip.ChipGroup>
+
         <TextView
             android:id="@+id/work"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="613dp"
             android:text="재직상태"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/chipGroup2">
 
         </TextView>
 
@@ -190,10 +294,6 @@
             app:layout_constraintTop_toBottomOf="@id/work">
 
         </Spinner>
-
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

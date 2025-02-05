@@ -19,7 +19,6 @@ class MypageFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_mypage, container, false)
 
         val logoutBtn = view.findViewById<View>(R.id.tvLogoutBtn) // 로그아웃 버튼
-
         logoutBtn.setOnClickListener {
             showLogoutDialog()
         }
@@ -31,15 +30,19 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btnHelp = view.findViewById<ImageButton>(R.id.tvHelpBtn) // 도움말 버튼 가져오기
+        val btnModifyInformation = view.findViewById<ImageButton>(R.id.modifyBtn)
+        btnModifyInformation.setOnClickListener{
+            val intent = Intent(requireContext(), ModifyInformationActivity::class.java)
+            startActivity(intent)  //ModifyInformationActivity로 이동
+        }
 
+        val btnHelp = view.findViewById<ImageButton>(R.id.tvHelpBtn) // 도움말 버튼 가져오기
         btnHelp.setOnClickListener {
             val intent = Intent(requireContext(), HelpActivity::class.java)
             startActivity(intent) // HelpActivity로 이동
         }
 
         val btnwithdrawal = view.findViewById<ImageButton>(R.id.tvDeleteAccountBtn)
-
         btnwithdrawal.setOnClickListener{
             val intent = Intent(requireContext(),MembershipWithdrawalActivity::class.java)
             startActivity(intent) //MembershipWithdrawalActivity 이동

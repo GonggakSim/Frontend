@@ -18,13 +18,19 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MembershipWithdrawalActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_membership_withdrawal)
 
-        
+        val backButton = findViewById<ImageButton>(R.id.withdrawalbackBtn)
+        val intent = Intent(this,MypageFragment::class.java)
+        backButton.setOnClickListener{
+            startActivity(intent)
+            finish()
+        }
+
         val nextButton = findViewById<Button>(R.id.withdrawalButton)
         nextButton.setOnClickListener {
             val dialog = MembershipPopUpActivity(this)

@@ -40,7 +40,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         // 구글 로그인 옵션 설정
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("1000824761596-rs97cbs8ud0f51o8pk98m3r5tuquk2oh.apps.googleusercontent.com")
+            .requestIdToken("signin.CLIENT_ID")
             .requestEmail()
             .build()
 

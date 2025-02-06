@@ -63,4 +63,8 @@ dependencies {
 
     // 구글 로그인
     implementation("com.google.android.gms:play-services-auth:21.3.0")
+
+    //네이버 로그인
+    //implementation("com.navecorp.nid:oauth:5.9.0")
+    implementation(files("libs/oauth-5.9.0.aar")) //네이버 로그인 api에 필요한 모듈 추가
 }

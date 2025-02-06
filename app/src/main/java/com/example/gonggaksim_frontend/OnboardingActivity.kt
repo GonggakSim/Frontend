@@ -130,7 +130,7 @@ class OnboardingActivity : AppCompatActivity() {
     }
 }
 
-    // 구글 로그인 화면으로 넘어가기
+    // 기존 구글 로그인 코드 - 다른 방법 시험해보려고 주석처리
 //    private fun signIn() {
 //        val signInIntent = googleSignInClient.signInIntent
 //        startActivityForResult(signInIntent, 9001)

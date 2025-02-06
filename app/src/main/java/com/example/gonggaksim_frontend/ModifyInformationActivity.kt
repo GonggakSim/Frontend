@@ -26,7 +26,7 @@ class ModifyInformationActivity : AppCompatActivity() {
         val majorSpinner: Spinner = findViewById(R.id.spinner_major)
         val yearSpinner: Spinner = findViewById(R.id.spinner_year)
 
-        val nextButton: Button = findViewById(R.id.btn_next_membership2)
+        val nextButton: Button = findViewById(R.id.modifyConfirmbtn)
         val navigateToWork = Intent(this,WorkActivity::class.java)
         nextButton.setOnClickListener{
             Log.d("Membership2Activity", "Next button clicked!")

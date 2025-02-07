@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -14,36 +17,32 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-//import okhttp3.Call
-//import okhttp3.Callback
-//import okhttp3.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+
 
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private lateinit var googleSignInClient: GoogleSignInClient
-    private val RC_SIGN_IN = 1001
-    private val BASEURL = "http://localhost:3000/oauth2/login/kakao"
+    private lateinit var mGoogleSigninClient: GoogleSignInClient
+
+    private val googleLoginResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            try {
+                val completedTask = GoogleSignIn.getSignedInAccountFromIntent(data)
+                val account = completedTask.getResult(ApiException::class.java)
+                onLoginCompleted("${account?.id}", "${account?.idToken}")
+            } catch (e: ApiException) {
+                onError(Error(e))
+            }
+        }
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_onboarding)
-
-        // 구글 로그인 옵션 설정
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("1000824761596-rs97cbs8ud0f51o8pk98m3r5tuquk2oh.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
-
-        // GoogleSignInClient 생성
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         //계정 세팅 화면으로 이동
         val forgottenButton = findViewById<TextView>(R.id.forgottenbtn)
@@ -66,15 +65,7 @@ class OnboardingActivity : AppCompatActivity() {
             startActivity(navigateToTerms)
         }
         googleButton.setOnClickListener {
-//            googleSignInClient.signOut().addOnCompleteListener {
-//                Log.d("GoogleSignIn", "User signed out")
-//            }
-            Log.d("GoogleSignIn", "googleSignInClient initialized: $googleSignInClient")
-
-            val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-//            signIn()
-//            startActivity(navigateToTerms)
+            signInWithGoogle()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -84,130 +75,29 @@ class OnboardingActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                account?.idToken?.let { sendTokenToBackend(it) }
-            } catch (e: ApiException) {
-                Log.e("GoogleSignIn", "Sign-in failed: ${e.statusCode}")
-            }
-        }
-    }
-
-    private fun sendTokenToBackend(idToken: String) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASEURL)
-            .addConverterFactory(GsonConverterFactory.create())
+    private fun signInWithGoogle() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("1000824761596-bok6nhvq9u8u5h8i7liee80ch24bnmsb.apps.googleusercontent.com")
+            .requestEmail()
             .build()
 
-        val apiService = retrofit.create(ApiService_try::class.java)
-        val call = apiService.loginWithGoogle(GoogleLoginRequest(idToken))
+        mGoogleSigninClient = GoogleSignIn.getClient(this, gso)
+        mGoogleSigninClient.signOut().addOnCompleteListener {
+            Log.d("GoogleSignIn", "User signed out")
+        }
+        googleLoginResult.launch(mGoogleSigninClient.signInIntent)
+    }
 
-        call.enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val isNewUser = response.body()!!.isNewUser
-                    val intent = if (isNewUser) {
-                        Intent(this@OnboardingActivity, Membership1Activity::class.java)
-                    } else {
-                        Intent(this@OnboardingActivity, MainActivity::class.java)
-                    }
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Log.e("BackendLogin", "Login failed: ${response.errorBody()?.string()}")
-                }
-            }
+    private fun onLoginCompleted(userId: String?, accessToken: String?) {
+        Toast.makeText(this, "구글 로그인 성공", Toast.LENGTH_SHORT).show()
+        Log.e("YMC", "userId: $userId / accessToken: $accessToken")
+        val intent = Intent(this@OnboardingActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                Log.e("BackendLogin", "Error: ${t.message}")
-            }
-        })
+    private fun onError(error: Error?) {
+        Toast.makeText(this, "구글 로그인 실패", Toast.LENGTH_SHORT).show()
+        Log.e("YMC", "구글 로그인 실패 onError / error: ${error} / error.msg: ${error?.message}")
     }
 }
-
-    // 기존 구글 로그인 코드 - 다른 방법 시험해보려고 주석처리
-//    private fun signIn() {
-//        val signInIntent = googleSignInClient.signInIntent
-//        startActivityForResult(signInIntent, 9001)
-//    }
-//
-//    // 구글 로그인
-//    @Deprecated("Deprecated in Java")
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (requestCode == 9001) {
-//            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-//            try {
-//                val account = task.getResult(ApiException::class.java)
-//                val idToken = account?.idToken
-//
-//                Log.d("GoogleSignIn", "ID Token: $idToken")
-//
-//                if (idToken != null) {
-//                    sendTokenToServer(idToken)
-//                } else {
-//                    Log.e("GoogleSignIn", "ID Token is null")
-//                }
-//            } catch (e: ApiException) {
-//                Log.w("GoogleSignIn", "Sign-in failed: ${e.statusCode}", e)
-//            }
-//        }
-//    }
-//
-//    // 구글 로그인 토큰 주고받기
-//    private fun sendTokenToServer(idToken: String) {
-//        val client = OkHttpClient()
-//        val request = Request.Builder()
-//            .url("http://localhost:3000/oauth2/login/kakao")
-//            .addHeader("Authorization", "Bearer $idToken")
-//            .get()
-//            .build()
-//
-//        client.newCall(request).enqueue(object : Callback {
-//            override fun onFailure(call: Call, e: IOException) {
-//                Log.e("API_ERROR", "Request Failed: ${e.message}", e)
-//            }
-//
-//            override fun onResponse(call: Call, response: Response) {
-//                val responseBody = response.body()?.string()
-//                Log.d("API_RESPONSE", "Response: $responseBody")
-//
-//                if (response.isSuccessful) {
-//                    try {
-//                        val json = JSONObject(responseBody ?: "{}")
-//                        val isNewUser = json.optBoolean("isNewUser", false)
-//
-//                        runOnUiThread {
-//                            if (isNewUser) {
-//                                Log.d("API_RESPONSE", "New User - Redirecting to ConsentActivity")
-//                                startActivity(Intent(this@OnboardingActivity, Membership1Activity::class.java))
-//                            } else {
-//                                Log.d("API_RESPONSE", "Existing User - Redirecting to ConsentActivity")
-//                                startActivity(Intent(this@OnboardingActivity, MainActivity::class.java))
-//                            }
-//                        }
-//
-//                        val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
-//                        with(sharedPreferences.edit()) {
-//                            putString("accessToken", json.getString("accessToken"))
-//                            putString("refreshToken", json.getString("refreshToken"))
-//                            apply()
-//                        }
-//                    } catch (e: JSONException) {
-//                        Log.e("API_ERROR", "JSON Parsing Error", e)
-//                    }
-//                } else {
-//                    Log.e("API_ERROR", "Response Failed: ${response.code()}")
-//                }
-//            }
-//        })
-//    }
-//
-//
-//}

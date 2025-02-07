@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -17,6 +18,16 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("~/Doucuments/UMC_프로젝트/Frontend-kariv/Frontend/app/key.jks")
+            storePassword = "ems0718ems"
+            keyAlias = "key"
+            keyPassword = "ems0718ems"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -24,8 +35,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -57,4 +70,7 @@ dependencies {
 
     // 구글 로그인
     implementation("com.google.android.gms:play-services-auth:21.3.0")
+    implementation("com.google.firebase:firebase-bom:33.8.0")
+    implementation("com.google.firebase:firebase-analytics-license:12.0.1")
+    implementation("com.google.firebase:firebase-auth:23.1.0")
 }

@@ -19,6 +19,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.OAuthLoginCallback
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -43,6 +45,13 @@ class OnboardingActivity : AppCompatActivity() {
         val textView = findViewById<TextView>(R.id.forgottenbtn)
         textView.paintFlags = textView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
+        //  네이버 로그인 SDK 초기화 (필수)
+        NaverIdLoginSDK.initialize(
+            this, // Context
+            "yVZysAtrk9BCLuv4b8H7", // 네이버 개발자센터에서 발급받은 Client ID
+            "O_dd5yeUn5", // 네이버 개발자센터에서 발급받은 Client Secret
+            "공각심" // 네이버 로그인 화면에서 표시될 앱 이름
+        )
 
 
         // 구글 로그인 옵션 설정
@@ -72,7 +81,8 @@ class OnboardingActivity : AppCompatActivity() {
             startActivity(navigateToTerms)
         }
         naverButton.setOnClickListener {
-            startActivity(navigateToTerms)
+            startNaverLogin()
+            //startActivity(navigateToTerms)
         }
         googleButton.setOnClickListener {
             signIn()
@@ -84,6 +94,26 @@ class OnboardingActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    //네이버 로그인 화면으로 넘어가기
+    private fun startNaverLogin() {
+        val oauthLoginCallback = object : OAuthLoginCallback {
+            override fun onSuccess() {
+                val accessToken = NaverIdLoginSDK.getAccessToken()
+                val refreshToken = NaverIdLoginSDK.getRefreshToken()
+                Log.d("NaverLogin", "AccessToken: $accessToken")
+            }
+
+            override fun onFailure(httpStatus: Int, message: String) {
+                Log.e("NaverLogin", "Login Failed: $message")
+            }
+
+            override fun onError(errorCode: Int, message: String) {
+                Log.e("NaverLogin", "Error: $message")
+            }
+        }
+        NaverIdLoginSDK.authenticate(this, oauthLoginCallback)
     }
 
     // 구글 로그인 화면으로 넘어가기
@@ -125,7 +155,7 @@ class OnboardingActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
-                    response.body()?.string()?.let { responseBody ->
+                    response.body?.string()?.let { responseBody ->
                         try {
                             val json = JSONObject(responseBody)
                             val isNewUser = json.getBoolean("isNewUser")
@@ -155,3 +185,4 @@ class OnboardingActivity : AppCompatActivity() {
 
 
 }
+

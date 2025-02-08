@@ -1,0 +1,213 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayscale_01">
+
+    <!-- 카테고리 이름 -->
+    <TextView
+        android:id="@+id/exam_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="시험일정"
+        android:textColor="@color/grayscale_10"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 구분선 -->
+    <View
+        android:id="@+id/category_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/grayscale_04"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exam_category" />
+
+    <!-- 시험 이름 -->
+    <TextView
+        android:id="@+id/exam_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="컴퓨터 활용 능력 1급 필기"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category_divider" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="105dp"
+        android:layout_height="35dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/blue_circle_background"
+        android:gravity="center"
+        android:paddingEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/category_divider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toEndOf="@+id/exam_name"
+        app:layout_constraintTop_toBottomOf="@+id/exam_category"
+        app:layout_constraintVertical_bias="0.785"
+        tools:ignore="MissingConstraints">
+
+        <!-- 흰색 원과 아이콘을 겹치기 위해 FrameLayout 사용 -->
+        <FrameLayout
+            android:id="@+id/icon_container"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
+
+            <!-- 흰색 원 배경 -->
+
+            <!-- 캘린더 아이콘 -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_circle_background" />
+
+            <ImageView
+                android:id="@+id/icon_calendar"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:contentDescription="캘린더 아이콘"
+                android:src="@drawable/ic_cal" />
+        </FrameLayout>
+
+        <!-- 텍스트 -->
+        <TextView
+            android:id="@+id/text_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/npsfont_bold"
+            android:text="2024"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icon_container"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.571" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/category_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="76dp"
+        android:background="@color/grayscale_04"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exam_category" />
+
+    <LinearLayout
+        android:id="@+id/month_selection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exam_name">
+
+        <ImageButton
+            android:id="@+id/btn_previous_month"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:background="@drawable/ic_arrow_left"
+            android:contentDescription="이전 달" />
+
+        <TextView
+            android:id="@+id/current_month"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/npsfont_bold"
+            android:text="11월"
+            android:textColor="@color/grayscale_10"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btn_next_month"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:background="@drawable/ic_arrow_right"
+            android:contentDescription="다음 달" />
+    </LinearLayout>
+
+    <!-- 내 일정 추가 버튼 -->
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/schedule_scroll_view"
+        android:layout_width="409dp"
+        android:layout_height="302dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/month_selection"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!-- RecyclerView를 사용 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/scheduleRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:fadeScrollbars="false"
+            android:overScrollMode="never"
+            android:padding="30dp"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbars="vertical" />
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_register"
+        android:layout_width="373dp"
+        android:layout_height="61dp"
+        android:backgroundTint="@color/grayscale_05"
+        android:enabled="false"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="접수하기"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedule_scroll_view"
+        app:layout_constraintVertical_bias="0.695" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_to_schedule"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:backgroundTint="@color/grayscale_01"
+        android:contentDescription="일정 추가하기"
+        android:src="@drawable/side_cal"
+        app:tint="@color/main_01"
+        app:layout_constraintBottom_toTopOf="@+id/btn_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedule_scroll_view"
+        app:layout_constraintVertical_bias="0.804"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialComponents.FloatingActionButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

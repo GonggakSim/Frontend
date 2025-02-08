@@ -3,6 +3,7 @@ package com.example.gonggaksim_frontend
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -55,6 +56,10 @@ class OnboardingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_onboarding)
+        val textView = findViewById<TextView>(R.id.forgottenbtn)
+        textView.paintFlags = textView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+
 
         //계정 세팅 화면으로 이동
         val forgottenButton = findViewById<TextView>(R.id.forgottenbtn)

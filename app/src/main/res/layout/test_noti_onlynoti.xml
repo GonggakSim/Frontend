@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AlertLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/test_noti_design"
+    android:gravity="center"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/apptitle_ox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:text="공각심"
+        android:textColor="@color/chip_selected_color" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:text="{UserName} 님"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/testname_ox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:text="sample_test_name"
+        android:textColor="#535353" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="192dp"
+        android:layout_height="219dp"
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
+        app:srcCompat="@drawable/mainlogo" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16sp"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:text="시험이 얼마 남지 않았어요!"
+        android:textColor="@color/red"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonX"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#6996F2"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="확인"
+        android:textSize="24sp" />
+
+</LinearLayout>

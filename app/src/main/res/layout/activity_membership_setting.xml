@@ -34,6 +34,8 @@
         android:text="최근 로그인한 계정이 기억나지\n않는다면 이렇게 해보세요!"
         android:textSize="20dp"
         android:textColor="@color/black"
+        android:fontFamily="@font/npsfont_regular"
+        android:lineSpacingExtra="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.063"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +51,7 @@
         android:layout_marginTop="12dp"
         android:text="해당 내용을 참고하여 연동 현황을 확인해보세요!"
         android:textSize="14dp"
+        android:fontFamily="@font/npsfont_regular"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6">
@@ -63,6 +66,7 @@
         android:layout_marginTop="12dp"
         android:text="카카오톡"
         android:textSize="14dp"
+        android:fontFamily="@font/npsfont_regular"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7">
@@ -93,6 +97,8 @@
             android:paddingTop="10dp"
             android:text="카카오톡 > 더보기 > 설정\n> 카카오계정\n> 연결된 서비스 관리"
             android:textSize="16dp"
+            android:fontFamily="@font/npsfont_regular"
+            android:lineSpacingExtra="5dp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/kakao">
@@ -110,6 +116,7 @@
         android:text="네이버"
         android:textColor="@color/black"
         android:textSize="14dp"
+        android:fontFamily="@font/npsfont_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kakao">
 
@@ -140,6 +147,8 @@
             android:text="네이버 > 더보기 > 설정\n> 네이버계정\n> 연결된 서비스 관리"
             android:textColor="@color/white"
             android:textSize="16dp"
+            android:fontFamily="@font/npsfont_regular"
+            android:lineSpacingExtra="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/naver">
 
@@ -154,9 +163,10 @@
         android:layout_height="21dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="121dp"
-        android:text="네이버"
+        android:text="구글"
         android:textColor="@color/black"
         android:textSize="14dp"
+        android:fontFamily="@font/npsfont_regular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/naver">
 
@@ -187,6 +197,8 @@
             android:text="구글 > 더보기 > 설정\n> 구글계정\n> 연결된 서비스 관리"
             android:textColor="@color/white"
             android:textSize="16dp"
+            android:fontFamily="@font/npsfont_regular"
+            android:lineSpacingExtra="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/google">
 

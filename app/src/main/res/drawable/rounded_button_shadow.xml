@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 그림자 -->
+    <item android:bottom="6dp" android:left="2dp" android:right="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/grayscale_03" /> <!-- 그림자 색상 -->
+            <corners android:radius="12dp" /> <!-- 둥근 모서리 -->
+        </shape>
+    </item>
+
+    <!-- 버튼 배경 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/main_01" /> <!-- 버튼 색상 -->
+            <corners android:radius="12dp" /> <!-- 둥근 모서리 -->
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/popup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/test_noti_design"
+    android:gravity="center"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+    
+    <ImageView
+        android:layout_width="92dp"
+        android:layout_height="105dp"
+        android:src="@drawable/mainlogo">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/apptitle_ox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_regular"
+        android:gravity="center"
+        android:layout_marginTop="21dp"
+        android:textSize="20dp"
+        android:text="윤00님과 비슷한 상황의\n\t\t다른 사용자들은"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_regular"
+        android:gravity="center"
+        android:scrollbarSize="24dp"
+        android:textColor="@color/blue"
+        android:layout_marginTop="24dp"
+        android:text="TOEIC\nTOEFL\n컴퓨터활용능력2급"
+
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/testname_ox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:text="자격증을 준비하고 있어요!"
+        android:layout_marginTop="22dp"
+        android:textColor="@color/black" />
+
+
+    <Button
+        android:id="@+id/buttonnext2"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="#6996F2"
+        android:text="닫기"
+        android:layout_marginTop="85dp"
+        android:textSize="24sp" />
+
+</LinearLayout>

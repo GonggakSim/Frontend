@@ -1,9 +1,11 @@
 package com.example.gonggaksim_frontend
 
+import OnboardingPopUp
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -38,17 +40,19 @@ class ActiveActivity : AppCompatActivity() {
         workSpinner2.adapter = workAdapter
         newSpinner.adapter = newSpinnerAdapter
 
-        val navigatetoMain = Intent(this,MainActivity::class.java)
-        val nextButton = findViewById<Button>(R.id.btn_go_to_main)
-        nextButton.setOnClickListener{
-            startActivity(navigatetoMain)
-        }
 
+        val nextButton = findViewById<Button>(R.id.btn_go_to_main)
+        nextButton.setOnClickListener {
+            val dialog = OnboardingPopUp(this)
+            dialog.show() // 팝업 띄우기
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
     }
+
 }

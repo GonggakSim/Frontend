@@ -1,1 +1,3 @@
 /build
+# Gradle Daemon files
+gradle/daemon/

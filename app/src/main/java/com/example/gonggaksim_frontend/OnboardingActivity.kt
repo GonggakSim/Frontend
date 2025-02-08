@@ -1,6 +1,7 @@
 package com.example.gonggaksim_frontend
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +14,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.android.volley.toolbox.Volley
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.Request
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class OnboardingActivity : AppCompatActivity() {
@@ -26,15 +33,20 @@ class OnboardingActivity : AppCompatActivity() {
 
     private val googleLoginResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            val resultCode = result.resultCode
             val data = result.data
 
             try {
                 val completedTask = GoogleSignIn.getSignedInAccountFromIntent(data)
                 val account = completedTask.getResult(ApiException::class.java)
-                onLoginCompleted("${account?.id}", "${account?.idToken}")
+                val idToken = account?.idToken
+
+                if (idToken != null) {
+                    sendTokenToServer(idToken)  // 서버로 토큰 전송
+                } else {
+                    Toast.makeText(this, "구글 로그인 실패: ID 토큰 없음", Toast.LENGTH_SHORT).show()
+                }
             } catch (e: ApiException) {
-                onError(Error(e))
+                Toast.makeText(this, "구글 로그인 실패: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -88,16 +100,36 @@ class OnboardingActivity : AppCompatActivity() {
         googleLoginResult.launch(mGoogleSigninClient.signInIntent)
     }
 
-    private fun onLoginCompleted(userId: String?, accessToken: String?) {
-        Toast.makeText(this, "구글 로그인 성공", Toast.LENGTH_SHORT).show()
-        Log.e("YMC", "userId: $userId / accessToken: $accessToken")
-        val intent = Intent(this@OnboardingActivity, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
+    private fun sendTokenToServer(idToken: String) {
+        val authService = RetrofitClient.instance
+        authService.loginWithGoogle("Bearer $idToken").enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    val loginResponse = response.body()!!
 
-    private fun onError(error: Error?) {
-        Toast.makeText(this, "구글 로그인 실패", Toast.LENGTH_SHORT).show()
-        Log.e("YMC", "구글 로그인 실패 onError / error: ${error} / error.msg: ${error?.message}")
+                    // 토큰 저장 (SharedPreferences)
+                    val sharedPref = getSharedPreferences("auth", MODE_PRIVATE)
+                    with(sharedPref.edit()) {
+                        putString("accessToken", loginResponse.accessToken)
+                        putString("refreshToken", loginResponse.refreshToken)
+                        apply()
+                    }
+
+                    // 기존 유저인지 확인 후 화면 전환
+                    if (loginResponse.isNewUser) {
+                        startActivity(Intent(this@OnboardingActivity, Membership1Activity::class.java))
+                    } else {
+                        startActivity(Intent(this@OnboardingActivity, MainActivity::class.java))
+                    }
+                    finish()
+                } else {
+                    Toast.makeText(this@OnboardingActivity, "로그인 실패: 서버 응답 오류", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Toast.makeText(this@OnboardingActivity, "로그인 실패: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

@@ -5,59 +5,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.gonggaksim_frontend.databinding.FragmentExamDetailBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ExamDetailFragment : Fragment() {
 
-    private lateinit var examCategory: TextView
-    private lateinit var examName: TextView
-    private lateinit var examQualification: TextView
-    private lateinit var examQualificationDetail: TextView
-    private lateinit var examSubjects: TextView
-    private lateinit var examQuestionFormat: TextView
-    private lateinit var examDuration: TextView
-    private lateinit var examPassingCriteria: TextView
-    private lateinit var examFee: TextView
-    private lateinit var examAnnouncement: TextView
-    private lateinit var btnExamSuggestion: Button
-    private lateinit var btnCheckSchedule: Button
-
+    private var _binding: FragmentExamDetailBinding? = null
+    private val binding get() = _binding!!
+    private val certiService = RetrofitClient.getRetrofit().create(certificateService::class.java)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_exam_detail, container, false)
-
-        // View 초기화
-        examCategory = view.findViewById(R.id.exam_category)
-        examName = view.findViewById(R.id.exam_name)
-        examQualification = view.findViewById(R.id.exam_qualification)
-        examQualificationDetail = view.findViewById(R.id.exam_qualification_detail)
-        examSubjects = view.findViewById(R.id.exam_subjects)
-        examQuestionFormat = view.findViewById(R.id.exam_question_format)
-        examDuration = view.findViewById(R.id.exam_duration)
-        examPassingCriteria = view.findViewById(R.id.exam_passing_criteria)
-        examFee = view.findViewById(R.id.exam_fee)
-        examAnnouncement = view.findViewById(R.id.exam_announcement)
-        btnExamSuggestion = view.findViewById(R.id.btn_exam_suggestion)
-        btnCheckSchedule = view.findViewById(R.id.btn_check_schedule)
-
-        // 번들에서 데이터 가져오기
-        val examNameArg = arguments?.getString("EXAM_NAME") ?: return view
-        val exam = ExamDataProvider.exams[examNameArg] ?: return view
-
-        // 데이터를 바인딩
-        bindExamData(exam)
+    ): View {
+        _binding = FragmentExamDetailBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         // "시험일정 추천받기" 버튼 클릭 이벤트 추가
-        btnExamSuggestion.setOnClickListener {
+        binding.btnExamSuggestion.setOnClickListener {
             openExamDivPointActivity()
         }
 
         // "시험일정 확인하기" 버튼 클릭 이벤트 추가
-        btnCheckSchedule.setOnClickListener {
+        binding.btnCheckSchedule.setOnClickListener {
             openExamScheduleFragment()
         }
 
@@ -65,16 +38,16 @@ class ExamDetailFragment : Fragment() {
     }
 
     private fun bindExamData(exam: ExamInfo) {
-        examCategory.text = exam.category
-        examName.text = exam.name
-        examQualification.text = exam.qualification
-        examQualificationDetail.text = exam.qualificationDetail
-        examSubjects.text = exam.subjects
-        examQuestionFormat.text = exam.questionFormat
-        examDuration.text = exam.duration
-        examPassingCriteria.text = exam.passingCriteria
-        examFee.text = exam.fee
-        examAnnouncement.text = exam.announcement
+        binding.examCategory.text = exam.category
+        binding.examName.text = exam.name
+        binding.examQualification.text = exam.qualification
+        binding.examQualificationDetail.text = exam.qualificationDetail
+        binding.examSubjects.text = exam.subjects
+        binding.examQuestionFormat.text = exam.questionFormat
+        binding.examDuration.text = exam.duration
+        binding.examPassingCriteria.text = exam.passingCriteria
+        binding.examFee.text = exam.fee
+        binding.examAnnouncement.text = exam.announcement
     }
 
     private fun openExamDivPointActivity() {
@@ -87,5 +60,49 @@ class ExamDetailFragment : Fragment() {
         transaction.replace(R.id.main_container, ExamScheduleFragment())
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    private fun fetchCertificationDetails(certificationId: Int) {
+        val call = certiService.getCertificationDetails(
+            authToken = "Bearer YOUR_AUTH_TOKEN",
+            provider = "providerName",
+            category = certificationId.toString()
+        )
+
+        call.enqueue(object : Callback<UserResponseDetail> {
+            override fun onResponse(call: Call<UserResponseDetail>, response: Response<UserResponseDetail>) {
+                if (response.isSuccessful) {
+                    val detailResponse = response.body()
+                    if (detailResponse?.success == true) {
+                        updateCertificationDetailUI(detailResponse.data)
+                    } else {
+                        Toast.makeText(context, detailResponse?.message ?: "상세 정보 조회 실패", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(context, "응답 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponseDetail>, t: Throwable) {
+                Toast.makeText(context, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+    private fun updateCertificationDetailUI(detail: CertificationDetail?) {
+        detail?.let {
+            binding.examCategory.text = it.category
+            binding.examName.text = it.name
+            binding.examQualification.text = it.eligibility
+            binding.examSubjects.text = it.subjects
+            binding.examQuestionFormat.text = it.examFormat
+            binding.examDuration.text = it.examDuration
+            binding.examPassingCriteria.text = it.passingCriteria
+            binding.examFee.text = it.fee
+            binding.examAnnouncement.text = it.announcementSchedule
+        }
     }
 }

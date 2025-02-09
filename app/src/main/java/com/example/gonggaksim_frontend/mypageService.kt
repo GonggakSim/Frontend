@@ -13,14 +13,14 @@ interface mypageService {
      fun getUserMypage(
          @Header("Authorization") authToken: String,  // OAuth2 토큰 인증
          @Query("provider") provider: String  // Google, Kakao 등
-     ):Call<UserResponse>
+     ):Call<UserResponseMypage>
 
     @PATCH("api/v1/users/mypage/user-edit")
     fun modifyProfile(
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
         @Query("provider") provider : String,  //
         @Body request : UserModifyData
-    ):Call<UserResponse>
+    ):Call<UserResponseModify>
 }
 
 interface certificateService{
@@ -28,17 +28,17 @@ interface certificateService{
     fun getAllCertifies(
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
         @Query("provider") provider : String,  //
-    ):Call<UserResponse>
+    ):Call<UserResponseCertification>
     @GET("api/v1/certifications/category/{category}")
-    fun getCategoryCertfies(
-        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
-        @Query("provider") provider : String,  //
-        @Path("category") category: String
-    ):Call<UserResponse>
+    fun getCategoryCertifies(
+        @Header("Authorization") authToken: String,
+        @Path("category") category: String,  // @Path가 @Query보다 먼저 정의되어야 함
+        @Query("provider") provider: String
+    ): Call<UserResponseCertification>
     @GET("api/v1/certifications/{certificationId}")
     fun getCertificationDetails(
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
         @Query("provider") provider : String,  //
         @Path("certificationId") category: String
-    ):Call<UserResponse>
+    ):Call<UserResponseDetail>
 }

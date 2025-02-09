@@ -14,19 +14,24 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ModifyInformationActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
+    val mypageService = RetrofitClient.getRetrofit().create(mypageService::class.java)
+    val ageSpinner: Spinner = findViewById(R.id.spinner_age)
+    val majorSpinner: Spinner = findViewById(R.id.spinner_major)
+    val yearSpinner: Spinner = findViewById(R.id.spinner_year)
+    val workSpinner: Spinner = findViewById(R.id.spinner_work)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_modify_information)
 
-        val ageSpinner: Spinner = findViewById(R.id.spinner_age)
-        val majorSpinner: Spinner = findViewById(R.id.spinner_major)
-        val yearSpinner: Spinner = findViewById(R.id.spinner_year)
 
-        val nextButton: Button = findViewById(R.id.btn_next_membership2)
+        val nextButton: Button = findViewById(R.id.modifyConfirmbtn)
         val navigateToWork = Intent(this,WorkActivity::class.java)
         nextButton.setOnClickListener{
             Log.d("Membership2Activity", "Next button clicked!")
@@ -69,8 +74,8 @@ class ModifyInformationActivity : AppCompatActivity() {
         majorSpinner.onItemSelectedListener = onItemSelectedListener
         yearSpinner.onItemSelectedListener = onItemSelectedListener
 
-        val workSpinner: Spinner = findViewById(R.id.spinner_work)
-        val nextButton2: Button = findViewById(R.id.btn_next)
+
+        val nextButton2: Button = findViewById(R.id.modifyConfirmbtn)
 
         //데이터 리스트 설정
         val wokList = listOf("작업을 선택해 주세요","재직 중","퇴사 예정","구직 중")
@@ -98,7 +103,7 @@ class ModifyInformationActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        workSpinner.onItemSelectedListener = onItemSelectedListener2
+        //workSpinner.onItemSelectedListener = onItemSelected  Listener2
 
 
 
@@ -108,4 +113,33 @@ class ModifyInformationActivity : AppCompatActivity() {
             insets
         }
     }
+    private fun updateUserInfo(){
+        val authToken = "Bearer ACCESS_TOKEN"
+        val provider = "Google"
+
+        val updateRequest = UserModifyData(
+            age = ageSpinner.selectedItem as Int,
+            department = majorSpinner.selectedItem.toString(),
+            grade = yearSpinner.selectedItem.toString(),
+            category = listOf("디자인/예술", "IT/개발"), // 칩그룹에서 선택된것들 리스트로 빼오기
+            employmentStatus = workSpinner.selectedItem.toString(),
+            employCategory = "전산"
+        )
+
+        mypageService.modifyProfile(authToken, provider, updateRequest).enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    Log.d("MypageFragment", "✅ 사용자 정보 업데이트 성공: ${response.body()}")
+                } else {
+                    Log.e("MypageFragment", "🚨 업데이트 실패: ${response.code()} - ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Log.e("MypageFragment", "❌ 네트워크 오류: ${t.message}")
+            }
+        })
+
+    }
+
 }

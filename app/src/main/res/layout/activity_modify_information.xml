@@ -32,9 +32,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="58dp"
-            android:textSize="18dp"
+            android:fontFamily="@font/npsfont_regular"
             android:text="회원정보 변경"
             android:textColor="@color/black"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="105dp"
+            android:fontFamily="@font/npsfont_regular"
             android:text="닉네임"
             android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,17 +58,18 @@
 
         <EditText
             android:id="@+id/nicknameEditText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="공부하는 취준생"
-            android:textColorHint="@color/gray"
             android:layout_marginStart="40dp"
             android:layout_marginTop="19dp"
             android:layout_marginEnd="51dp"
+            android:backgroundTint="#1877F2"
+            android:fontFamily="@font/npsfont_regular"
+            android:hint="공부하는 취준생"
+            android:textColorHint="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            android:backgroundTint="#1877F2">
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         </EditText>
 
@@ -76,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="208dp"
+            android:fontFamily="@font/npsfont_regular"
             android:text="나이"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="70dp"
+            android:fontFamily="@font/npsfont_regular"
             android:text="학과"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="70dp"
+            android:fontFamily="@font/npsfont_regular"
             android:text="학년"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
@@ -169,8 +175,8 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="358dp"
+            android:layout_height="156dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="209dp"
@@ -275,6 +281,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/npsfont_regular"
             android:text="재직상태"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
@@ -295,6 +303,20 @@
 
         </Spinner>
 
+        <Button
+            android:id="@+id/modifyConfirmbtn"
+
+            android:layout_width="375dp"
+            android:layout_height="60dp"
+
+            android:backgroundTint="@color/blue"
+            android:fontFamily="@font/npsfont_regular"
+
+            android:text="변경하기"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="726dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

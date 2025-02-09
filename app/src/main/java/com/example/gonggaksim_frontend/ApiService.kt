@@ -10,4 +10,14 @@ interface ApiService {
          @Header("Authorization") authToken: String,  // OAuth2 토큰 인증
          @Query("provider") provider: String  // Google, Kakao 등
      ): retrofit2.Call<UserResponse>
-    }
+
+    @GET("api/v1/users/mypage")
+    fun getUserInfo(
+        @Header("Authorization") token: String
+    ): retrofit2.Call<UserResponse>
+
+    @GET("api/v1/certifications")
+    fun getCertifications(
+        @Header("Authorization") token: String
+    ):  retrofit2.Call<List<Certification>>
+}

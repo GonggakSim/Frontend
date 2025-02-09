@@ -15,9 +15,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.android.volley.toolbox.Volley
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.Request
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -31,6 +28,8 @@ import retrofit2.Response
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var mGoogleSigninClient: GoogleSignInClient
+    private val authService = RetrofitClient.getRetrofit().create(AuthService::class.java)
+
 
     private val googleLoginResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -106,35 +105,48 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun sendTokenToServer(idToken: String) {
-        val authService = RetrofitClient.instance
-        authService.loginWithGoogle("Bearer $idToken").enqueue(object : Callback<LoginResponse> {
+        val call = authService.loginWithGoogle("Bearer $idToken")
+        call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponse = response.body()!!
-
-                    // 토큰 저장 (SharedPreferences)
-                    val sharedPref = getSharedPreferences("auth", MODE_PRIVATE)
-                    with(sharedPref.edit()) {
-                        putString("accessToken", loginResponse.accessToken)
-                        putString("refreshToken", loginResponse.refreshToken)
-                        apply()
-                    }
-
-                    // 기존 유저인지 확인 후 화면 전환
-                    if (loginResponse.isNewUser) {
-                        startActivity(Intent(this@OnboardingActivity, Membership1Activity::class.java))
+                    if (loginResponse.success) {
+                        saveTokens(loginResponse.accessToken, loginResponse.refreshToken)
+                        Log.w("GoogleSignIn", "액세스 토큰: ${loginResponse.accessToken}")
+                        navigateToNextScreen(loginResponse.isNewUser)
                     } else {
-                        startActivity(Intent(this@OnboardingActivity, MainActivity::class.java))
+                        Log.e("GoogleSignIn", "서버 응답 실패: ${loginResponse.message}")
+                        Toast.makeText(
+                            this@OnboardingActivity,
+                            loginResponse.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    finish()
                 } else {
-                    Toast.makeText(this@OnboardingActivity, "로그인 실패: 서버 응답 오류", Toast.LENGTH_SHORT).show()
+                    Log.e("GoogleSignIn", "응답 실패: ${response.errorBody()?.string()}")
+                    Toast.makeText(this@OnboardingActivity, "서버 응답 오류", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                Toast.makeText(this@OnboardingActivity, "로그인 실패: ${t.message}", Toast.LENGTH_SHORT).show()
+                Log.e("GoogleSignIn", "네트워크 오류: ${t.message}")
+                Toast.makeText(this@OnboardingActivity, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun saveTokens(accessToken: String?, refreshToken: String?) {
+        val sharedPref = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("accessToken", accessToken)
+            putString("refreshToken", refreshToken)
+            apply()
+        }
+    }
+
+    private fun navigateToNextScreen(isNewUser: Boolean) {
+        val nextActivity = if (isNewUser) Membership1Activity::class.java else MainActivity::class.java
+        startActivity(Intent(this, nextActivity))
+        finish()
     }
 }

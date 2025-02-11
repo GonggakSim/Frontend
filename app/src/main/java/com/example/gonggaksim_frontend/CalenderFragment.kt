@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.gonggaksim_frontend.databinding.FragmentCalenderBinding
-import java.time.LocalDate
-import java.util.Date
 
 class CalenderFragment : Fragment() {
 
@@ -27,6 +25,7 @@ class CalenderFragment : Fragment() {
 
         // 뷰 바인딩 진행
         _binding = FragmentCalenderBinding.inflate(inflater, container, false)
+        val view = inflater.inflate(R.layout.fragment_calender, container, false)
 
         // 일정 직접 추가 버튼 클릭 이벤트
         binding.plsBtn.setOnClickListener {
@@ -36,18 +35,6 @@ class CalenderFragment : Fragment() {
                 .replace(R.id.main_container, fragmentExamInput)
                 .commit()
         }
-
-        // 액티비티 테스트용
-//        binding.plsBtn.setOnClickListener {
-            //시험일정추천(점수)
-//            startActivity(Intent(requireContext(), ExamDivPointActivity()::class.java))
-//
-            //시험일정추천(점수x)
-//            startActivity(Intent(requireContext(), ExamDivSuccfailActivity()::class.java))
-//
-            //ai 분석
-//            startActivity(Intent(requireContext(), ExamSuggestionActivity()::class.java))
-//        }
 
         setListener()
 
@@ -60,15 +47,9 @@ class CalenderFragment : Fragment() {
 
     // 캘린더 초기화
     fun initCalendar(){
-        // 일정 있는 날짜 추가
-        var date = arrayListOf<String>(
-            "2025년 02월 02일",
-            "2025년 02월 05일",
-        )
-
 
         // date 값 주고 MonthAdpater 생성
-        monthAdapter = MonthAdapter(this, date)
+        monthAdapter = MonthAdapter(this, DateEvent().date)
         // RecyclerView로 캘린더 사용, 수평 스크롤 되는 레이아웃 메니저 적용
         // .apply를 사용하여 여러 설정을 체이닝 가능
         binding.customCalendar.apply {

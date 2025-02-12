@@ -95,71 +95,58 @@ class OnboardingActivity : AppCompatActivity() {
             }
         } else if (token != null) {
             Log.i("KakaoLogin", "로그인 성공: ${token.accessToken}")
+//
+//            // 토큰 저장
+//            saveToken(token)
 
-            // 토큰 저장
-            saveToken(token)
-
-            // 기존 사용자 정보 가져오기 및 이동 코드
-            fetchUserInfoAndNavigate()
+            // 토큰을 서버로 전달
+            sendTokenToServer(token.accessToken)
         }
     }
 
-    private fun saveToken(token: OAuthToken) {
+    private fun saveToken(accessToken: String, refreshToken: String?) {
         val sharedPreferences = getSharedPreferences("auth", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("accessToken", token.accessToken)
-        editor.putString("refreshToken", token.refreshToken)
-        editor.apply()
+        sharedPreferences.edit().apply {
+            putString("accessToken", accessToken)
+            refreshToken?.let { putString("refreshToken", it) }
+            apply()
+        }
         Log.i("KakaoLogin", "토큰이 SharedPreferences에 저장되었습니다.")
     }
 
-    private fun fetchUserInfoAndNavigate() {
-        Log.d("KakaoLogin", "fetchUserInfoAndNavigate 호출됨") // 함수 호출 여부 확인
 
-        UserApiClient.instance.me { user, error ->
-            if (error != null) {
-                Log.e("KakaoLogin", "사용자 정보 요청 실패: $error") // 실패 로그 확인
-                runOnUiThread {
-                    Toast.makeText(this, "사용자 정보를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
+    private fun sendTokenToServer(accessToken: String) {
+        // Retrofit 호출
+        val kakaoService = RetrofitClient.getRetrofit().create(ApiService::class.java)
+        kakaoService.kakaoLogin(
+            "Bearer $accessToken", // Bearer 형식
+        ).enqueue(object : Callback<KakaoResponse> {
+            override fun onResponse(call: Call<KakaoResponse>, response: Response<KakaoResponse>) {
+//                val resp = response.body()!!
+                Log.d("KakaoLogin", response.toString())
+                if (response.isSuccessful) {
+                        // 성공적으로 응답 받음
+                        Log.d("KakaoLogin", "서버 응답 성공: ${response}")
+//                        saveToken(response.accessToken ?: "", response.refreshToken)
+//                        handleLoginSuccess(response.isNewUser)
+
+                } else {
+                    // 실패 응답 처리
+                    Log.e("KakaoLogin", "서버 응답 실패: ${response.code()}, ${response.errorBody()?.string()}")
                 }
-            } else if (user != null) {
-                Log.i("KakaoLogin", "사용자 정보 요청 성공: ${user.kakaoAccount?.email}")
-                Log.d("KakaoLogin", "약관 동의 화면으로 이동 준비 중") // 이동 전 로그
-
-                val navigateToTerms = Intent(this, TermsActivity::class.java)
-                startActivity(navigateToTerms) // 약관 동의 화면으로 이동
-                Log.d("KakaoLogin", "약관 동의 화면으로 이동 완료") // 이동 후 로그
-
-                finish() // OnboardingActivity 종료
             }
-        }
+
+            override fun onFailure(call: Call<KakaoResponse>, t: Throwable) {
+                Log.e("KakaoLogin", "서버 요청 실패: ${t.message}")
+            }
+        })
     }
 
-    // 저장된 토큰을 활용해 사용자 정보를 가져오는 API 호출 - 일단 실행 X
-    private fun fetchUserData() {
-        val sharedPreferences = getSharedPreferences("auth", Context.MODE_PRIVATE)
-        val accessToken = sharedPreferences.getString("accessToken", null)
-
-        if (accessToken != null) {
-            RetrofitClient.instance.getUserInfo("Bearer $accessToken")
-                .enqueue(object : Callback<UserResponse> {
-                    override fun onResponse(
-                        call: Call<UserResponse>,
-                        response: Response<UserResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            Log.i("API", "사용자 정보: ${response.body()}")
-                        } else {
-                            Log.e("API", "API 호출 실패: ${response.errorBody()?.string()}")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                        Log.e("API", "API 호출 실패: ${t.message}")
-                    }
-                })
-        } else {
-            Log.e("API", "AccessToken이 없습니다.")
-        }
+    // 신규 사용자 여부에 따른 화면 전환
+    private fun handleLoginSuccess(isNewUser: Boolean) {
+        val nextActivity = if (isNewUser) TermsActivity::class.java else MainActivity::class.java
+        startActivity(Intent(this, nextActivity))
+        finish()
     }
+
 }

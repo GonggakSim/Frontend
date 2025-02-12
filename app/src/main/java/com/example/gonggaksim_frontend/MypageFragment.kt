@@ -3,6 +3,7 @@ package com.example.gonggaksim_frontend
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,18 +34,21 @@ class MypageFragment : Fragment() {
         val btnModifyInformation = view.findViewById<ImageButton>(R.id.modifyBtn)
         btnModifyInformation.setOnClickListener{
             val intent = Intent(requireContext(), ModifyInformationActivity::class.java)
+            Log.d("please", "wow!!!!")
             startActivity(intent)  //ModifyInformationActivity로 이동
         }
 
         val btnHelp = view.findViewById<ImageButton>(R.id.tvHelpBtn) // 도움말 버튼 가져오기
         btnHelp.setOnClickListener {
             val intent = Intent(requireContext(), HelpActivity::class.java)
+            Log.d("hp", "wow!!!!")
             startActivity(intent) // HelpActivity로 이동
         }
 
         val btnwithdrawal = view.findViewById<ImageButton>(R.id.tvDeleteAccountBtn)
         btnwithdrawal.setOnClickListener{
             val intent = Intent(requireContext(),MembershipWithdrawalActivity::class.java)
+            Log.d("dam", "wow!!!!")
             startActivity(intent) //MembershipWithdrawalActivity 이동
         }
     }

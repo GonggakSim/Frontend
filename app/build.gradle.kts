@@ -67,4 +67,15 @@ dependencies {
     //네이버 로그인
     //implementation("com.navecorp.nid:oauth:5.9.0")
     implementation(files("libs/oauth-5.9.0.aar")) //네이버 로그인 api에 필요한 모듈 추가
+
+    //implementation ("com.kakao.sdk:v2-user:2.12.1")
+    implementation ("com.kakao.sdk:v2-all:2.15.0" )// 전체 모듈 설치, 2.11.0 버전부터 지원
+    implementation ("com.kakao.sdk:v2-user:2.15.0" )// 카카오 로그인
+    implementation ("com.kakao.sdk:v2-talk:2.15.0") // 친구, 메시지(카카오톡)
+    implementation ("com.kakao.sdk:v2-story:2.15.0") // 카카오스토리
+    implementation ("com.kakao.sdk:v2-share:2.15.0") // 메시지(카카오톡 공유)
+    implementation ("com.kakao.sdk:v2-navi:2.15.0") // 카카오내비
+    implementation ("com.kakao.sdk:v2-friend:2.15.0") // 카카오톡 소셜 피커, 리소스 번들 파일 포함
+    implementation ("com.github.bumptech.glide:glide:4.13.2") // 사진 라이브러리에 필요함!
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
 }

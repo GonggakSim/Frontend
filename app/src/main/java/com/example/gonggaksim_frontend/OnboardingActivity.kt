@@ -96,14 +96,19 @@ class OnboardingActivity : AppCompatActivity() {
         }
     }
 
-    //네이버 로그인 화면으로 넘어가기
+    // 네이버 로그인 시작
     private fun startNaverLogin() {
         val oauthLoginCallback = object : OAuthLoginCallback {
             override fun onSuccess() {
                 val accessToken = NaverIdLoginSDK.getAccessToken()
-                val refreshToken = NaverIdLoginSDK.getRefreshToken()
                 Log.d("NaverLogin", "AccessToken: $accessToken")
-                //startActivity(navigateToTerms)
+
+                //  네이버 사용자 정보 요청 (getNaverUserInfo 호출)
+                if (accessToken != null) {
+                    getNaverUserInfo(accessToken) { response ->
+                        Log.d("NaverLogin", "네이버 사용자 정보: $response")
+                    }
+                }
             }
 
             override fun onFailure(httpStatus: Int, message: String) {
@@ -116,30 +121,30 @@ class OnboardingActivity : AppCompatActivity() {
         }
         NaverIdLoginSDK.authenticate(this, oauthLoginCallback)
     }
-    companion object{
-        fun getNaverUserInfo(accessToken: String, callback: (String?) -> Unit) {
-            val url = "https://openapi.naver.com/v1/nid/me"
 
-            val request = Request.Builder()
-                .url(url)
-                .addHeader("Authorization", "Bearer $accessToken")
-                .build()
+    // 네이버 사용자 정보 가져오기
+    fun getNaverUserInfo(accessToken: String, callback: (String?) -> Unit) {
+        val url = "https://openapi.naver.com/v1/nid/me"
 
-            OkHttpClient().newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.e("NaverLogin", "네이버 프로필 요청 실패: ${e.message}")
-                    callback(null)  // 실패 시 null 반환
-                }
+        val request = Request.Builder()
+            .url(url)
+            .addHeader("Authorization", "Bearer $accessToken")
+            .build()
 
-                override fun onResponse(call: Call, response: Response) {
-                    val responseData = response.body?.string()
-                    Log.d("NaverLogin", "네이버 프로필 응답: $responseData")
-                    callback(responseData)  // 성공 시 응답 데이터 반환
-                }
-            })
-        }
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("NaverLogin", "네이버 프로필 요청 실패: ${e.message}")
+                callback(null)  // 실패 시 null 반환
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseData = response.body?.string()
+                Log.d("NaverLogin", "네이버 프로필 응답: $responseData")
+                callback(responseData)  // 성공 시 응답 데이터 반환
+            }
+        })
     }
-    
+
 
     // 구글 로그인 화면으로 넘어가기
     private fun signIn() {

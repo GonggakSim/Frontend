@@ -3,6 +3,7 @@ package com.example.gonggaksim_frontend
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Instrumentation
+import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
@@ -34,6 +35,7 @@ import java.io.IOException
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
+
 
     private val getResult = MutableLiveData<Intent?>()
 
@@ -107,8 +109,22 @@ class OnboardingActivity : AppCompatActivity() {
                 if (accessToken != null) {
                     getNaverUserInfo(accessToken) { response ->
                         Log.d("NaverLogin", "네이버 사용자 정보: $response")
+
+                        val jsonObject = JSONObject(response)
+                        val responseObj = jsonObject.getJSONObject("response")
+
+                        val email = responseObj.getString("email")
+                        val nickname = responseObj.optString("nickname", "이름 없음")  // 닉네임이 없으면 기본값
+
+                        onLoginSuccess(
+                            context = this@OnboardingActivity,
+                            accessToken = accessToken,
+                            email = email,
+                            nickname = nickname
+                        )
                     }
                 }
+
             }
 
             override fun onFailure(httpStatus: Int, message: String) {
@@ -143,6 +159,16 @@ class OnboardingActivity : AppCompatActivity() {
                 callback(responseData)  // 성공 시 응답 데이터 반환
             }
         })
+    }
+
+
+    // 로그인 성공 후 실행되는 함수
+    fun onLoginSuccess(context: Context, accessToken: String, email: String, nickname: String) {
+        // SharedPreferences에 사용자 정보 저장
+        UserPreferences.saveUserInfo(context, accessToken, email, nickname)
+
+        // 로그 확인
+        Log.d("로그인", "사용자 정보 저장 완료: $email, $nickname")
     }
 
 
@@ -215,4 +241,3 @@ class OnboardingActivity : AppCompatActivity() {
 
 
 }
-

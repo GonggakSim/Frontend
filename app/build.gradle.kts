@@ -75,6 +75,7 @@ dependencies {
     implementation("com.google.firebase:firebase-bom:33.8.0")
     implementation("com.google.firebase:firebase-analytics-license:12.0.1")
     implementation("com.google.firebase:firebase-auth:23.1.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
     //네이버 로그인

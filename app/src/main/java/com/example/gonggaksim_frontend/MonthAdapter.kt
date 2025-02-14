@@ -59,7 +59,7 @@ class MonthAdapter(var context: CalenderFragment, val date:ArrayList<String>):
         }
 
         // 일 어댑터 생성 - 현재 월, 날짜 리스트, 일정 있는 날짜 리스트 전송
-        var dayAdapter = DayAdapter(tmpMonth, dayList, date)
+        var dayAdapter = DayAdapter(tmpMonth, dayList, DateEvent().date)
         // RecyclerView와 연결
         holder.layout.findViewById<RecyclerView>(R.id.fragment_calender_dayRv).apply {
             // GridLayoutManager를 사용하여 7개의 열로 된 그리드 레이아웃 설정 후 연결

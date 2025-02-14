@@ -34,9 +34,10 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+//import retrofit2.Call
+//import retrofit2.Callback
+import retrofit2.Response as RetrofitResponse
+import okhttp3.Response as OkhttpResponse
 
 
 class OnboardingActivity : AppCompatActivity() {
@@ -95,16 +96,6 @@ class OnboardingActivity : AppCompatActivity() {
             "공각심" // 네이버 로그인 화면에서 표시될 앱 이름
         )
 
-
-        // 구글 로그인 옵션 설정
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("process.env.PASSPORT_GOOGLE_CLIENT_ID")
-            .requestEmail()
-            .build()
-
-        // GoogleSignInClient 생성
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-
         //계정 세팅 화면으로 이동
         val forgottenButton = findViewById<TextView>(R.id.forgottenbtn)
         val navigateToMembershipSetting = Intent(this, MembershipSettingActivity::class.java)
@@ -138,14 +129,38 @@ class OnboardingActivity : AppCompatActivity() {
         }
     }
 
-    //네이버 로그인 화면으로 넘어가기
+    // naver
+    // 네이버 로그인 시작
     private fun startNaverLogin() {
         val oauthLoginCallback = object : OAuthLoginCallback {
             override fun onSuccess() {
                 val accessToken = NaverIdLoginSDK.getAccessToken()
-                val refreshToken = NaverIdLoginSDK.getRefreshToken()
                 Log.d("NaverLogin", "AccessToken: $accessToken")
-                //startActivity(navigateToTerms)
+
+                //  네이버 사용자 정보 요청 (getNaverUserInfo 호출)
+                if (accessToken != null) {
+                    getNaverUserInfo(accessToken) { response ->
+                        Log.d("NaverLogin", "네이버 사용자 정보: $response")
+
+                        val jsonObject = JSONObject(response)
+                        val responseObj = jsonObject.getJSONObject("response")
+
+                        val email = responseObj.getString("email")
+                        val nickname = responseObj.optString("nickname", "이름 없음")  // 닉네임이 없으면 기본값
+
+                        onLoginSuccess(
+                            context = this@OnboardingActivity,
+                            accessToken = accessToken,
+                            email = email,
+                            nickname = nickname
+                        )
+
+                        val intent = Intent(this@OnboardingActivity, TermsActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+
             }
 
             override fun onFailure(httpStatus: Int, message: String) {
@@ -158,35 +173,41 @@ class OnboardingActivity : AppCompatActivity() {
         }
         NaverIdLoginSDK.authenticate(this, oauthLoginCallback)
     }
-    companion object{
-        fun getNaverUserInfo(accessToken: String, callback: (String?) -> Unit) {
-            val url = "https://openapi.naver.com/v1/nid/me"
 
-            val request = Request.Builder()
-                .url(url)
-                .addHeader("Authorization", "Bearer $accessToken")
-                .build()
+    // 네이버 사용자 정보 가져오기
+    fun getNaverUserInfo(accessToken: String, callback: (String?) -> Unit) {
+        val url = "https://openapi.naver.com/v1/nid/me"
 
-            OkHttpClient().newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.e("NaverLogin", "네이버 프로필 요청 실패: ${e.message}")
-                    callback(null)  // 실패 시 null 반환
-                }
+        val request = Request.Builder()
+            .url(url)
+            .addHeader("Authorization", "Bearer $accessToken")
+            .build()
 
-                override fun onResponse(call: Call, response: Response) {
-                    val responseData = response.body?.string()
-                    Log.d("NaverLogin", "네이버 프로필 응답: $responseData")
-                    callback(responseData)  // 성공 시 응답 데이터 반환
-                }
-            })
-        }
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("NaverLogin", "네이버 프로필 요청 실패: ${e.message}")
+                callback(null)  // 실패 시 null 반환
+            }
+
+            override fun onResponse(call: Call, response: OkhttpResponse) {
+                val responseData = response.body?.string()
+                Log.d("NaverLogin", "네이버 프로필 응답: $responseData")
+                callback(responseData)  // 성공 시 응답 데이터 반환
+            }
+        })
     }
 
 
-    // 구글 로그인 화면으로 넘어가기
-    private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, 9001)
+    // 로그인 성공 후 실행되는 함수
+    fun onLoginSuccess(context: Context, accessToken: String, email: String, nickname: String) {
+        // SharedPreferences에 사용자 정보 저장
+        UserPreferences.saveUserInfo(context, accessToken, email, nickname)
+
+        // 로그 확인
+        Log.d("로그인", "사용자 정보 저장 완료: $email, $nickname")
+    }
+    // naver
+
     // Google
     private fun signInWithGoogle() {
         // 기본 Google 로그인 옵션 설정
@@ -214,7 +235,7 @@ class OnboardingActivity : AppCompatActivity() {
         // Retrofit을 사용하여 서버로 로그인 요청
         val call = authService.loginWithGoogle(tokenRequest)
         call.enqueue(object : retrofit2.Callback<LoginResponse> {
-            override fun onResponse(call: retrofit2.Call<LoginResponse>, response: Response<LoginResponse>) {
+            override fun onResponse(call: retrofit2.Call<LoginResponse>, response: RetrofitResponse<LoginResponse>) {
                 // 서버 응답 성공 및 응답에 body가 있는 경우 아래 코드 실행
                 if (response.isSuccessful && response.body() != null) {
                     val loginResponse = response.body()!!
@@ -272,14 +293,6 @@ class OnboardingActivity : AppCompatActivity() {
             // 카카오 계정 로그인
             UserApiClient.instance.loginWithKakaoAccount(this) { token, error ->
                 handleLoginResult(token, error)
-        if (requestCode == 9001) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                val idToken = account?.idToken
-                idToken?.let { sendTokenToServer(it) }
-            } catch (e: ApiException) {
-                Log.w("GoogleSignIn", "Sign-in failed", e)
             }
         }
     }
@@ -330,52 +343,6 @@ class OnboardingActivity : AppCompatActivity() {
             } else if (user != null) {
                 Log.i("KakaoLogin", "사용자 정보 요청 성공: ${user.kakaoAccount?.email}")
                 Log.d("KakaoLogin", "약관 동의 화면으로 이동 준비 중") // 이동 전 로그
-    // 구글 로그인 토큰 주고받기
-    private fun sendTokenToServer(idToken: String) {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url("http://localhost:3000/oauth2/login/kakao")
-            .addHeader("Authorization", "Bearer $idToken")
-            .get()
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e("API_ERROR", "Request Failed", e)
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    response.body?.string()?.let { responseBody ->
-                        try {
-                            val json = JSONObject(responseBody)
-                            val isNewUser = json.getBoolean("isNewUser")
-
-                            runOnUiThread {
-                                if (isNewUser) {
-                                    startActivity(Intent(this@OnboardingActivity, ActiveActivity::class.java))
-                                } else {
-                                    startActivity(Intent(this@OnboardingActivity, MainActivity::class.java))
-                                }
-                            }
-
-                            val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
-                            with(sharedPreferences.edit()) {
-                                putString("accessToken", json.getString("accessToken"))
-                                putString("refreshToken", json.getString("refreshToken"))
-                                apply()
-                            }
-                        } catch (e: JSONException) {
-                            Log.e("API_ERROR", "JSON Parsing Error", e)
-                        }
-                    }
-                }
-            }
-        })
-    }
-
-
-}
 
                 val navigateToTerms = Intent(this, TermsActivity::class.java)
                 startActivity(navigateToTerms) // 약관 동의 화면으로 이동

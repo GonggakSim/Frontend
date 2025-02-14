@@ -4,9 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Paint
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
@@ -28,8 +25,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
-import java.security.MessageDigest
-import kotlin.io.encoding.Base64
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -163,14 +159,33 @@ class OnboardingActivity : AppCompatActivity() {
                 }
             }
 
-        if (requestCode == 9001) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                val idToken = account?.idToken
-                idToken?.let { sendTokenToServer(it) }
-            } catch (e: ApiException) {
-                Log.w("GoogleSignIn", "Sign-in failed", e)
+            // 네트워크 오류에 대한 로그 출력
+            override fun onFailure(call: retrofit2.Call<LoginResponse>, t: Throwable) {
+                Log.e("GoogleSignIn", "네트워크 오류: ${t.message}")
+                Toast.makeText(this@OnboardingActivity, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    // sharedPreferences로 토큰 저장
+    private fun saveGoogleTokens(accessToken: String?, refreshToken: String?) {
+        val sharedPref = getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putString("accessToken", accessToken)
+            putString("refreshToken", refreshToken)
+            apply()
+        }
+    }
+
+    // 로그인 성공 시 신규 사용자 여부에 따른 화면 전환
+    private fun navigateToNextScreen(isNewUser: Boolean) {
+        val nextActivity = if (isNewUser) Membership1Activity::class.java else MainActivity::class.java
+        startActivity(Intent(this, nextActivity))
+        finish()
+    }
+    //Google
+
+
     private fun kakaoLogin() {
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
             // 카카오톡 로그인
@@ -184,51 +199,6 @@ class OnboardingActivity : AppCompatActivity() {
             }
         }
     }
-
-    // 구글 로그인 토큰 주고받기
-    private fun sendTokenToServer(idToken: String) {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url("http://localhost:3000/oauth2/login/kakao")
-            .addHeader("Authorization", "Bearer $idToken")
-            .get()
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e("API_ERROR", "Request Failed", e)
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    response.body()?.string()?.let { responseBody ->
-                        try {
-                            val json = JSONObject(responseBody)
-                            val isNewUser = json.getBoolean("isNewUser")
-
-                            runOnUiThread {
-                                if (isNewUser) {
-                                    startActivity(Intent(this@OnboardingActivity, ActiveActivity::class.java))
-                                } else {
-                                    startActivity(Intent(this@OnboardingActivity, MainActivity::class.java))
-                                }
-                            }
-
-                            val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
-                            with(sharedPreferences.edit()) {
-                                putString("accessToken", json.getString("accessToken"))
-                                putString("refreshToken", json.getString("refreshToken"))
-                                apply()
-                            }
-                        } catch (e: JSONException) {
-                            Log.e("API_ERROR", "JSON Parsing Error", e)
-                        }
-                    }
-                }
-            }
-        })
-    }
-
 
     // 로그인 결과 처리 함수
     private fun handleLoginResult(token: OAuthToken?, error: Throwable?) {
@@ -314,4 +284,3 @@ class OnboardingActivity : AppCompatActivity() {
         }
     }
 }
-

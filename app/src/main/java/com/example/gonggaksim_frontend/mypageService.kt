@@ -38,7 +38,7 @@ interface certificateService{
     @GET("api/v1/certifications/{certificationId}")
     fun getCertificationDetails(
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
-        @Query("provider") provider : String,  //
-        @Path("certificationId") category: String
+        @Path("certificationId") certificationId: String,
+        @Query("provider") provider : String  //
     ):Call<UserResponseDetail>
 }

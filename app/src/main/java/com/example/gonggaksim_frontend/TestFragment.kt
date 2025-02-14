@@ -43,8 +43,8 @@ class TestFragment : Fragment() {
         binding.examList.layoutManager = LinearLayoutManager(requireContext())
 
         // RecyclerView 어댑터 설정 및 아이템 클릭 이벤트 처리
-        binding.examList.adapter = TestAdapter(requireContext(), filteredData) { certification ->
-            navigateToExamDetailFragment(certification.certification_id)  // certification_id 전달
+        binding.examList.adapter = TestAdapter(requireContext(), filteredData) { certificationId ->
+            navigateToExamDetailFragment(certificationId)  // certification_id 전달
         }
 
         binding.examList.addItemDecoration(

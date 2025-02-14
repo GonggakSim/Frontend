@@ -23,6 +23,8 @@ class ExamDetailFragment : Fragment() {
     ): View {
         _binding = FragmentExamDetailBinding.inflate(inflater, container, false)
         val view = binding.root
+        val certificationId = arguments?.getInt("CERTIFICATION_ID") ?: -1
+        fetchCertificationDetails(certificationId)
 
         // "시험일정 추천받기" 버튼 클릭 이벤트 추가
         binding.btnExamSuggestion.setOnClickListener {
@@ -37,18 +39,6 @@ class ExamDetailFragment : Fragment() {
         return view
     }
 
-    private fun bindExamData(exam: ExamInfo) {
-        binding.examCategory.text = exam.category
-        binding.examName.text = exam.name
-        binding.examQualification.text = exam.qualification
-        binding.examQualificationDetail.text = exam.qualificationDetail
-        binding.examSubjects.text = exam.subjects
-        binding.examQuestionFormat.text = exam.questionFormat
-        binding.examDuration.text = exam.duration
-        binding.examPassingCriteria.text = exam.passingCriteria
-        binding.examFee.text = exam.fee
-        binding.examAnnouncement.text = exam.announcement
-    }
 
     private fun openExamDivPointActivity() {
         val intent = Intent(requireContext(), ExamDivPointActivity::class.java)
@@ -70,7 +60,7 @@ class ExamDetailFragment : Fragment() {
         val call = certiService.getCertificationDetails(
             authToken = "Bearer YOUR_AUTH_TOKEN",
             provider = "providerName",
-            category = certificationId.toString()
+            certificationId = certificationId.toString()
         )
 
         call.enqueue(object : Callback<UserResponseDetail> {

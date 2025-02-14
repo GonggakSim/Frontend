@@ -103,7 +103,7 @@ class ModifyInformationActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        //workSpinner.onItemSelectedListener = onItemSelected  Listener2
+        workSpinner.onItemSelectedListener = onItemSelectedListener2
 
 
 

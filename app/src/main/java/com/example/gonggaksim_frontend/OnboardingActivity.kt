@@ -129,8 +129,7 @@ class OnboardingActivity : AppCompatActivity() {
         }
     }
 
-    // naver
-    // 네이버 로그인 시작
+    //네이버 로그인 화면으로 넘어가기
     private fun startNaverLogin() {
         val oauthLoginCallback = object : OAuthLoginCallback {
             override fun onSuccess() {

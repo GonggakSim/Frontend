@@ -2,13 +2,14 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".ModifyInformationActivity">
 
         <!-- 여기에 콘텐츠 추가 (예: TextView, EditText 등) -->
@@ -88,13 +89,14 @@
         </TextView>
 
         <Spinner
-            android:id="@+id/spinner_age"
+            android:id="@+id/spinner_ageModify"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:prompt="@string/select_age"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="7dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/age">
 
@@ -105,8 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="70dp"
             android:fontFamily="@font/npsfont_regular"
+            android:layout_marginTop="80dp"
             android:text="학과"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,13 +117,14 @@
         </TextView>
 
         <Spinner
-            android:id="@+id/spinner_major"
+            android:id="@+id/spinner_majorModify"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:prompt="@string/select_age"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="7dp"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/major">
@@ -133,8 +136,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="70dp"
             android:fontFamily="@font/npsfont_regular"
+            android:layout_marginTop="80dp"
             android:text="학년"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,12 +146,13 @@
         </TextView>
 
         <Spinner
-            android:id="@+id/spinner_year"
+            android:id="@+id/spinner_yearModify"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:prompt="@string/select_age"
+            android:layout_marginTop="7dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/grade">
@@ -160,11 +164,11 @@
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="440dp"
+            android:layout_marginTop="470dp"
             android:layout_marginEnd="135dp"
             android:fontFamily="@font/npsfont_regular"
             android:text="본인의 관심 분야를 선택해주세요(최대5개)"
-            android:textSize="12dp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -291,7 +295,7 @@
         </TextView>
 
         <Spinner
-            android:id="@+id/spinner_work"
+            android:id="@+id/spinner_workModify"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:layout_marginStart="16dp"
@@ -305,13 +309,10 @@
 
         <Button
             android:id="@+id/modifyConfirmbtn"
-
             android:layout_width="375dp"
             android:layout_height="60dp"
-
             android:backgroundTint="@color/blue"
             android:fontFamily="@font/npsfont_regular"
-
             android:text="변경하기"
             android:textColor="#FFFFFF"
             android:textSize="14sp"

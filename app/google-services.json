@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "309686694249",
+    "project_id": "gonggaksim-cf524",
+    "storage_bucket": "gonggaksim-cf524.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309686694249:android:172dcaeae4b098d6054df8",
+        "android_client_info": {
+          "package_name": "com.example.gonggaksim_frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309686694249-54gqktbm2lj1lkv96inv4i2pt0sd4jro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gonggaksim_frontend",
+            "certificate_hash": "c7cc0875e9d8dac9334095f4e11e042ca55c4487"
+          }
+        },
+        {
+          "client_id": "309686694249-6erp69mjgntrutqu0l92nefbobc36a1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gonggaksim_frontend",
+            "certificate_hash": "d1784de6db591cb3aaebd95201bf50c48904506c"
+          }
+        },
+        {
+          "client_id": "309686694249-eccgis1vgv11er621fmd0mpg9eg4mhua.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gonggaksim_frontend",
+            "certificate_hash": "b24a319a7002ad4a9f2452f812017f16ab972293"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOCRyO1aMAIumuPaWFDesDLp62CHcHLYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309686694249-ocubd6u9od3tfki66suo0rdf1p9u8hmu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309686694249:android:e8981b7cb6072134054df8",
+        "android_client_info": {
+          "package_name": "umc.gonggaksim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOCRyO1aMAIumuPaWFDesDLp62CHcHLYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309686694249-ocubd6u9od3tfki66suo0rdf1p9u8hmu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

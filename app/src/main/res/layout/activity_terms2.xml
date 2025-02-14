@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- 제목 -->
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="143dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="143dp"
+        android:gravity="center"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="약관동의"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- 체크박스: 전체 동의 -->
+
+        <CheckBox
+            android:id="@+id/checkAll2"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="전체동의"
+            android:fontFamily="@font/npsfont_regular"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="16dp"
+            android:background="#DDDDDD" />
+
+
+    </LinearLayout>
+
+    <!-- 구분선 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <CheckBox
+            android:id="@+id/checkTerms"
+            android:layout_width="390dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="이용약관 동의 (필수)"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="5dp"
+            tools:layout_editor_absoluteY="104dp" />
+
+        <ImageButton
+            android:layout_gravity="center"
+            android:id="@+id/checkServiceBtn"
+            android:layout_width="5dp"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:scaleType="fitXY"
+            android:src="@drawable/btnnext">
+
+        </ImageButton>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="172dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- 체크박스: 개인정보 수집 및 이용 -->
+        <CheckBox
+            android:id="@+id/checkPrivacy"
+            android:layout_width="390dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="개인정보 수집 및 이용 동의 (필수)"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="5dp"
+            tools:layout_editor_absoluteY="200dp" />
+
+        <ImageButton
+            android:layout_gravity="center"
+            android:id="@+id/checkPrivacyBtn"
+            android:layout_width="5dp"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:scaleType="fitXY"
+            android:src="@drawable/btnnext">
+
+        </ImageButton>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="212dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- 체크박스: 푸시 알림 -->
+        <CheckBox
+            android:id="@+id/checkPush"
+            android:layout_width="390dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="푸시 알림 수신 동의 (선택)"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="5dp"
+            tools:layout_editor_absoluteY="152dp" />
+
+        <ImageButton
+            android:layout_gravity="center"
+            android:id="@+id/checkPushBtn"
+            android:layout_width="5dp"
+            android:layout_height="10dp"
+            android:background="@color/white"
+            android:scaleType="fitXY"
+            android:src="@drawable/btnnext">
+
+        </ImageButton>
+
+    </LinearLayout>
+
+    <!-- 확인 버튼 -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/nextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/solid_button_next"
+        android:text="확인"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

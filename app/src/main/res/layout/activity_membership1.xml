@@ -31,6 +31,8 @@
         android:text="공각심에서 사용할 닉네임을 \n 알려주세요!"
         android:textColor="@color/black"
         android:textSize="24dp"
+        android:fontFamily="@font/npsfont_regular"
+        android:lineSpacingExtra="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -44,6 +46,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="208dp"
         android:text="닉네임"
+        android:fontFamily="@font/npsfont_regular"
         android:textColor="@color/gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -55,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="공부하는 취준생"
+        android:fontFamily="@font/npsfont_regular"
         android:textColorHint="@color/gray"
         android:layout_marginStart="40dp"
         android:layout_marginTop="19dp"
@@ -92,6 +96,7 @@
         android:layout_marginBottom="29dp"
         android:background="@drawable/solid_button_next"
         android:text="다음"
+        android:fontFamily="@font/npsfont_regular"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

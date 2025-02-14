@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="328dp"
-    android:layout_height="180dp"
+    android:layout_height="213dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="15dp">
+    app:cardCornerRadius="15dp"
+    android:backgroundTint="#FFFFFF">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,12 +17,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="일정을 삭제하시겠습니까?"
+            android:text="이 접수 알림을 삭제하면 해당 일자\n의 알림이 사라집니다. 그래도 삭제\n하시겠습니까?"
             android:textSize="20sp"
-            android:fontFamily="@font/npsfont_bold"
-            android:layout_marginTop="36dp"/>
+            android:lineSpacingExtra="10dp"
+            android:fontFamily="@font/npsfont_regular"
+            android:gravity="center"
+            android:layout_marginTop="19dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dp3_yes"
             android:layout_width="120dp"
             android:layout_height="44dp"
             android:background="@drawable/btn_delete_scadule_on"
@@ -34,6 +38,7 @@
             android:layout_marginBottom="37dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dp3_no"
             android:layout_width="120dp"
             android:layout_height="44dp"
             android:background="@drawable/btn_delete_scadule_off"

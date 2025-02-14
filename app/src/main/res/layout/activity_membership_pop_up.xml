@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AlertLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_regular"
+        android:gravity="center"
+        android:paddingBottom="20sp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginStart="49dp"
+        android:text="정말 탈퇴하시겠습니까?"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+
+
+    <TextView
+        android:id="@+id/quiz_advice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/npsfont_regular"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="회원 탈퇴 후 모든 데이터가 \n 삭제되며 복구가 불가능합니다. " />
+
+    <Button
+        android:id="@+id/buttonO"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="@color/red"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="탈퇴"
+        android:layout_marginTop="26dp"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="@color/grayscale_05"
+        android:fontFamily="@font/npsfont_regular"
+        android:text="취소"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+</LinearLayout>

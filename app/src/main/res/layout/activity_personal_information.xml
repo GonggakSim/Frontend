@@ -31,6 +31,7 @@
         android:textSize="18dp"
         android:text="개인정보 수집 및 이용"
         android:textColor="@color/black"
+        android:fontFamily="@font/npsfont_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

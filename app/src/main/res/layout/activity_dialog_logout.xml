@@ -47,6 +47,7 @@
         android:fontFamily="@font/npsfont_regular"
         android:text="잠시 쉬어가는 건 괜찮아요.포기하지만\n\t\t말아요!목표는 여전히 그 자리에,\n\t\t\t\t00님을 기다리고 있어요"
         android:textSize="16dp"
+        android:lineSpacingExtra="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"></TextView>

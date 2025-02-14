@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "848643775452",
-    "project_id": "gonggaksim-5eb94",
-    "storage_bucket": "gonggaksim-5eb94.firebasestorage.app"
+    "project_number": "309686694249",
+    "project_id": "gonggaksim-cf524",
+    "storage_bucket": "gonggaksim-cf524.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:848643775452:android:86a9947ee549717a9d8d19",
+        "mobilesdk_app_id": "1:309686694249:android:172dcaeae4b098d6054df8",
         "android_client_info": {
           "package_name": "com.example.gonggaksim_frontend"
         }
@@ -15,7 +15,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBGbctolVQ2r98tShvSaR07nDphOudG0Go"
+          "current_key": "AIzaSyAOCRyO1aMAIumuPaWFDesDLp62CHcHLYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309686694249:android:e8981b7cb6072134054df8",
+        "android_client_info": {
+          "package_name": "umc.gonggaksim"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOCRyO1aMAIumuPaWFDesDLp62CHcHLYs"
         }
       ],
       "services": {

@@ -126,8 +126,8 @@ class ModifyInformationActivity : AppCompatActivity() {
             employCategory = "전산"
         )
 
-        mypageService.modifyProfile(authToken, provider, updateRequest).enqueue(object : Callback<UserResponse> {
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+        mypageService.modifyProfile(authToken, provider, updateRequest).enqueue(object : Callback<UserResponseModify> {
+            override fun onResponse(call: Call<UserResponseModify>, response: Response<UserResponseModify>) {
                 if (response.isSuccessful) {
                     Log.d("MypageFragment", "✅ 사용자 정보 업데이트 성공: ${response.body()}")
                 } else {
@@ -135,7 +135,7 @@ class ModifyInformationActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponseModify>, t: Throwable) {
                 Log.e("MypageFragment", "❌ 네트워크 오류: ${t.message}")
             }
         })

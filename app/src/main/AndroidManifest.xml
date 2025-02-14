@@ -6,8 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:usesCleartextTraffic="true"
-        android:networkSecurityConfig="@xml/network_security_config"
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,6 +15,8 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.GongGakSim_FrontEnd"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
         <meta-data
@@ -40,6 +41,23 @@
             android:name=".Terms2Activity"
             android:exported="false"
             tools:ignore="Instantiatable" />
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="ad232e97ad49f31881f71f07e5e98a03"/>
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+                <data android:host="oauth"
+                    android:scheme="kakaoad232e97ad49f31881f71f07e5e98a03" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".DialogLogoutActivity"
             android:exported="false" />
@@ -90,16 +108,17 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ExamDivPointActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ExamSuggestionActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ExamDivSuccfailActivity"
-            android:exported="true" />
+            android:exported="false" />
+
     </application>
 
 </manifest>

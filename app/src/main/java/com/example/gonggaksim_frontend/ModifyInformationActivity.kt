@@ -21,22 +21,23 @@ import retrofit2.Response
 class ModifyInformationActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     val mypageService = RetrofitClient.getRetrofit().create(mypageService::class.java)
-    val ageSpinner: Spinner = findViewById(R.id.spinner_age)
-    val majorSpinner: Spinner = findViewById(R.id.spinner_major)
-    val yearSpinner: Spinner = findViewById(R.id.spinner_year)
-    val workSpinner: Spinner = findViewById(R.id.spinner_work)
+    val ageSpinner: Spinner = findViewById(R.id.spinner_ageModify)
+    val majorSpinner: Spinner = findViewById(R.id.spinner_majorModify)
+    val yearSpinner: Spinner = findViewById(R.id.spinner_yearModify)
+    val workSpinner: Spinner = findViewById(R.id.spinner_workModify)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_modify_information)
 
 
-        val nextButton: Button = findViewById(R.id.modifyConfirmbtn)
-        val navigateToWork = Intent(this,WorkActivity::class.java)
-        nextButton.setOnClickListener{
-            Log.d("Membership2Activity", "Next button clicked!")
-            startActivity(navigateToWork)
-        }
+//        val nextButton: Button = findViewById(R.id.modifyConfirmbtn)
+//        val navigateToWork = Intent(this,WorkActivity::class.java)
+//        nextButton.setOnClickListener{
+//            Log.d("Membership2Activity", "Next button clicked!")
+//            startActivity(navigateToWork)
+//        }
 
         // 데이터 리스트 설정
         val ageList = (18..30).map { it.toString() }
@@ -58,24 +59,25 @@ class ModifyInformationActivity : AppCompatActivity() {
         yearSpinner.adapter = yearAdapter
 
         // 버튼 활성화 로직
-        val onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val ageSelected = ageSpinner.selectedItem != null
-                val majorSelected = majorSpinner.selectedItem != null
-                val yearSelected = yearSpinner.selectedItem != null
+//        val onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                val ageSelected = ageSpinner.selectedItem != null
+//                val majorSelected = majorSpinner.selectedItem != null
+//                val yearSelected = yearSpinner.selectedItem != null
+//
+//                nextButton.isEnabled = ageSelected && majorSelected && yearSelected
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {}
+//        }
+//
+//        ageSpinner.onItemSelectedListener = onItemSelectedListener
+//        majorSpinner.onItemSelectedListener = onItemSelectedListener
+//        yearSpinner.onItemSelectedListener = onItemSelectedListener
 
-                nextButton.isEnabled = ageSelected && majorSelected && yearSelected
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-
-        ageSpinner.onItemSelectedListener = onItemSelectedListener
-        majorSpinner.onItemSelectedListener = onItemSelectedListener
-        yearSpinner.onItemSelectedListener = onItemSelectedListener
-
-
-        val nextButton2: Button = findViewById(R.id.modifyConfirmbtn)
+        val workSpinner: Spinner = findViewById(R.id.spinner_workModify)
+        //val nextButton2: Button = findViewById(R.id.btn_next)
 
         //데이터 리스트 설정
         val wokList = listOf("작업을 선택해 주세요","재직 중","퇴사 예정","구직 중")
@@ -88,22 +90,22 @@ class ModifyInformationActivity : AppCompatActivity() {
         workSpinner.adapter = workAdapter
 
         // 버튼 활성화 로직
-        val onItemSelectedListener2 = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val workSelected = workSpinner.selectedItem != null
-                nextButton2.isEnabled = workSelected
+//        val onItemSelectedListener2 = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                val workSelected = workSpinner.selectedItem != null
+//                nextButton2.isEnabled = workSelected
+//
+//                if(workSpinner.selectedItem =="재직 중"){
+//                    val intent = Intent(this@ModifyInformationActivity,ActiveActivity::class.java)
+//                    startActivity(intent)
+//                }
+//
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {}
+//        }
 
-                if(workSpinner.selectedItem =="재직 중"){
-                    val intent = Intent(this@ModifyInformationActivity,ActiveActivity::class.java)
-                    startActivity(intent)
-                }
-
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-
-        workSpinner.onItemSelectedListener = onItemSelectedListener2
+//        workSpinner.onItemSelectedListener = onItemSelectedListener2
 
 
 

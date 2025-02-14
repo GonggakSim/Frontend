@@ -257,30 +257,30 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     // 저장된 토큰을 활용해 사용자 정보를 가져오는 API 호출 - 일단 실행 X
-    private fun fetchUserData() {
-        val sharedPreferences = getSharedPreferences("auth", Context.MODE_PRIVATE)
-        val accessToken = sharedPreferences.getString("accessToken", null)
-
-        if (accessToken != null) {
-            RetrofitClient.instance.getUserInfo("Bearer $accessToken")
-                .enqueue(object : Callback<UserResponse> {
-                    override fun onResponse(
-                        call: Call<UserResponse>,
-                        response: Response<UserResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            Log.i("API", "사용자 정보: ${response.body()}")
-                        } else {
-                            Log.e("API", "API 호출 실패: ${response.errorBody()?.string()}")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                        Log.e("API", "API 호출 실패: ${t.message}")
-                    }
-                })
-        } else {
-            Log.e("API", "AccessToken이 없습니다.")
-        }
-    }
+//    private fun fetchUserData() {
+//        val sharedPreferences = getSharedPreferences("auth", Context.MODE_PRIVATE)
+//        val accessToken = sharedPreferences.getString("accessToken", null)
+//
+//        if (accessToken != null) {
+//            RetrofitClient.instance.getUserInfo("Bearer $accessToken")
+//                .enqueue(object : Callback<UserResponse> {
+//                    override fun onResponse(
+//                        call: Call<UserResponse>,
+//                        response: Response<UserResponse>
+//                    ) {
+//                        if (response.isSuccessful) {
+//                            Log.i("API", "사용자 정보: ${response.body()}")
+//                        } else {
+//                            Log.e("API", "API 호출 실패: ${response.errorBody()?.string()}")
+//                        }
+//                    }
+//
+//                    override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+//                        Log.e("API", "API 호출 실패: ${t.message}")
+//                    }
+//                })
+//        } else {
+//            Log.e("API", "AccessToken이 없습니다.")
+//        }
+//    }
 }

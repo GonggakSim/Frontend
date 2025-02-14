@@ -20,7 +20,7 @@ import retrofit2.Response
 
 class ModifyInformationActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
-    val mypageService = RetrofitClient.getRetrofit().create(mypageService::class.java)
+//    val mypageService = RetrofitClient.getRetrofit().create(mypageService::class.java)
     val ageSpinner: Spinner = findViewById(R.id.spinner_age)
     val majorSpinner: Spinner = findViewById(R.id.spinner_major)
     val yearSpinner: Spinner = findViewById(R.id.spinner_year)
@@ -113,33 +113,33 @@ class ModifyInformationActivity : AppCompatActivity() {
             insets
         }
     }
-    private fun updateUserInfo(){
-        val authToken = "Bearer ACCESS_TOKEN"
-        val provider = "Google"
-
-        val updateRequest = UserModifyData(
-            age = ageSpinner.selectedItem as Int,
-            department = majorSpinner.selectedItem.toString(),
-            grade = yearSpinner.selectedItem.toString(),
-            category = listOf("디자인/예술", "IT/개발"), // 칩그룹에서 선택된것들 리스트로 빼오기
-            employmentStatus = workSpinner.selectedItem.toString(),
-            employCategory = "전산"
-        )
-
-        mypageService.modifyProfile(authToken, provider, updateRequest).enqueue(object : Callback<UserResponseModify> {
-            override fun onResponse(call: Call<UserResponseModify>, response: Response<UserResponseModify>) {
-                if (response.isSuccessful) {
-                    Log.d("MypageFragment", "✅ 사용자 정보 업데이트 성공: ${response.body()}")
-                } else {
-                    Log.e("MypageFragment", "🚨 업데이트 실패: ${response.code()} - ${response.errorBody()?.string()}")
-                }
-            }
-
-            override fun onFailure(call: Call<UserResponseModify>, t: Throwable) {
-                Log.e("MypageFragment", "❌ 네트워크 오류: ${t.message}")
-            }
-        })
-
-    }
+//    private fun updateUserInfo(){
+//        val authToken = "Bearer ACCESS_TOKEN"
+//        val provider = "Google"
+//
+//        val updateRequest = UserModifyData(
+//            age = ageSpinner.selectedItem as Int,
+//            department = majorSpinner.selectedItem.toString(),
+//            grade = yearSpinner.selectedItem.toString(),
+//            category = listOf("디자인/예술", "IT/개발"), // 칩그룹에서 선택된것들 리스트로 빼오기
+//            employmentStatus = workSpinner.selectedItem.toString(),
+//            employCategory = "전산"
+//        )
+//
+//        mypageService.modifyProfile(authToken, provider, updateRequest).enqueue(object : Callback<UserResponseModify> {
+//            override fun onResponse(call: Call<UserResponseModify>, response: Response<UserResponseModify>) {
+//                if (response.isSuccessful) {
+//                    Log.d("MypageFragment", "✅ 사용자 정보 업데이트 성공: ${response.body()}")
+//                } else {
+//                    Log.e("MypageFragment", "🚨 업데이트 실패: ${response.code()} - ${response.errorBody()?.string()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<UserResponseModify>, t: Throwable) {
+//                Log.e("MypageFragment", "❌ 네트워크 오류: ${t.message}")
+//            }
+//        })
+//
+//    }
 
 }

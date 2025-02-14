@@ -11,6 +11,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
+
+// 구글링해서 가져온 파이어베이스 로그인 코드 - 이거 바탕으로 만들어놓은 ui와 연결 필요
 class LoginActivity: AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 

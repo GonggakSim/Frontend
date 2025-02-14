@@ -106,6 +106,14 @@
             android:name=".ExamDivSuccfailActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".NewUserActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

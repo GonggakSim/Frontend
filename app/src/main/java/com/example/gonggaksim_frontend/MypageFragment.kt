@@ -55,8 +55,8 @@ class MypageFragment : Fragment() {
         val authToken = "Bearer ACCESS_TOKEN"
         val provider = "Google"
 
-        mypageService.getUserMypage(authToken, provider).enqueue(object : Callback<UserResponse> {
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+        mypageService.getUserMypage(authToken, provider).enqueue(object : Callback<UserResponseMypage> {
+            override fun onResponse(call: Call<UserResponseMypage>, response: Response<UserResponseMypage>) {
                 if (response.isSuccessful) {
                     response.body()?.let { userResponse ->
                         userResponse.data?.let { userData ->
@@ -72,7 +72,7 @@ class MypageFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+            override fun onFailure(call: Call<UserResponseMypage>, t: Throwable) {
                 Log.e("MypageFragment", "API 호출 실패: ${t.message}")
                 updateUI(getDefaultUserData())
             }

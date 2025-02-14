@@ -12,12 +12,12 @@ interface mypageService {
      fun getUserMypage(
          @Header("Authorization") authToken: String,  // OAuth2 토큰 인증
          @Query("provider") provider: String  // Google, Kakao 등
-     ):Call<UserResponse>
+     ):Call<UserResponseMypage>
 
     @PATCH("api/v1/users/mypage/user-edit")
     fun modifyProfile(
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
         @Query("provider") provider : String,  //
         @Body request : UserModifyData
-    ):Call<UserResponse>
+    ):Call<UserResponseModify>
 }

@@ -11,7 +11,6 @@ data class UserData(
     val profileImage: String,
     val categories: List<String>,
     val closestExams: List<Exam>?,
-    val certifications: List<Certification>?
 )
 
 data class Exam(
@@ -32,10 +31,6 @@ data class UserModifyData(
     val category : List<String>,
     val employmentStatus : String,
     val employCategory : String
-data class Certification(
-    val id: String,
-    val name: String,
-    val category: String
 )
 data class Certification(
     val certification_id: Int,

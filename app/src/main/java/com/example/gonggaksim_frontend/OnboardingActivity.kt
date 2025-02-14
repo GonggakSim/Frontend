@@ -1,17 +1,12 @@
 package com.example.gonggaksim_frontend
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.Instrumentation
 import android.content.Intent
 import android.graphics.Paint
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
+
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -24,10 +19,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.OkHttpClient
-import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -36,10 +27,10 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
-import java.security.MessageDigest
-import kotlin.io.encoding.Base64
-import retrofit2.Call
-import retrofit2.Callback
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Response
 
 
@@ -56,7 +47,6 @@ class OnboardingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_onboarding)
         val textView = findViewById<TextView>(R.id.forgottenbtn)
         textView.paintFlags = textView.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
 
 
         // 구글 로그인 옵션 설정
@@ -120,21 +110,13 @@ class OnboardingActivity : AppCompatActivity() {
                 idToken?.let { sendTokenToServer(it) }
             } catch (e: ApiException) {
                 Log.w("GoogleSignIn", "Sign-in failed", e)
-    private fun kakaoLogin() {
-        if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-            // 카카오톡 로그인
-            UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                handleLoginResult(token, error)
-            }
-        } else {
-            // 카카오 계정 로그인
-            UserApiClient.instance.loginWithKakaoAccount(this) { token, error ->
-                handleLoginResult(token, error)
+
+
+                // 구글 로그인 토큰 주고받기
+
             }
         }
     }
-
-    // 구글 로그인 토큰 주고받기
     private fun sendTokenToServer(idToken: String) {
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -148,25 +130,39 @@ class OnboardingActivity : AppCompatActivity() {
                 Log.e("API_ERROR", "Request Failed", e)
             }
 
-            override fun onResponse(call: Call, response: Response) {
+            override fun onResponse(call: Call, response: okhttp3.Response) {
                 if (response.isSuccessful) {
-                    response.body()?.string()?.let { responseBody ->
+                    response.body?.string()?.let { responseBody ->
                         try {
                             val json = JSONObject(responseBody)
                             val isNewUser = json.getBoolean("isNewUser")
 
                             runOnUiThread {
                                 if (isNewUser) {
-                                    startActivity(Intent(this@OnboardingActivity, ActiveActivity::class.java))
+                                    startActivity(
+                                        Intent(
+                                            this@OnboardingActivity,
+                                            ActiveActivity::class.java
+                                        )
+                                    )
                                 } else {
-                                    startActivity(Intent(this@OnboardingActivity, MainActivity::class.java))
+                                    startActivity(
+                                        Intent(
+                                            this@OnboardingActivity,
+                                            MainActivity::class.java
+                                        )
+                                    )
                                 }
                             }
 
-                            val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
+                            val sharedPreferences =
+                                getSharedPreferences("auth", MODE_PRIVATE)
                             with(sharedPreferences.edit()) {
                                 putString("accessToken", json.getString("accessToken"))
-                                putString("refreshToken", json.getString("refreshToken"))
+                                putString(
+                                    "refreshToken",
+                                    json.getString("refreshToken")
+                                )
                                 apply()
                             }
                         } catch (e: JSONException) {
@@ -190,7 +186,8 @@ class OnboardingActivity : AppCompatActivity() {
             } else {
                 Log.e("KakaoLogin", "로그인 실패: $error")
                 runOnUiThread {
-                    Toast.makeText(this, "로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         } else if (token != null) {
@@ -220,7 +217,8 @@ class OnboardingActivity : AppCompatActivity() {
             if (error != null) {
                 Log.e("KakaoLogin", "사용자 정보 요청 실패: $error") // 실패 로그 확인
                 runOnUiThread {
-                    Toast.makeText(this, "사용자 정보를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "사용자 정보를 불러오지 못했습니다.", Toast.LENGTH_SHORT)
+                        .show()
                 }
             } else if (user != null) {
                 Log.i("KakaoLogin", "사용자 정보 요청 성공: ${user.kakaoAccount?.email}")
@@ -234,32 +232,17 @@ class OnboardingActivity : AppCompatActivity() {
             }
         }
     }
-
-    // 저장된 토큰을 활용해 사용자 정보를 가져오는 API 호출 - 일단 실행 X
-    private fun fetchUserData() {
-        val sharedPreferences = getSharedPreferences("auth", Context.MODE_PRIVATE)
-        val accessToken = sharedPreferences.getString("accessToken", null)
-
-        if (accessToken != null) {
-            RetrofitClient.instance.getUserInfo("Bearer $accessToken")
-                .enqueue(object : Callback<UserResponse> {
-                    override fun onResponse(
-                        call: Call<UserResponse>,
-                        response: Response<UserResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            Log.i("API", "사용자 정보: ${response.body()}")
-                        } else {
-                            Log.e("API", "API 호출 실패: ${response.errorBody()?.string()}")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                        Log.e("API", "API 호출 실패: ${t.message}")
-                    }
-                })
+    private fun kakaoLogin() {
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
+            // 카카오톡 로그인
+            UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+                handleLoginResult(token, error)
+            }
         } else {
-            Log.e("API", "AccessToken이 없습니다.")
+            // 카카오 계정 로그인
+            UserApiClient.instance.loginWithKakaoAccount(this) { token, error ->
+                handleLoginResult(token, error)
+            }
         }
     }
 }

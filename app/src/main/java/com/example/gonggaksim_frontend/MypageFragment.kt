@@ -36,11 +36,11 @@ class MypageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
 
-        val modifyBtn2 = view.findViewById<ImageButton>(R.id.modifyBtn2) // 버튼 ID로 찾기
-        modifyBtn2.setOnClickListener {
+        binding.modifyBtn2.setOnClickListener{
             Log.d("IntentCheck", "Target Activity: ${ModifyInformationActivity::class.java.name}")
-            val intent = Intent(requireActivity(), ModifyInformationActivity::class.java)
+            val intent = Intent(requireContext(), ModifyInformationActivity::class.java)
             startActivity(intent)
         }
 

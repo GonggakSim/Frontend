@@ -21,92 +21,43 @@ import retrofit2.Response
 class ModifyInformationActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     val mypageService = RetrofitClient.getRetrofit().create(mypageService::class.java)
-    val ageSpinner: Spinner = findViewById(R.id.spinner_ageModify)
-    val majorSpinner: Spinner = findViewById(R.id.spinner_majorModify)
-    val yearSpinner: Spinner = findViewById(R.id.spinner_yearModify)
-    val workSpinner: Spinner = findViewById(R.id.spinner_workModify)
+    private lateinit var ageSpinner: Spinner
+    private lateinit var majorSpinner: Spinner
+    private lateinit var yearSpinner: Spinner
+    private lateinit var workSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_modify_information)
 
-
-//        val nextButton: Button = findViewById(R.id.modifyConfirmbtn)
-//        val navigateToWork = Intent(this,WorkActivity::class.java)
-//        nextButton.setOnClickListener{
-//            Log.d("Membership2Activity", "Next button clicked!")
-//            startActivity(navigateToWork)
-//        }
+        //onCreate() 내부에서 findViewById를 호출하도록 수정 -> 화면 전환됨
+        ageSpinner = findViewById(R.id.spinner_ageModify)
+        majorSpinner = findViewById(R.id.spinner_majorModify)
+        yearSpinner = findViewById(R.id.spinner_yearModify)
+        workSpinner = findViewById(R.id.spinner_workModify)
 
         // 데이터 리스트 설정
         val ageList = (18..30).map { it.toString() }
         val majorList = listOf("학과를 선택해 주세요","컴퓨터공학", "전자공학", "기계공학", "경영학", "영문학")
         val yearList = listOf("학년을 선택해 주세요","1학년", "2학년", "3학년", "4학년")
-
+        val wokList = listOf("작업을 선택해 주세요","재직 중","퇴사 예정","구직 중")
         // 어댑터 설정
         val ageAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ageList)
         val majorAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, majorList)
         val yearAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, yearList)
+        val workAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, wokList)
 
         ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         majorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        workAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         // 스피너 어댑터 연결
         ageSpinner.adapter = ageAdapter
         majorSpinner.adapter = majorAdapter
         yearSpinner.adapter = yearAdapter
-
-        // 버튼 활성화 로직
-//        val onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                val ageSelected = ageSpinner.selectedItem != null
-//                val majorSelected = majorSpinner.selectedItem != null
-//                val yearSelected = yearSpinner.selectedItem != null
-//
-//                nextButton.isEnabled = ageSelected && majorSelected && yearSelected
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {}
-//        }
-//
-//        ageSpinner.onItemSelectedListener = onItemSelectedListener
-//        majorSpinner.onItemSelectedListener = onItemSelectedListener
-//        yearSpinner.onItemSelectedListener = onItemSelectedListener
-
-
-        val workSpinner: Spinner = findViewById(R.id.spinner_workModify)
-        //val nextButton2: Button = findViewById(R.id.btn_next)
-
-        //데이터 리스트 설정
-        val wokList = listOf("작업을 선택해 주세요","재직 중","퇴사 예정","구직 중")
-
-        //어뎁터 설정
-        val workAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, wokList)
-        workAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        // 스피너 어댑터 연결
         workSpinner.adapter = workAdapter
-
-        // 버튼 활성화 로직
-//        val onItemSelectedListener2 = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                val workSelected = workSpinner.selectedItem != null
-//                nextButton2.isEnabled = workSelected
-//
-//                if(workSpinner.selectedItem =="재직 중"){
-//                    val intent = Intent(this@ModifyInformationActivity,ActiveActivity::class.java)
-//                    startActivity(intent)
-//                }
-//
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {}
-//        }
-
-//        workSpinner.onItemSelectedListener = onItemSelectedListener2
-
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -145,3 +96,49 @@ class ModifyInformationActivity : AppCompatActivity() {
     }
 
 }
+
+
+/*class ModifyInformationActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_modify_information)
+
+        val ageSpinner: Spinner = findViewById(R.id.spinner_ageModify)
+        val majorSpinner: Spinner = findViewById(R.id.spinner_majorModify)
+        val yearSpinner: Spinner = findViewById(R.id.spinner_yearModify)
+        val workSpinner: Spinner = findViewById(R.id.spinner_workModify)
+
+        // 데이터 리스트 설정
+        val ageList = (18..30).map { it.toString() }
+        val majorList = listOf("학과를 선택해 주세요","컴퓨터공학", "전자공학", "기계공학", "경영학", "영문학")
+        val yearList = listOf("학년을 선택해 주세요","1학년", "2학년", "3학년", "4학년")
+        val wokList = listOf("작업을 선택해 주세요","재직 중","퇴사 예정","구직 중")
+        // 어댑터 설정
+        val ageAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ageList)
+        val majorAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, majorList)
+        val yearAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, yearList)
+        val workAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, wokList)
+
+        ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        majorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        workAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        // 스피너 어댑터 연결
+        ageSpinner.adapter = ageAdapter
+        majorSpinner.adapter = majorAdapter
+        yearSpinner.adapter = yearAdapter
+        workSpinner.adapter = workAdapter
+
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+}*/
+
+

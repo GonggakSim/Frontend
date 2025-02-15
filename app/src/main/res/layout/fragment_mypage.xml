@@ -171,21 +171,22 @@
                 android:id="@+id/tvEditProfile"
                 android:layout_width="390dp"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:fontFamily="@font/npsfont_regular"
+                android:padding="16dp"
                 android:text="회원정보 변경"
                 android:textColor="@color/black"
-                android:fontFamily="@font/npsfont_regular"
-                android:textSize="14sp"
-                android:padding="16dp"
-                android:clickable="true"
-                android:background="?attr/selectableItemBackground"/>
+                android:textSize="14sp" />
 
 
             <ImageButton
-                android:id="@+id/modifyBtn"
+                android:id="@+id/modifyBtn2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:src="@drawable/btnnext">
+
             </ImageButton>
 
         </LinearLayout>

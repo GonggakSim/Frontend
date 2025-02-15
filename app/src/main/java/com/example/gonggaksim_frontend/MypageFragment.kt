@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import com.bumptech.glide.Glide
 import com.example.gonggaksim_frontend.databinding.FragmentMypageBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -26,6 +27,7 @@ class MypageFragment : Fragment() {
         _binding = FragmentMypageBinding.inflate(inflater, container, false)
 
         binding.tvLogoutBtn.setOnClickListener {
+            Log.d("logout","clear")
             showLogoutDialog()
         }
 
@@ -35,17 +37,21 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.modifyBtn.setOnClickListener {
-            val intent = Intent(requireContext(), ModifyInformationActivity::class.java)
+        val modifyBtn2 = view.findViewById<ImageButton>(R.id.modifyBtn2) // 버튼 ID로 찾기
+        modifyBtn2.setOnClickListener {
+            Log.d("IntentCheck", "Target Activity: ${ModifyInformationActivity::class.java.name}")
+            val intent = Intent(requireActivity(), ModifyInformationActivity::class.java)
             startActivity(intent)
         }
 
         binding.tvHelpBtn.setOnClickListener {
+            Log.d("HelpClear","clear")
             val intent = Intent(requireContext(), HelpActivity::class.java)
             startActivity(intent)
         }
 
         binding.tvDeleteAccountBtn.setOnClickListener {
+            Log.d("deletAccount","clear")
             val intent = Intent(requireContext(), MembershipWithdrawalActivity::class.java)
             startActivity(intent)
         }

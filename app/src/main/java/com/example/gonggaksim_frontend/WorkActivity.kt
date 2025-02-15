@@ -42,6 +42,7 @@ class WorkActivity : AppCompatActivity() {
                 if(workSpinner.selectedItem =="재직 중"){
                     val intent = Intent(this@WorkActivity,ActiveActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
 
             }

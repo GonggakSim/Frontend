@@ -1,6 +1,7 @@
 package com.example.gonggaksim_frontend
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,8 @@ class TestAdapter(
         fun bind(item: Certification) {
             nameTextView.text = item.name
             itemView.setOnClickListener {
-                onItemClicked(item.certification_id) // 클릭 이벤트 발생 시 콜백 호출
+                onItemClicked(item.certificationId) // 클릭 이벤트 발생 시 콜백 호출
+                Log.d("certiid", item.certificationId.toString())
             }
         }
     }

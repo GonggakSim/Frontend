@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     // base url
-    private const val BASE_URL = "http://13.125.231.189:3000/"
+    private const val BASE_URL = "http://13.209.11.7:3000/"
 
     // 네트워크 요청과 응답에 대한 로그 출력
     private val loggingInterceptor = HttpLoggingInterceptor().apply {

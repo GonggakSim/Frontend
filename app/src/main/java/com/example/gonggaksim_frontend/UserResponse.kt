@@ -1,5 +1,7 @@
 package com.example.gonggaksim_frontend
 
+import com.google.gson.annotations.SerializedName
+
 data class UserResponseMypage(
     val success: Boolean,
     val message: String,
@@ -32,15 +34,16 @@ data class UserModifyData(
     val employmentStatus : String,
     val employCategory : String
 )
-data class Certification(
-    val certification_id: Int,
-    val name: String,
-    val category: String
-)
 data class UserResponseCertification(
     val success: Boolean,
     val message: String,
-    val data: Certification?
+    val data: List<Certification> // ✅ data 필드가 리스트로 들어감
+)
+
+data class Certification(
+    @SerializedName("id") val certificationId: Int,
+    val name: String,
+    val category: String
 )
 data class UserResponseDetail(
     val success: Boolean,

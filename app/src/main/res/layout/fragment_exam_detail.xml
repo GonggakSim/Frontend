@@ -67,13 +67,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="@font/npsfont_regular"
                 android:text="응시자격"
                 android:textColor="@color/grayscale_08"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/exam_qualification"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.085"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,26 +81,14 @@
                 android:id="@+id/exam_qualification"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="176dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="172dp"
                 android:fontFamily="@font/npsfont_bold"
                 android:textColor="@color/main_02"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/exam_qualification_detail"
-                android:layout_width="242dp"
-                android:layout_height="17dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/npsfont_regular"
-                android:textColor="@color/grayscale_08"
-                android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.99"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/exam_qualification" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

@@ -58,8 +58,8 @@ class ExamDetailFragment : Fragment() {
     }
     private fun fetchCertificationDetails(certificationId: Int) {
         val call = certiService.getCertificationDetails(
-            authToken = "Bearer YOUR_AUTH_TOKEN",
-            provider = "providerName",
+            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM",
+            provider = "",
             certificationId = certificationId.toString()
         )
 

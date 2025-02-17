@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -71,10 +72,10 @@ dependencies {
     implementation("com.airbnb.android:lottie:5.0.2")
 
     // 구글 로그인
-    implementation("com.google.android.gms:play-services-auth:21.3.0")
+//    implementation("com.google.android.gms:play-services-auth:21.3.0")
     implementation("com.google.firebase:firebase-bom:33.8.0")
-    implementation("com.google.firebase:firebase-analytics-license:12.0.1")
-    implementation("com.google.firebase:firebase-auth:23.1.0")
+    implementation("com.google.firebase:firebase-analytics-ktx:22.2.0")
+//    implementation("com.google.firebase:firebase-analytics-license:12.0.1")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 

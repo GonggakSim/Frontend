@@ -2,6 +2,16 @@ package com.example.gonggaksim_frontend
 
 import com.google.gson.annotations.SerializedName
 
+data class UserResponse(
+    val success: Boolean, //+
+    val message: String, //+
+    val data: UserData?,  //+
+    val id: Int,
+    val email: String,
+    val name: String,
+    val profileImageUrl: String?
+)
+
 data class UserResponseMypage(
     val success: Boolean,
     val message: String,

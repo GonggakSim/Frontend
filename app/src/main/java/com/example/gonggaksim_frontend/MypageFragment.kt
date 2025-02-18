@@ -16,7 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MypageFragment : Fragment() {
-    private val profileService = RetrofitClient.retrofit.create(mypageService::class.java)
+    private val profileService = RetrofitClient.retrofit.create(ApiService::class.java)
     private var _binding: FragmentMypageBinding? = null
     private val binding get() = _binding!!  // 안전한 바인딩 참조
 

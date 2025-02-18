@@ -19,7 +19,7 @@ class TestFragment : Fragment() {
 
     private var _binding: FragmentTestBinding? = null
     private val binding get() = _binding!!
-    private val certiService = RetrofitClient.retrofit.create(certificateService::class.java)
+    private val certiService = RetrofitClient.retrofit.create(ApiService::class.java)
     private val filteredData : MutableList<Certification> = mutableListOf()
 
     override fun onCreateView(

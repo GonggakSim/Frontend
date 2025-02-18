@@ -16,7 +16,7 @@ import retrofit2.Response
 class ModifyInformationActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     private lateinit var binding: ActivityModifyInformationBinding
-    val profileService = RetrofitClient.retrofit.create(mypageService::class.java)
+    val profileService = RetrofitClient.retrofit.create(ApiService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,5 +1,6 @@
 package com.example.gonggaksim_frontend
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,7 +54,7 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
     }
 
     fun initCalendar(){
-        monthAdapter2 = MonthAdapter2(this, DateEvent().date) { startDate, endDate ->
+        monthAdapter2 = MonthAdapter2(this, DateEventSingleton.dateEvent.date) { startDate, endDate ->
             updateSelectedDateRange(startDate, endDate)
         }
         binding.mdsCalendar.apply {

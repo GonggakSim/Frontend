@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.Date
 
 // RecyclerView.Adapter 상속, 날짜 리스트 매개변수로 받음
-class MonthAdapter(var context: CalenderFragment, val date:ArrayList<String>):
+class MonthAdapter(var context: CalenderFragment, val date: MutableList<String>):
     RecyclerView.Adapter<MonthAdapter.MonthViewHolder>() {
         // RecyclerView의 중앙 위치 기준점
         val center = Int.MAX_VALUE/2

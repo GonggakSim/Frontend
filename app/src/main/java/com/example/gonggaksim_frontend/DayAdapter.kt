@@ -1,7 +1,6 @@
 package com.example.gonggaksim_frontend
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: ArrayList<String>) : RecyclerView.Adapter<DayAdapter.DayViewHolder>(){
+class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: MutableList<String>) : RecyclerView.Adapter<DayAdapter.DayViewHolder>(){
     val ROW = 6
 
     inner class DayViewHolder(val layout: View) : RecyclerView.ViewHolder(layout)
@@ -87,6 +86,8 @@ class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: Arra
                         dialog.show()
                     }
                     if(comDate == endDate) {
+
+                        eventIndex = i
                         holder.itemView.findViewById<ImageView>(R.id.item_line_mid_1)
                             .setImageResource(R.drawable.task_line_circle)
                         holder.itemView.findViewById<ImageView>(R.id.item_line_mid_1)
@@ -95,6 +96,8 @@ class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: Arra
                 }
 
                 if (strDate.equals(endDate) && comDate != endDate) {
+                    eventIndex = i
+
                     holder.itemView.findViewById<CardView>(R.id.item_line).visibility = View.VISIBLE
                     holder.itemView.findViewById<TextView>(R.id.item_text_1).text = " "
                     holder.itemView.findViewById<ImageView>(R.id.item_line_mid_1)
@@ -116,6 +119,8 @@ class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: Arra
 
             if (month == strMonth && endMonth > strMonth) {
                 if (monthOfday.toInt() < strDay.toInt()) {
+
+                    eventIndex = i
                     holder.itemView.findViewById<CardView>(R.id.item_line).visibility = View.VISIBLE
                     holder.itemView.findViewById<TextView>(R.id.item_text_1).text = " "
                     holder.itemView.findViewById<ImageView>(R.id.item_line_mid_1)
@@ -136,6 +141,7 @@ class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: Arra
             }
             if (month < strMonth && endMonth == strMonth) {
                 if (endMonthOfday.toInt() > strDay.toInt()) {
+                    eventIndex = i
                     holder.itemView.findViewById<CardView>(R.id.item_line).visibility = View.VISIBLE
                     holder.itemView.findViewById<TextView>(R.id.item_text_1).text = " "
                     holder.itemView.findViewById<ImageView>(R.id.item_line_mid_1)
@@ -157,6 +163,7 @@ class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: Arra
             if (month == endMonth && month == strMonth) {
                 if (monthOfday < strDay && endMonthOfday > strDay) {
                     if (monthOfday.toInt() < strDay.toInt()) {
+                        eventIndex = i
                         holder.itemView.findViewById<CardView>(R.id.item_line).visibility =
                             View.VISIBLE
                         holder.itemView.findViewById<TextView>(R.id.item_text_1).text = " "
@@ -175,6 +182,13 @@ class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: Arra
                             dialog.show()
                         }
                     }
+                }
+            }
+
+            if (holder.itemView.findViewById<CardView>(R.id.item_line).visibility ==
+                    View.VISIBLE) {
+                if (tmpMonth != dayList[position].month) {
+                    holder.itemView.findViewById<ImageView>(R.id.item_line_mid_1).alpha = 0.4f
                 }
             }
         }

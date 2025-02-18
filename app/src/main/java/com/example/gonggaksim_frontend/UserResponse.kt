@@ -72,3 +72,19 @@ data class CertificationDetail(
     val fee: String,
     val announcementSchedule: String
 )
+
+data class UserResponseIdMonth(
+    val dates: Dates,
+    val message: String
+)
+
+data class Dates(
+    val date: String,
+    val scheduleId: Int
+)
+
+data class UserResponseNotifications(
+    val success: Boolean,
+    val message: String
+)
+

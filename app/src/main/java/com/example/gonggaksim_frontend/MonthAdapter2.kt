@@ -12,7 +12,7 @@ import java.util.Date
 
 class MonthAdapter2(
     private val context: ModalBottomSheet,
-    private val date: ArrayList<String>,
+    private val date: MutableList<String>,
     private val onDateRangeSelected: (Date, Date?) -> Unit
 ) : RecyclerView.Adapter<MonthAdapter2.Month2ViewHolder>() {
 

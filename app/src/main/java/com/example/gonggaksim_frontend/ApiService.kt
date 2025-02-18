@@ -45,6 +45,18 @@ interface ApiService {
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
         @Path("certificationId") certificationId : String,
         @Query("provider") provider : String  //
-
     ):Call<UserResponseDetail>
+    @GET("api/v1/certifications/{certificationId}/schedules/{month}")
+    fun getCertificationIdMonth(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("certificationId") certificationId : String,
+        @Path("month") month : String,
+        @Query("provider") provider : String
+    ):Call<UserResponseIdMonth>
+    @GET("api/v1/certifications/{certificationId}/notifications")
+    fun getCertificationNotifications(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("certificationId") certificationId : String,
+        @Query("provider") provider : String
+    ):Call<UserResponseNotifications>
 }

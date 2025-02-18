@@ -1,23 +1,18 @@
 package com.example.gonggaksim_frontend
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggaksim_frontend.databinding.ItemCalendarDay2Binding
-import com.example.gonggaksim_frontend.databinding.ItemCalendarDayBinding
 import java.util.*
 
 
 class DayAdapter2(
     private val tmpMonth: Int,
     private val dayList: MutableList<Date>,
-    private val date: ArrayList<String>,
+    private val date: MutableList<String>,
     private val onDateRangeSelected: (Date, Date?) -> Unit
 ) : RecyclerView.Adapter<DayAdapter2.Day2ViewHolder>() {
 

@@ -11,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.example.gonggaksim_frontend.databinding.FragmentExamInputBinding
 import org.w3c.dom.Text
+import java.util.Random
 
 class ExamInputFragment : Fragment() {
     private lateinit var binding: FragmentExamInputBinding
@@ -81,7 +82,11 @@ class ExamInputFragment : Fragment() {
 
                 nameData = binding.examNameEt.text.toString()
 
-                val newExamEventDate = "${startDateYear}년 ${startDateMonth}월 ${startDateDay}일 ${endDateYear}년 ${endDateMonth}월 ${endDateDay}일 $nameData"
+                val random = Random()
+                val randomNum = random.nextInt(3)
+                val list = mutableListOf<String>("A769F2", "6996F2", "F27969")
+
+                val newExamEventDate = "${startDateYear}년 ${startDateMonth}월 ${startDateDay}일 ${endDateYear}년 ${endDateMonth}월 ${endDateDay}일 ${list[randomNum]} $nameData"
                 Log.d("ModalBottomSheet", "새로운 일정: $newExamEventDate")
 
                 DateEventSingleton.dateEvent.addEvent(newExamEventDate)

@@ -39,7 +39,7 @@ class DayAdapter(val tmpMonth:Int, val dayList:MutableList<Date>, val date: Arra
         for (i in 0..date.size - 1) {
             var month = date[i].substring(5, 8).trim()
             var monthOfday = date[i].substring(9, 12).trim()
-            var monthText = date[i].substring(13, date[i].length).trim()
+            var monthText = date[i].substring(27, date[i].length).trim()
 
             var strMonth = (dayList[position].month + 1).toString()
             var strDay = day.text.toString()

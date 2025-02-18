@@ -10,10 +10,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Date
 
-class MonthAdapter2(var context: ModalBottomSheet, val date:ArrayList<String>):
-    RecyclerView.Adapter<MonthAdapter2.Month2ViewHolder>() {
+class MonthAdapter2(
+    private val context: ModalBottomSheet,
+    private val date: ArrayList<String>,
+    private val onDateRangeSelected: (Date, Date?) -> Unit
+) : RecyclerView.Adapter<MonthAdapter2.Month2ViewHolder>() {
 
-    val center = Int.MAX_VALUE/2
+    private val center = Int.MAX_VALUE/2
     private var calendar = Calendar.getInstance()
 
     inner class Month2ViewHolder(val layout: View): RecyclerView.ViewHolder(layout)
@@ -44,8 +47,13 @@ class MonthAdapter2(var context: ModalBottomSheet, val date:ArrayList<String>):
             calendar.add(Calendar.WEEK_OF_MONTH, 1)
         }
 
-        var dayAdapter2 = DayAdapter2(tmpMonth, dayList, date)
+        // 일 어댑터 생성 - 현재 월, 날짜 리스트, 일정 있는 날짜 리스트 전송
+        var dayAdapter2 = DayAdapter2(tmpMonth, dayList, DateEventSingleton.dateEvent.date) { startDate, endDate ->
+            onDateRangeSelected(startDate, endDate)
+        }
+        // RecyclerView와 연결
         holder.layout.findViewById<RecyclerView>(R.id.fragment_calender_dayRv).apply {
+            // GridLayoutManager를 사용하여 7개의 열로 된 그리드 레이아웃 설정 후 연결
             layoutManager = GridLayoutManager(holder.layout.context, 7)
             adapter = dayAdapter2
         }

@@ -16,7 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MypageFragment : Fragment() {
-//    val mypageService = RetrofitClient.getRetrofit().create(mypageService::class.java)
+    private val profileService = RetrofitClient.retrofit.create(mypageService::class.java)
     private var _binding: FragmentMypageBinding? = null
     private val binding get() = _binding!!  // 안전한 바인딩 참조
 
@@ -49,35 +49,35 @@ class MypageFragment : Fragment() {
             val intent = Intent(requireContext(), MembershipWithdrawalActivity::class.java)
             startActivity(intent)
         }
-//        fetchUserData()
+        fetchUserData()
     }
-//    private fun fetchUserData() {
-//        val authToken = "Bearer ACCESS_TOKEN"
-//        val provider = "Google"
-//
-//        mypageService.getUserMypage(authToken, provider).enqueue(object : Callback<UserResponseMypage> {
-//            override fun onResponse(call: Call<UserResponseMypage>, response: Response<UserResponseMypage>) {
-//                if (response.isSuccessful) {
-//                    response.body()?.let { userResponse ->
-//                        userResponse.data?.let { userData ->
-//                            updateUI(userData)
-//                        } ?: run {
-//                            Log.e("MypageFragment", "데이터가 없음, 기본값 설정")
-//                            updateUI(getDefaultUserData())
-//                        }
-//                    }
-//                } else {
-//                    Log.e("MypageFragment", " API 응답 오류: ${response.code()} - ${response.message()}")
-//                    updateUI(getDefaultUserData())
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<UserResponseMypage>, t: Throwable) {
-//                Log.e("MypageFragment", "API 호출 실패: ${t.message}")
-//                updateUI(getDefaultUserData())
-//            }
-//        })
-//    }
+    private fun fetchUserData() {
+        val authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM"
+        val provider = ""
+
+        profileService.getUserMypage(authToken, provider).enqueue(object : Callback<UserResponseMypage> {
+            override fun onResponse(call: Call<UserResponseMypage>, response: Response<UserResponseMypage>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { userResponse ->
+                        userResponse.data?.let { userData ->
+                            updateUI(userData)
+                        } ?: run {
+                            Log.e("MypageFragment", "데이터가 없음, 기본값 설정")
+                            updateUI(getDefaultUserData())
+                        }
+                    }
+                } else {
+                    Log.e("MypageFragment", " API 응답 오류: ${response.code()} - ${response.message()}")
+                    updateUI(getDefaultUserData())
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponseMypage>, t: Throwable) {
+                Log.e("MypageFragment", "API 호출 실패: ${t.message}")
+                updateUI(getDefaultUserData())
+            }
+        })
+    }
 
     private fun updateUI(userData: UserData) {
         binding.tvUserName.text = "${userData.name}님"

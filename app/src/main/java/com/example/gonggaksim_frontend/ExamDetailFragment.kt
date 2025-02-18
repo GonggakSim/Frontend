@@ -16,13 +16,15 @@ class ExamDetailFragment : Fragment() {
 
     private var _binding: FragmentExamDetailBinding? = null
     private val binding get() = _binding!!
-    private val certiService = RetrofitClient.getRetrofit().create(certificateService::class.java)
+    private val certiService = RetrofitClient.retrofit.create(certificateService::class.java)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExamDetailBinding.inflate(inflater, container, false)
         val view = binding.root
+        val certificationId = arguments?.getInt("CERTIFICATION_ID") ?: -1
+        fetchCertificationDetails(certificationId)
 
         // "시험일정 추천받기" 버튼 클릭 이벤트 추가
         binding.btnExamSuggestion.setOnClickListener {
@@ -37,18 +39,6 @@ class ExamDetailFragment : Fragment() {
         return view
     }
 
-    private fun bindExamData(exam: ExamInfo) {
-        binding.examCategory.text = exam.category
-        binding.examName.text = exam.name
-        binding.examQualification.text = exam.qualification
-        binding.examQualificationDetail.text = exam.qualificationDetail
-        binding.examSubjects.text = exam.subjects
-        binding.examQuestionFormat.text = exam.questionFormat
-        binding.examDuration.text = exam.duration
-        binding.examPassingCriteria.text = exam.passingCriteria
-        binding.examFee.text = exam.fee
-        binding.examAnnouncement.text = exam.announcement
-    }
 
     private fun openExamDivPointActivity() {
         val intent = Intent(requireContext(), ExamDivPointActivity::class.java)
@@ -68,9 +58,9 @@ class ExamDetailFragment : Fragment() {
     }
     private fun fetchCertificationDetails(certificationId: Int) {
         val call = certiService.getCertificationDetails(
-            authToken = "Bearer YOUR_AUTH_TOKEN",
-            provider = "providerName",
-            category = certificationId.toString()
+            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM",
+            provider = "",
+            certificationId = certificationId.toString()
         )
 
         call.enqueue(object : Callback<UserResponseDetail> {

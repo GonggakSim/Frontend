@@ -49,6 +49,7 @@
         android:textSize="16sp" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/test_noti_rect">
@@ -58,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/npsfont_regular"
+            android:tag="1"
             android:text="1. 하드웨어 장치의 제조" />
 
         <RadioButton
@@ -65,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/npsfont_regular"
+            android:tag="2"
             android:text="2. 사용자 인터페이스 제공" />
 
         <RadioButton
@@ -72,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/npsfont_regular"
+            android:tag="3"
             android:text="3. 소프트웨어 개발 도구 제공" />
 
         <RadioButton
@@ -79,6 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/npsfont_regular"
+            android:tag="4"
             android:text="4. 전원 공급" />
 
     </RadioGroup>

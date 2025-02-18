@@ -300,6 +300,20 @@
 
         </Spinner>
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="324dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="44dp"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="저장"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_workModify" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

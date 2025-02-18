@@ -19,7 +19,7 @@ class TestFragment : Fragment() {
 
     private var _binding: FragmentTestBinding? = null
     private val binding get() = _binding!!
-    private val certiService = RetrofitClient.getRetrofit().create(certificateService::class.java)
+    private val certiService = RetrofitClient.retrofit.create(certificateService::class.java)
     private val filteredData : MutableList<Certification> = mutableListOf()
 
     override fun onCreateView(
@@ -43,8 +43,8 @@ class TestFragment : Fragment() {
         binding.examList.layoutManager = LinearLayoutManager(requireContext())
 
         // RecyclerView 어댑터 설정 및 아이템 클릭 이벤트 처리
-        binding.examList.adapter = TestAdapter(requireContext(), filteredData) { certification ->
-            navigateToExamDetailFragment(certification.certification_id)  // certification_id 전달
+        binding.examList.adapter = TestAdapter(requireContext(), filteredData) { certificationId ->
+            navigateToExamDetailFragment(certificationId)  // certification_id 전달
         }
 
         binding.examList.addItemDecoration(
@@ -68,9 +68,12 @@ class TestFragment : Fragment() {
     }
 
     private fun navigateToExamDetailFragment(certificationId: Int) {
+        Log.d("certificationId", "Navigating with ID: $certificationId") // 디버깅 로그 추가
         val fragment = ExamDetailFragment().apply {
             arguments = Bundle().apply {
-                putInt("CERTIFICATION_ID", certificationId)  // certification_id 전달
+                putInt("CERTIFICATION_ID", certificationId)
+                Log.d("certificationId", certificationId.toString()
+                )// certification_id 전달
             }
         }
         requireActivity().supportFragmentManager.beginTransaction()
@@ -91,14 +94,15 @@ class TestFragment : Fragment() {
     private fun setupCategoryButtons() {
         val categories = mapOf(
             binding.categoryAll to "All",
-            binding.categoryIt to "전산",
-            binding.categoryEnglish to "어학(영)",
-            binding.categoryJapanese to "어학(중/일)",
-            binding.categoryDesign to "디자인",
+            binding.categoryIt to "전산/IT",
+            binding.categoryEnglish to "어학(한영일)",
+            binding.categoryDesign to "환경/에너지",
             binding.categoryAccounting to "회계/재무",
             binding.categoryManagement to "경영/경제",
-            binding.categoryItAdvanced to "전산/IT",
             binding.categoryLogistics to "물류/유통",
+            binding.categorySafety to "안전/소방",
+            binding.categoryEdu to "교육/상담",
+            binding.categoryIndustry to "산업/기술",
             binding.categoryOthers to "기타"
         )
 
@@ -129,33 +133,29 @@ class TestFragment : Fragment() {
 
     private fun fetchCertifications(category: String?) {
         val call = if (category == null) {
-            certiService.getAllCertifies("Bearer AUTH_Token", "kakao")
+            certiService.getAllCertifies("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM", "")
         } else {
             Log.e("fetch", "선택된 카테고리 : ${category}")
-            certiService.getCategoryCertifies("Bearer AUTH_Token", category, "kakao")
+            certiService.getCategoryCertifies("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM", category, "")
 
         }
 
-        call.enqueue(object : Callback<UserResponseCertification> {
+        call.enqueue(object : Callback<UserResponseCertification> { // ✅ 올바른 타입
             override fun onResponse(call: Call<UserResponseCertification>, response: Response<UserResponseCertification>) {
                 if (response.isSuccessful) {
                     val userResponse = response.body()
-                    if (userResponse?.success == true) {
-                        val certifications = listOfNotNull(userResponse.data)  // Certification 객체 리스트 생성
-                        updateMainRecyclerView(certifications)  // List<Certification> 전달
-                    } else {
-                        Toast.makeText(context, userResponse?.message ?: "조회 실패", Toast.LENGTH_SHORT).show()
-                        showTestData()
-                    }
+                    val certifications = userResponse?.data ?: emptyList() // ✅ data 필드에서 리스트 가져오기
+                    Log.d("API Response", "받은 자격증 데이터 개수: ${certifications.size}")
+                    Log.d("API Response", "받은 자격증 데이터 : ${certifications}")
+
+                    updateMainRecyclerView(certifications)
                 } else {
-                    Toast.makeText(requireContext(), "응답 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
-                    showTestData()
+                    Log.e("API Response", "HTTP 응답 실패: ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<UserResponseCertification>, t: Throwable) {
-                Toast.makeText(requireContext(), "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
-                showTestData()
+                Log.e("NetworkError", "네트워크 요청 실패: ${t.message}")
             }
         })
     }
@@ -170,17 +170,6 @@ class TestFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    private fun showTestData() {
-        val testData = listOf(
-            "컴퓨터활용능력 1급 필기",
-            "MOS Master",
-            "ITQ 한글",
-            "정보처리기사",
-            "네트워크 관리사 2급"
-        )
-        val certificationList = testData.map { Certification(0, it, "기본 카테고리") }
-        updateMainRecyclerView(certificationList)  // 변환된 List<Certification> 전달
-        Toast.makeText(requireContext(), "테스트 데이터를 표시합니다.", Toast.LENGTH_SHORT).show()
-    }
+
 
 }

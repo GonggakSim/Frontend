@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("LoginActivity", "서버 응답 바디: $loginResponse") // 응답 데이터 전체 출력
 
                     if (loginResponse.success) {
-                        val token = loginResponse.message?.token
+                        val token = loginResponse.masseage?.token
                         if (token != null) {
                             Log.d("LoginActivity", "로그인 성공! 받은 토큰: $token")
                             saveToken(token)

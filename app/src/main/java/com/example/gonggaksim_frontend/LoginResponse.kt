@@ -2,7 +2,7 @@ package com.example.gonggaksim_frontend
 
 data class LoginResponse(
     val success: Boolean,
-    val message: Message
+    val masseage: Message?
 )
 
 data class Message(
@@ -10,3 +10,4 @@ data class Message(
     val email: String,
     val token: String
 )
+

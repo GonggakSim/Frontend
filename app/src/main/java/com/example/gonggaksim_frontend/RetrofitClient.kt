@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
-    private const val BASE_URL = "http://13.125.231.189:3000/"
+    private const val BASE_URL = "http://13.209.11.7:3000/"
 
     // 네트워크 요청과 응답에 대한 로그 출력
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
@@ -25,8 +25,8 @@ object RetrofitClient {
     // Retrofit 인스턴스를 생성하는 메서드
     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)                       // 기본 URL 설정
-            .client(client)                          // OkHttpClient 적용
+            .baseUrl(BASE_URL)
+            .client(client)// OkHttpClient 적용
             .addConverterFactory(GsonConverterFactory.create()) // JSON 변환기 추가
             .build()
     }

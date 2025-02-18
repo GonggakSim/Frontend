@@ -16,7 +16,7 @@ class ExamDetailFragment : Fragment() {
 
     private var _binding: FragmentExamDetailBinding? = null
     private val binding get() = _binding!!
-    private val certiService = RetrofitClient.getRetrofit().create(certificateService::class.java)
+    private val certiService = RetrofitClient.retrofit.create(certificateService::class.java)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

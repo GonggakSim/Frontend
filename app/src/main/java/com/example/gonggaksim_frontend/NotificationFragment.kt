@@ -59,9 +59,7 @@ class NotificationFragment : Fragment() {
     }
 
     fun showMultiDialog(context: Context, title: String, content: String) {
-        val dialog = Dialog(context)
-        dialog.setContentView(R.layout.test_noti_multi)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent) // 배경 투명
+        val dialog = MultiDialog(context)
 
         dialog.show()
     }

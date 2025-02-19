@@ -72,3 +72,33 @@ data class CertificationDetail(
     val fee: String,
     val announcementSchedule: String
 )
+// 최상위 응답 클래스
+data class UserResponseQuiz(
+    @SerializedName("success") val success: Boolean,
+    @SerializedName("data") val dataWrapper: QuizDataWrapper?
+)
+
+// 중첩된 데이터 래퍼
+data class QuizDataWrapper(
+    @SerializedName("success") val success: Boolean,
+    @SerializedName("data") val quizData: QuizData?
+)
+
+// 퀴즈 데이터 클래스
+data class QuizData(
+    @SerializedName("_id") val id: String = "",
+    @SerializedName("question_id") val questionId: String = "",
+    @SerializedName("certification_name") val certificationName: String = "",
+    @SerializedName("quiz_type") val quizType: String = "",
+    @SerializedName("answer") val answer: String = "",
+    @SerializedName("options") val options: List<String> = emptyList(),
+    @SerializedName("question") val question: String = "",
+    @SerializedName("subject") val subject: String = ""
+)
+
+data class QuizSettings(
+    val certifications : List<String>,
+    val quizTypes : List<String>,
+    val subjects : List<String>,
+    val userId : Int
+)

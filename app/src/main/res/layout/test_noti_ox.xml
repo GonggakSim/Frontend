@@ -11,6 +11,26 @@
     android:padding="20dp">
 
     <TextView
+        android:id="@+id/timerText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="3sp"
+        android:background="@drawable/blue_circle_background"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:paddingHorizontal="10sp" />
+
+    <ProgressBar
+        android:id="@+id/timerBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="15"
+        android:progress="15"
+        android:progressBackgroundTint="@color/chip_unselected_color"
+        android:progressTint="@color/blue" />
+
+    <TextView
         android:id="@+id/apptitle_ox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +49,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/testname_ox"
+        android:id="@+id/testname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/npsfont_bold"
@@ -41,14 +61,14 @@
         android:id="@+id/quiz_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginVertical="8sp"
         android:background="@drawable/test_noti_rect"
         android:fontFamily="@font/npsfont_regular"
+        android:inputType="text|textMultiLine"
         android:lineSpacingExtra="8sp"
         android:padding="16sp"
         android:text="Q.SMTP는 웹 브라우저에서 제공하지 않는 멀티미디어 파일을 확인하여 실행시켜주는 프로토콜이다"
-        android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,7 +86,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/buttonX"
+            android:id="@+id/buttonConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

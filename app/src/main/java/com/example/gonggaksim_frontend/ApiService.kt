@@ -47,4 +47,9 @@ interface ApiService {
         @Query("provider") provider : String  //
 
     ):Call<UserResponseDetail>
+    @POST("api/v1/quiz")
+    fun getQuizData(
+        @Header("Authorization") authToken: String,
+        @Body quizSettings : QuizSettings
+    ):Call<UserResponseQuiz>
 }

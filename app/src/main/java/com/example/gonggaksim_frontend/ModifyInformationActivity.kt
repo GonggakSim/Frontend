@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.gonggaksim_frontend.databinding.ActivityModifyInformationBinding
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,10 +67,11 @@ class ModifyInformationActivity : AppCompatActivity() {
             age = (binding.spinnerAgeModify.selectedItem as String).toInt(),
             department = binding.spinnerMajorModify.selectedItem.toString(),
             grade = binding.spinnerYearModify.selectedItem.toString(),
-            category = listOf("디자인/예술", "IT/개발"), // 칩그룹에서 선택된 것들 리스트로 가져오기
+            category = getSelectedChips(),
             employmentStatus = binding.spinnerWorkModify.selectedItem.toString(),
             employCategory = "전산"
         )
+
 
         profileService.modifyProfile(authToken, provider, updateRequest).enqueue(object : Callback<UserResponseModify> {
             override fun onResponse(call: Call<UserResponseModify>, response: Response<UserResponseModify>) {
@@ -83,5 +86,19 @@ class ModifyInformationActivity : AppCompatActivity() {
                 Log.e("MypageFragment", "❌ 네트워크 오류: ${t.message}")
             }
         })
+    }
+    private fun getSelectedChips(): List<String> {
+        val chipGroup = binding.chipGroupSubject
+        val selectedChips = mutableListOf<String>()
+
+        // ChipGroup 내에서 선택된 Chip을 순회하며 텍스트를 리스트에 추가
+        for (i in 0 until chipGroup.childCount) {
+            val chip = chipGroup.getChildAt(i) as Chip
+            if (chip.isChecked) {
+                selectedChips.add(chip.text.toString())
+            }
+        }
+
+        return selectedChips
     }
 }

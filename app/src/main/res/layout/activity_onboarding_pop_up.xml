@@ -42,7 +42,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/testname_ox"
+        android:id="@+id/testname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/npsfont_bold"

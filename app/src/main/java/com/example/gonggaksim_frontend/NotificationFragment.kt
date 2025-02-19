@@ -1,5 +1,6 @@
 package com.example.gonggaksim_frontend
 
+import MultiDialog
 import OxDialog
 import android.app.Dialog
 import android.content.Context
@@ -9,71 +10,76 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
+import android.widget.CheckBox
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gonggaksim_frontend.databinding.FragmentNotificationBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.chip.Chip
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class NotificationFragment : Fragment() {
-    private lateinit var binding: FragmentNotificationBinding
+    private var _binding: FragmentNotificationBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var dndTimeAdapter: DNDTimeAdapter
     private val dndTimeList = mutableListOf<DNDTime>() // 데이터 리스트
+    val quizService = RetrofitClient.retrofit.create(ApiService::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // 바인딩 초기화
-        binding = FragmentNotificationBinding.inflate(inflater, container, false)
+        _binding = FragmentNotificationBinding.inflate(inflater, container, false)
 
         setupRecyclerView()
 
-        // addDND 텍스트 클릭 이벤트 설정
+        // DND 추가 버튼 클릭 이벤트
         binding.addDND.setOnClickListener {
             val dndBottomSheet = DNDBottomSheetFragment()
             dndBottomSheet.show(childFragmentManager, "DNDBottomSheet")
         }
 
-        binding.oxbtn.setOnClickListener{
-            showOXDialog(
-                context = requireContext(),
-                title = "틀렸습니다!",
-                content = "SMTP는 사용자가 작성한 이메일을 다른 사람의 계정으로 전송해주는 역할을 합니다."
-            )
-        }
-        binding.multibtn.setOnClickListener{
-            showMultiDialog(
-                context = requireContext(),
-                title = "틀렸습니다!",
-                content = "SMTP는 사용자가 작성한 이메일을 다른 사람의 계정으로 전송해주는 역할을 합니다."
-            )
-        }
-        binding.dictatebtn.setOnClickListener{
-            showDictateDialog(
-                context = requireContext(),
-                title = "틀렸습니다!",
-                content = "SMTP는 사용자가 작성한 이메일을 다른 사람의 계정으로 전송해주는 역할을 합니다."
-            )
+        // 퀴즈 설정 버튼 클릭 이벤트
+        binding.makeQuizBtn.setOnClickListener {
+            val quizSettings = collectQuizSettings()
+            Log.d("quizset", quizSettings.toString())
+            fetchQuizData(quizSettings)
+
+
         }
 
         return binding.root
     }
 
-    fun showMultiDialog(context: Context, title: String, content: String) {
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // 메모리 누수 방지
+    }
+
+    // Multi Dialog 표시
+    fun showMultiDialog(context: Context, quizData: QuizData) {
         val dialog = MultiDialog(context)
-
+        dialog.setQuizData(quizData)
         dialog.show()
     }
-    fun showDictateDialog(context: Context, title: String, content: String) {
-        val dialog = Dialog(context)
-        dialog.setContentView(R.layout.test_noti_dictate)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent) // 배경 투명
 
+    // Dictate Dialog 표시
+    fun showDictateDialog(context: Context, quizData: QuizData) {
+        val dialog = DictateDialog(context)
+        dialog.setQuizData(quizData)
         dialog.show()
     }
-    fun showOXDialog(context: Context, title: String, content: String) {
+
+    // OX Dialog 표시
+    fun showOXDialog(context: Context, quizData: QuizData) {
         val dialog = OxDialog(context)
+        dialog.setQuizData(quizData)
         dialog.show()
     }
+
+    // RecyclerView 초기화
     private fun setupRecyclerView() {
         dndTimeAdapter = DNDTimeAdapter(dndTimeList)
         binding.recyclerViewDNDTime.apply {
@@ -82,12 +88,102 @@ class NotificationFragment : Fragment() {
         }
     }
 
+    // DND 시간 추가
     fun addDNDTime(dndTime: DNDTime) {
         Log.d("DND_DEBUG", "addDNDTime 호출됨: ${dndTime.days}, ${dndTime.startTime} - ${dndTime.endTime}")
 
         dndTimeList.add(dndTime)
         dndTimeAdapter.notifyItemInserted(dndTimeList.size - 1)
         Log.d("DND_DEBUG", "RecyclerView 업데이트됨: ${dndTimeList.size} 개의 아이템")
+    }
 
+    // 퀴즈 설정 수집 함수
+    private fun collectQuizSettings(): QuizSettings {
+        val chipGroupCertifications = binding.chipGroupQuiz
+        val chipGroupSubjects = binding.chipGroupSubject
+
+        // 선택된 Certifications (ChipGroup)
+        val selectedCertifications = mutableListOf<String>()
+        for (i in 0 until chipGroupCertifications.childCount) {
+            val chip = chipGroupCertifications.getChildAt(i) as Chip
+            if (chip.isChecked) {
+                selectedCertifications.add(chip.text.toString())
+            }
+        }
+
+        // 선택된 QuizTypes (CheckBoxes) - ViewBinding 사용
+        val selectedQuizTypes = mutableListOf<String>()
+        val checkBoxes = listOf(
+            binding.checkOX,
+            binding.checkMulti,
+            binding.checkDictate,
+            binding.checkAlertOnly
+        )
+
+        for (checkBox in checkBoxes) {
+            if (checkBox.isChecked) {
+                selectedQuizTypes.add(checkBox.text.toString())
+            }
+        }
+
+        // 선택된 Subjects (ChipGroup)
+        val selectedSubjects = mutableListOf<String>()
+        for (i in 0 until chipGroupSubjects.childCount) {
+            val chip = chipGroupSubjects.getChildAt(i) as Chip
+            if (chip.isChecked) {
+                selectedSubjects.add(chip.text.toString())
+            }
+        }
+
+        // QuizSettings 객체 생성
+        return QuizSettings(
+            certifications = selectedCertifications,
+            quizTypes = selectedQuizTypes,
+            subjects = selectedSubjects,
+            userId = 2 // 예시 User ID
+        )
+    }
+
+    private fun fetchQuizData(quizSettings: QuizSettings) {
+        val authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM" // 실제 토큰으로 대체
+        val call = quizService.getQuizData(authToken, quizSettings)
+
+        call.enqueue(object : Callback<UserResponseQuiz> {
+            override fun onResponse(call: Call<UserResponseQuiz>, response: Response<UserResponseQuiz>) {
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    Log.d("QuizAPI", "📋 Raw Response: $body")
+
+                    val quizData = body?.dataWrapper?.quizData
+                    if (quizData != null) {
+                        handleQuizResponse(requireContext(), quizData)
+                    } else {
+                        Log.e("QuizAPI", "🚨 QuizData가 null입니다.")
+                    }
+                } else {
+                    Log.e("QuizAPI", "🚨 실패: ${response.code()} - ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponseQuiz>, t: Throwable) {
+                Log.e("QuizAPI", "❌ 네트워크 오류: ${t.message}")
+            }
+        })
+
+    }
+
+    private fun handleQuizResponse(context: Context, quizData: QuizData) {
+        Log.d("QuizHandler", "📋 수신된 QuizData: $quizData")
+        val quizType = quizData.quizType ?: ""
+
+        when (quizType) {
+            "기출문제" -> showMultiDialog(context, quizData)
+            "OX" -> showOXDialog(context, quizData)
+            "받아적기" -> showDictateDialog(context, quizData)
+            else -> {
+                Log.e("QuizHandler", "⚠️ 알 수 없는 퀴즈 타입 또는 null: '${quizData.quizType}'")
+                Toast.makeText(context, "지원하지 않는 퀴즈 유형입니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

@@ -30,7 +30,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/testname_ox"
+        android:id="@+id/testname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/npsfont_bold"
@@ -58,7 +58,7 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/buttonX"
+        android:id="@+id/buttonConfirm"
         android:layout_width="258dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

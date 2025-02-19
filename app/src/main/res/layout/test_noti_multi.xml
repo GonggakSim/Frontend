@@ -10,6 +10,26 @@
     android:padding="20dp">
 
     <TextView
+        android:id="@+id/timerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="3sp"
+        android:background="@drawable/blue_circle_background"
+        android:fontFamily="@font/npsfont_bold"
+        android:gravity="center"
+        android:paddingHorizontal="10sp" />
+
+    <ProgressBar
+        android:id="@+id/timerBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="15"
+        android:progress="15"
+        android:progressBackgroundTint="@color/chip_unselected_color"
+        android:progressTint="@color/blue" />
+
+    <TextView
         android:id="@+id/apptitle_ox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +48,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/testname_ox"
+        android:id="@+id/testname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/npsfont_bold"
@@ -40,13 +60,14 @@
         android:id="@+id/quiz_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginVertical="8sp"
         android:fontFamily="@font/npsfont_regular"
+        android:gravity="center"
         android:lineSpacingExtra="8sp"
         android:padding="16sp"
         android:text="Q. 다음 중 컴퓨터 운영체제의 주요 기능으로 올바른 것은?"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="12sp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -58,7 +79,10 @@
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15sp"
+            android:layout_marginTop="5sp"
             android:fontFamily="@font/npsfont_regular"
+            android:lineSpacingExtra="4sp"
             android:tag="1"
             android:text="1. 하드웨어 장치의 제조" />
 
@@ -66,7 +90,10 @@
             android:id="@+id/radioButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15sp"
+            android:layout_marginTop="5sp"
             android:fontFamily="@font/npsfont_regular"
+            android:lineSpacingExtra="4sp"
             android:tag="2"
             android:text="2. 사용자 인터페이스 제공" />
 
@@ -74,7 +101,10 @@
             android:id="@+id/radioButton3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15sp"
+            android:layout_marginTop="5sp"
             android:fontFamily="@font/npsfont_regular"
+            android:lineSpacingExtra="4sp"
             android:tag="3"
             android:text="3. 소프트웨어 개발 도구 제공" />
 
@@ -82,7 +112,10 @@
             android:id="@+id/radioButton4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15sp"
+            android:layout_marginTop="5sp"
             android:fontFamily="@font/npsfont_regular"
+            android:lineSpacingExtra="4sp"
             android:tag="4"
             android:text="4. 전원 공급" />
 
@@ -94,7 +127,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonX"
+            android:id="@+id/buttonConfirm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

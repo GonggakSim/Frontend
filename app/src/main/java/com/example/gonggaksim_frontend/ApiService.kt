@@ -53,10 +53,28 @@ interface ApiService {
         @Path("month") month : Int,
         @Query("provider") provider : String
     ):Call<UserResponseIdMonth>
-    @GET("api/v1/certifications/{certificationId}/notifications")
+    @POST("api/v1/certifications/{certificationId}/notifications")
     fun getCertificationNotifications(
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
         @Path("certificationId") certificationId : String,
         @Query("provider") provider : String
     ):Call<UserResponseNotifications>
+
+
+    @GET("api/v1/calander/exams")
+    @POST("api/v1/calander/exams")
+    fun getCalendarExamInput(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("userId") userId : Int,
+        @Query("provider") provider : String
+    ):Call<UserCalendarExamInput>
+
+
+    @GET("api/v1/calander/exams/{examId}")
+    fun deleteCalendarExam(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("userId") userId : Int,
+        @Path("certificationId") certificationId : String,
+        @Query("provider") provider : String
+    ):Call<DeleteCalendarExam>
 }

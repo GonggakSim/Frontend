@@ -1,183 +1,186 @@
 package com.example.gonggaksim_frontend
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.gonggaksim_frontend.databinding.FragmentTestBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class TestFragment : Fragment() {
 
-    private lateinit var searchBar: EditText
-    private lateinit var backButton: ImageView
-    private lateinit var mainRecyclerView: RecyclerView
-    private lateinit var searchIcon: ImageView
-    private lateinit var btnInputExam: Button
-    private lateinit var scrollUpButton: ImageButton
-
-    private lateinit var categoryAll: TextView
-    private lateinit var categoryIT: TextView
-    private lateinit var categoryEnglish: TextView
-    private lateinit var categoryJapanese: TextView
-    private lateinit var categoryDesign: TextView
-    private lateinit var categoryAccounting: TextView
-    private lateinit var categoryManagement: TextView
-    private lateinit var categoryITAdvanced: TextView
-    private lateinit var categoryLogistics: TextView
-    private lateinit var categoryOthers: TextView
-
-    private val filteredData = mutableListOf<String>()
-    private val totalData = DataProvider.allData // 전체 데이터를 가져옴
+    private var _binding: FragmentTestBinding? = null
+    private val binding get() = _binding!!
+    private val certiService = RetrofitClient.getRetrofit().create(certificateService::class.java)
+    private val filteredData : MutableList<Certification> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_test, container, false)
+    ): View {
+        _binding = FragmentTestBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        // UI 초기화
-        searchBar = view.findViewById(R.id.search_bar)
-        backButton = view.findViewById(R.id.back_button)
-        mainRecyclerView = view.findViewById(R.id.exam_list)
-        searchIcon = view.findViewById(R.id.search_icon)
-        btnInputExam = view.findViewById(R.id.btn_input_exam)
-        scrollUpButton = view.findViewById(R.id.scroll_up_button)
-
-        // 카테고리 버튼 초기화
-        categoryAll = view.findViewById(R.id.category_all)
-        categoryIT = view.findViewById(R.id.category_it)
-        categoryEnglish = view.findViewById(R.id.category_english)
-        categoryJapanese = view.findViewById(R.id.category_japanese)
-        categoryDesign = view.findViewById(R.id.category_design)
-        categoryAccounting = view.findViewById(R.id.category_accounting)
-        categoryManagement = view.findViewById(R.id.category_management)
-        categoryITAdvanced = view.findViewById(R.id.category_it_advanced)
-        categoryLogistics = view.findViewById(R.id.category_logistics)
-        categoryOthers = view.findViewById(R.id.category_others)
-
-        // RecyclerView 설정
-        mainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        mainRecyclerView.adapter = TestAdapter(requireContext(), filteredData) { examName ->
-            navigateToExamDetailFragment(examName)
-        }
-
-        // 초기 데이터 설정
-        updateMainRecyclerView(DataProvider.allData)
-
-        // 카테고리 버튼 클릭 이벤트 설정
+        setupRecyclerView()
         setupCategoryButtons()
-
-        // **초기 선택: "전체" 카테고리**
         setInitialCategorySelection()
-
-        // 검색바 클릭 이벤트 설정
         setupSearchBarClickListener()
-
-        // btn_input_exam 클릭 이벤트 설정
-        btnInputExam.setOnClickListener {
-            navigateToExamInputFragment()
-        }
-        // Divider 추가
-        val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        mainRecyclerView.addItemDecoration(itemDecoration)
-
+        setupInputExamButton()
         startScrollButtonAnimation()
 
         return view
     }
 
-    private fun startScrollButtonAnimation() {
-        val blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in_out)
-        scrollUpButton.startAnimation(blinkAnimation)
+    private fun setupRecyclerView() {
+        binding.examList.layoutManager = LinearLayoutManager(requireContext())
+
+        // RecyclerView 어댑터 설정 및 아이템 클릭 이벤트 처리
+        binding.examList.adapter = TestAdapter(requireContext(), filteredData) { certification ->
+            navigateToExamDetailFragment(certification.certification_id)  // certification_id 전달
+        }
+
+        binding.examList.addItemDecoration(
+            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        )
     }
 
-    // 검색바 클릭 시 SearchFragment로 이동
-    private fun setupSearchBarClickListener() {
-        searchBar.setOnClickListener {
-            // 키보드 동작 방지
-            searchBar.clearFocus()
+    private fun startScrollButtonAnimation() {
+        val blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in_out)
+        binding.scrollUpButton.startAnimation(blinkAnimation)
+    }
 
-            // SearchFragment로 이동
+    private fun setupSearchBarClickListener() {
+        binding.searchBar.setOnClickListener {
+            binding.searchBar.clearFocus()
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_container, SearchFragment()) // SearchFragment로 전환
-                .addToBackStack(null) // 뒤로 가기 버튼으로 돌아갈 수 있도록 설정
+                .replace(R.id.main_container, SearchFragment())
+                .addToBackStack(null)
                 .commit()
         }
     }
 
-    // ExamDetailFragment로 이동하는 함수
-    private fun navigateToExamDetailFragment(examName: String) {
+    private fun navigateToExamDetailFragment(certificationId: Int) {
         val fragment = ExamDetailFragment().apply {
             arguments = Bundle().apply {
-                putString("EXAM_NAME", examName)
+                putInt("CERTIFICATION_ID", certificationId)  // certification_id 전달
             }
         }
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragment) // fragment_container를 ExamDetailFragment로 대체
-            .addToBackStack(null) // 뒤로 가기 버튼을 통해 이전 화면으로 돌아갈 수 있도록 설정
-            .commit()
-    }
-
-    // ExamInputFragment로 이동하는 함수
-    private fun navigateToExamInputFragment() {
-        val fragment = ExamInputFragment()
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, fragment)
             .addToBackStack(null)
             .commit()
     }
 
+    private fun setupInputExamButton() {
+        binding.btnInputExam.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_container, ExamInputFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
     private fun setupCategoryButtons() {
         val categories = mapOf(
-            categoryAll to "All",
-            categoryIT to "IT",
-            categoryEnglish to "English",
-            categoryJapanese to "Japanese",
-            categoryDesign to "Design",
-            categoryAccounting to "Accounting",
-            categoryManagement to "Management",
-            categoryITAdvanced to "ITAdvanced",
-            categoryLogistics to "Logistics",
-            categoryOthers to "Others"
+            binding.categoryAll to "All",
+            binding.categoryIt to "전산",
+            binding.categoryEnglish to "어학(영)",
+            binding.categoryJapanese to "어학(중/일)",
+            binding.categoryDesign to "디자인",
+            binding.categoryAccounting to "회계/재무",
+            binding.categoryManagement to "경영/경제",
+            binding.categoryItAdvanced to "전산/IT",
+            binding.categoryLogistics to "물류/유통",
+            binding.categoryOthers to "기타"
         )
 
         categories.forEach { (button, categoryKey) ->
             button.setOnClickListener {
-                // 1. 모든 버튼의 배경을 기본 배경으로 초기화
                 categories.keys.forEach {
-                    it.background = resources.getDrawable(R.drawable.category_default_background, null)
-                    it.setTextColor(resources.getColor(R.color.grayscale_08, null)) // 텍스트 색상 초기화
+                    it.setBackgroundResource(R.drawable.category_default_background)
+                    it.setTextColor(resources.getColor(R.color.grayscale_08, null))
                 }
 
-                // 2. 클릭된 버튼에 선택된 배경과 텍스트 색상 설정
-                button.background = resources.getDrawable(R.drawable.category_selected_background, null)
+                button.setBackgroundResource(R.drawable.category_selected_background)
                 button.setTextColor(resources.getColor(R.color.main_01, null))
 
-                // 3. RecyclerView 데이터 업데이트
-                val filteredDataList = DataProvider.categoryDataMap[categoryKey] ?: DataProvider.allData
-                updateMainRecyclerView(filteredDataList)
+                if (categoryKey == "All") {
+                    fetchCertifications(null)
+                } else {
+                    fetchCertifications(categoryKey)
+                }
             }
         }
     }
 
     private fun setInitialCategorySelection() {
-        // 초기 상태: "전체" 카테고리 선택
-        categoryAll.background = resources.getDrawable(R.drawable.category_selected_background, null)
-        categoryAll.setTextColor(resources.getColor(R.color.main_01, null))
+        binding.categoryAll.setBackgroundResource(R.drawable.category_selected_background)
+        binding.categoryAll.setTextColor(resources.getColor(R.color.main_01, null))
+        fetchCertifications(null)  // 기본적으로 전체 목록을 가져옵니다.
     }
 
-    private fun updateMainRecyclerView(data: List<String>) {
+    private fun fetchCertifications(category: String?) {
+        val call = if (category == null) {
+            certiService.getAllCertifies("Bearer AUTH_Token", "kakao")
+        } else {
+            Log.e("fetch", "선택된 카테고리 : ${category}")
+            certiService.getCategoryCertifies("Bearer AUTH_Token", category, "kakao")
+
+        }
+
+        call.enqueue(object : Callback<UserResponseCertification> {
+            override fun onResponse(call: Call<UserResponseCertification>, response: Response<UserResponseCertification>) {
+                if (response.isSuccessful) {
+                    val userResponse = response.body()
+                    if (userResponse?.success == true) {
+                        val certifications = listOfNotNull(userResponse.data)  // Certification 객체 리스트 생성
+                        updateMainRecyclerView(certifications)  // List<Certification> 전달
+                    } else {
+                        Toast.makeText(context, userResponse?.message ?: "조회 실패", Toast.LENGTH_SHORT).show()
+                        showTestData()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "응답 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    showTestData()
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponseCertification>, t: Throwable) {
+                Toast.makeText(requireContext(), "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
+                showTestData()
+            }
+        })
+    }
+
+    private fun updateMainRecyclerView(data: List<Certification>) {
         filteredData.clear()
         filteredData.addAll(data)
-        mainRecyclerView.adapter?.notifyDataSetChanged()
+        binding.examList.adapter?.notifyDataSetChanged()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    private fun showTestData() {
+        val testData = listOf(
+            "컴퓨터활용능력 1급 필기",
+            "MOS Master",
+            "ITQ 한글",
+            "정보처리기사",
+            "네트워크 관리사 2급"
+        )
+        val certificationList = testData.map { Certification(0, it, "기본 카테고리") }
+        updateMainRecyclerView(certificationList)  // 변환된 List<Certification> 전달
+        Toast.makeText(requireContext(), "테스트 데이터를 표시합니다.", Toast.LENGTH_SHORT).show()
+    }
+
 }

@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsAnimation
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,6 +21,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchFragment : Fragment() {
 
@@ -89,17 +93,49 @@ class SearchFragment : Fragment() {
                     backButton.visibility = View.VISIBLE
                     recentSearchChipGroup.visibility = View.GONE
                     autoCompleteRecyclerView.visibility = View.VISIBLE
-                    searchSuggestions.clear()
+/*                    searchSuggestions.clear()
                     searchSuggestions.addAll(
                         DataProvider.allData.filter { it.contains(query, ignoreCase = true) }
                     )
-                    autoCompleteRecyclerView.adapter?.notifyDataSetChanged()
+                    autoCompleteRecyclerView.adapter?.notifyDataSetChanged()*/
+                    // 🔹 API 호출하여 검색어 자동완성 리스트 가져오기
+                    fetchSearchResults(query)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
     }
+
+    // 🔹 API 호출 함수
+    private fun fetchSearchResults(query: String) {
+        RetrofitClient.apiService.searchCertificates(query).enqueue(object : Callback<SearchResponse> {
+            override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    if (body != null && body.success) {
+                        val results = body.data
+
+                        // RecyclerView 업데이트
+                        searchSuggestions.clear()
+                        searchSuggestions.addAll(results.map { it.name })
+                        autoCompleteRecyclerView.adapter?.notifyDataSetChanged()
+                    } else {
+                        // success가 false일 경우 메시지 출력
+                        showToast("검색 실패: ${body?.message}")
+                    }
+                } else {
+                    showToast("서버 응답 오류: ${response.code()} - ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                showToast("네트워크 오류 발생: ${t.message}")
+            }
+        })
+    }
+
+
 
     private fun setupSearchIconClickListener() {
         searchIcon.setOnClickListener {

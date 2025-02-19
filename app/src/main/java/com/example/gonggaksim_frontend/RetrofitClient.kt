@@ -26,4 +26,13 @@ object RetrofitClient {
         retrofit.create(ExamApi::class.java) // ExamApi 인터페이스 생성
     }
 
+    val apiService: SearchApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(SearchApiService::class.java)
+    }
+
+
 }

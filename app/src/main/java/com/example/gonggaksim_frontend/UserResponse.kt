@@ -74,7 +74,7 @@ data class CertificationDetail(
 )
 
 data class UserResponseIdMonth(
-    val dates: Dates,
+    val dates: List<Dates>,
     val message: String
 )
 

@@ -50,7 +50,7 @@ interface ApiService {
     fun getCertificationIdMonth(
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
         @Path("certificationId") certificationId : String,
-        @Path("month") month : String,
+        @Path("month") month : Int,
         @Query("provider") provider : String
     ):Call<UserResponseIdMonth>
     @GET("api/v1/certifications/{certificationId}/notifications")

@@ -33,7 +33,7 @@ class ExamDetailFragment : Fragment() {
 
         // "시험일정 확인하기" 버튼 클릭 이벤트 추가
         binding.btnCheckSchedule.setOnClickListener {
-            openExamScheduleFragment()
+            openExamScheduleFragment(certificationId)
         }
 
         return view
@@ -45,9 +45,15 @@ class ExamDetailFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun openExamScheduleFragment() {
+    private fun openExamScheduleFragment(certificationId: Int) {
+        val bundle = Bundle()
+        bundle.putInt("CERTIFICATION_ID", certificationId)
+
+        val examScheduleFragment = ExamScheduleFragment()
+        examScheduleFragment.arguments = bundle
+
         val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_container, ExamScheduleFragment())
+        transaction.replace(R.id.main_container, examScheduleFragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }

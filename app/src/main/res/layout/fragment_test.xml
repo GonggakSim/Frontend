@@ -150,7 +150,20 @@
                 android:background="@drawable/category_default_background"
                 android:fontFamily="@font/npsfont_bold"
                 android:paddingBottom="4dp"
-                android:text="전산"
+                android:text="전산/IT"
+                android:textColor="@color/grayscale_08"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/category_edu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/category_default_background"
+                android:fontFamily="@font/npsfont_bold"
+                android:paddingBottom="4dp"
+                android:text="교육/상담"
                 android:textColor="@color/grayscale_08"
                 android:textSize="18sp" />
 
@@ -162,19 +175,7 @@
                 android:background="@drawable/category_default_background"
                 android:fontFamily="@font/npsfont_bold"
                 android:paddingBottom="4dp"
-                android:text="어학(영)"
-                android:textColor="@color/grayscale_08"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/category_japanese"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:background="@drawable/category_default_background"
-                android:fontFamily="@font/npsfont_bold"
-                android:paddingBottom="4dp"
-                android:text="어학(중/일)"
+                android:text="어학(한영일)"
                 android:textColor="@color/grayscale_08"
                 android:textSize="18sp" />
 
@@ -186,7 +187,7 @@
                 android:background="@drawable/category_default_background"
                 android:fontFamily="@font/npsfont_bold"
                 android:paddingBottom="4dp"
-                android:text="디자인"
+                android:text="환경/에너지"
                 android:textColor="@color/grayscale_08"
                 android:textSize="18sp" />
 
@@ -215,14 +216,15 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/category_it_advanced"
+                android:id="@+id/category_industry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
+                android:layout_weight="1"
                 android:background="@drawable/category_default_background"
                 android:fontFamily="@font/npsfont_bold"
                 android:paddingBottom="4dp"
-                android:text="전산/IT"
+                android:text="산업/기술"
                 android:textColor="@color/grayscale_08"
                 android:textSize="18sp" />
 
@@ -235,6 +237,19 @@
                 android:fontFamily="@font/npsfont_bold"
                 android:paddingBottom="4dp"
                 android:text="물류/유통"
+                android:textColor="@color/grayscale_08"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/category_safety"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/category_default_background"
+                android:fontFamily="@font/npsfont_bold"
+                android:paddingBottom="4dp"
+                android:text="안전/소방"
                 android:textColor="@color/grayscale_08"
                 android:textSize="18sp" />
 

@@ -44,7 +44,7 @@ class OnboardingActivity : AppCompatActivity() {
             Log.d("Onboarding", "비밀번호 찾기 버튼 클릭됨")
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
-
+*/
 
 
         // 시스템 바 패딩 적용

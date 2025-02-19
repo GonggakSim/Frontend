@@ -1,6 +1,7 @@
 package com.example.gonggaksim_frontend
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,114 +11,129 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.gonggaksim_frontend.databinding.FragmentExamScheduleBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ExamScheduleFragment : Fragment() {
 
-    private var _binding: FragmentExamScheduleBinding? = null
-    private val binding get() = _binding!!
-
-    private lateinit var adapter: ExamScheduleAdapter // 어댑터
-
-    private val examSchedules = mapOf(
-        "1월" to listOf("1일\n09:00", "2일\n10:00", "3일\n11:00", "4일\n12:00", "5일\n13:00", "6일\n14:00", "9일\n11:40", "10일\n12:50", "11일\n13:30", "12일\n14:20"),
-        "2월" to listOf("7일\n09:10", "8일\n10:10", "9일\n11:10", "10일\n12:10", "11일\n13:10", "12일\n14:10"),
-        "3월" to listOf("13일\n09:20", "14일\n10:20", "15일\n11:20", "16일\n12:20", "17일\n13:20", "18일\n14:20", "9일\n11:40", "10일\n12:50", "11일\n13:30", "12일\n14:20"),
-        "4월" to listOf("19일\n09:30", "20일\n10:30", "21일\n11:30", "22일\n12:30", "23일\n13:30", "24일\n14:30"),
-        "5월" to listOf("25일\n09:40", "26일\n10:40", "27일\n11:40", "28일\n12:40", "29일\n13:40", "30일\n14:40", "9일\n11:40", "10일\n12:50", "11일\n13:30", "12일\n14:20"),
-        "6월" to listOf("1일\n09:50", "2일\n10:50", "3일\n11:50", "4일\n12:50", "5일\n13:50", "6일\n14:50"),
-        "7월" to listOf("7일\n09:00", "8일\n10:00", "9일\n11:00", "10일\n12:00", "11일\n13:00", "12일\n14:00", "9일\n11:40", "10일\n12:50", "11일\n13:30", "12일\n14:20"),
-        "8월" to listOf("13일\n09:10", "14일\n10:10", "15일\n11:10", "16일\n12:10", "17일\n13:10", "18일\n14:10"),
-        "9월" to listOf("19일\n09:20", "20일\n10:20", "21일\n11:20", "22일\n12:20", "23일\n13:20", "24일\n14:20", "9일\n11:40", "10일\n12:50", "11일\n13:30", "12일\n14:20"),
-        "10월" to listOf("25일\n09:30", "26일\n10:30", "27일\n11:30", "28일\n12:30", "29일\n13:30", "30일\n14:30"),
-        "11월" to listOf("8일\n09:20", "8일\n10:30", "9일\n11:40", "10일\n12:50", "11일\n13:30", "12일\n14:20", "9일\n11:40", "10일\n12:50", "11일\n13:30", "12일\n14:20"),
-        "12월" to listOf("1일\n09:00", "2일\n10:00", "3일\n11:00", "4일\n12:00", "5일\n13:00", "6일\n14:00")
-    )
-
+    private var binding: FragmentExamScheduleBinding? = null
+    private lateinit var adapter: ExamScheduleAdapter
     private var currentMonth: String = "11월" // 초기 월 설정
 
+    private var scheduleService = RetrofitClient.retrofit.create(ApiService::class.java)
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentExamScheduleBinding.inflate(inflater, container, false)
+        binding = FragmentExamScheduleBinding.inflate(inflater, container, false)
+        val certificationId = arguments?.getInt("CERTIFICATION_ID") ?: -1
 
-        setupRecyclerView() // RecyclerView 설정
-        setupMonthNavigation() // 월 이동 버튼 설정
-        setupRegisterButton() // 접수하기 버튼 설정
-        setupAddToScheduleButton() // 일정 추가하기 버튼 설정
+        setupRecyclerView()
+        setupMonthNavigation(certificationId)
+        setupRegisterButton()
+        setupAddToScheduleButton()
 
-        return binding.root
+        fetchExamSchedules(certificationId, currentMonth)
+
+        return binding!!.root
     }
 
     private fun setupRecyclerView() {
-        adapter = ExamScheduleAdapter { isAnyButtonSelected ->
-            onScheduleButtonSelectionChanged(isAnyButtonSelected)
-        }
-        binding.scheduleRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
-        binding.scheduleRecyclerView.adapter = adapter
-
-        updateScheduleForMonth(currentMonth) // 초기 데이터 설정
+        adapter = ExamScheduleAdapter(::onScheduleButtonSelectionChanged)
+        binding?.scheduleRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 3)
+        binding?.scheduleRecyclerView?.adapter = adapter
     }
 
-    private fun setupMonthNavigation() {
-        binding.btnPreviousMonth.setOnClickListener {
-            val previousMonth = getPreviousMonth(currentMonth)
-            if (previousMonth != null) {
-                updateScheduleForMonth(previousMonth)
+    private fun setupMonthNavigation(certificationId: Int) {
+        binding?.btnPreviousMonth?.setOnClickListener {
+            getPreviousMonth(currentMonth)?.let { previousMonth ->
+                fetchExamSchedules(certificationId, previousMonth)
             }
         }
 
-        binding.btnNextMonth.setOnClickListener {
-            val nextMonth = getNextMonth(currentMonth)
-            if (nextMonth != null) {
-                updateScheduleForMonth(nextMonth)
+        binding?.btnNextMonth?.setOnClickListener {
+            getNextMonth(currentMonth)?.let { nextMonth ->
+                fetchExamSchedules(certificationId, nextMonth)
             }
         }
+    }
+
+    private fun fetchExamSchedules(certificationId: Int, month: String) {
+        currentMonth = month
+        binding?.currentMonth?.text = month
+        val monthItem: String
+        if (currentMonth.length == 3) {
+            monthItem = currentMonth.substring(0,2).trim()
+        }
+        else {
+            monthItem = currentMonth.substring(0,1).trim()
+        }
+
+        val call = scheduleService.getCertificationIdMonth(
+            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM",
+            provider = "",
+            certificationId = certificationId.toString(),
+            month = monthItem.toInt()
+        )
+
+        call.enqueue(object : Callback<UserResponseIdMonth> {
+            override fun onResponse(
+                call: Call<UserResponseIdMonth>, response: Response<UserResponseIdMonth>
+            ) {
+                Log.d("ExamSchedule", "조건문 앞까지 도착")
+                if (response.isSuccessful && response.body() != null) {
+                    val scheduleList = response.body()!!.dates.map { it.date }
+                    adapter.submitList(scheduleList)
+                    Log.d("ExamSchedule", "정상 작동 !")
+                } else {
+                    Log.e("ExamSchedule", "Response unsuccessful: ${response.code()}")
+                    if (!response.isSuccessful) {
+                        Log.e("ExamSchedule", "서버 연결 실패: ${response}")
+                    }
+                    adapter.submitList(emptyList())
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponseIdMonth>, t: Throwable) {
+                Log.e("ExamSchedule", "Error: ${t.message}")
+                adapter.submitList(emptyList())
+            }
+        })
     }
 
     private fun getPreviousMonth(current: String): String? {
-        val months = examSchedules.keys.toList()
-        val currentIndex = months.indexOf(current)
-        return if (currentIndex > 0) months[currentIndex - 1] else months.last()
+        val months = listOf("1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월")
+        val index = months.indexOf(current)
+        return if (index != -1) months[(index - 1 + months.size) % months.size] else null
     }
 
     private fun getNextMonth(current: String): String? {
-        val months = examSchedules.keys.toList()
-        val currentIndex = months.indexOf(current)
-        return if (currentIndex < months.size - 1) months[currentIndex + 1] else months.first()
-    }
-
-    private fun updateScheduleForMonth(month: String) {
-        currentMonth = month
-        binding.currentMonth.text = month // 현재 월 텍스트 갱신
-        val scheduleList = examSchedules[month] ?: emptyList()
-        adapter.submitList(scheduleList)
+        val months = listOf("1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월")
+        val index = months.indexOf(current)
+        return if (index != -1) months[(index + 1) % months.size] else null
     }
 
     private fun setupRegisterButton() {
-        binding.btnRegister.isEnabled = false // 기본 비활성화
-        binding.btnRegister.setOnClickListener {
-            val selectedButtonText = adapter.getSelectedButtonText()
-            if (selectedButtonText != null) {
-                showConfirmationPopup(selectedButtonText)
+        binding?.btnRegister?.isEnabled = false
+        binding?.btnRegister?.setOnClickListener {
+            adapter.getSelectedButtonText()?.let { selectedText ->
+                showConfirmationPopup(selectedText)
             }
         }
     }
 
     private fun setupAddToScheduleButton() {
-        binding.btnAddToSchedule.visibility = View.GONE
-        binding.btnAddToSchedule.setOnClickListener {
-            showAddToSchedulePopup()
-        }
+        binding?.btnAddToSchedule?.visibility = View.GONE
+        binding?.btnAddToSchedule?.setOnClickListener { showAddToSchedulePopup() }
     }
 
     private fun onScheduleButtonSelectionChanged(isAnyButtonSelected: Boolean) {
-        // 접수하기 버튼 상태 업데이트
-        binding.btnRegister.isEnabled = isAnyButtonSelected
-        binding.btnRegister.backgroundTintList = requireContext().getColorStateList(
+        binding?.btnRegister?.isEnabled = isAnyButtonSelected
+        binding?.btnRegister?.backgroundTintList = requireContext().getColorStateList(
             if (isAnyButtonSelected) R.color.main_01 else R.color.grayscale_06
         )
-        binding.btnAddToSchedule.visibility = if (isAnyButtonSelected) View.VISIBLE else View.GONE
+        binding?.btnAddToSchedule?.visibility = if (isAnyButtonSelected) View.VISIBLE else View.GONE
     }
 
     private fun showConfirmationPopup(selectedText: String) {
@@ -129,11 +145,9 @@ class ExamScheduleFragment : Fragment() {
     }
 
     private fun showAddToSchedulePopup() {
-        val dialogView = LayoutInflater.from(requireContext())
-            .inflate(R.layout.fragment_add_to_schedule_popup, null)
-
-        val btnYes = dialogView.findViewById<Button>(R.id.btn_yes)
-        val btnNo = dialogView.findViewById<Button>(R.id.btn_no)
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_add_to_schedule_popup, null)
+        val btnYes: Button = dialogView.findViewById(R.id.btn_yes)
+        val btnNo: Button = dialogView.findViewById(R.id.btn_no)
 
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
@@ -145,15 +159,13 @@ class ExamScheduleFragment : Fragment() {
             dialog.dismiss()
         }
 
-        btnNo.setOnClickListener {
-            dialog.dismiss()
-        }
+        btnNo.setOnClickListener { dialog.dismiss() }
 
         dialog.show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 }

@@ -1,5 +1,7 @@
 package com.example.gonggaksim_frontend
 
+import com.google.gson.annotations.SerializedName
+
 data class UserResponse(
     val success: Boolean, //+
     val message: String, //+
@@ -42,15 +44,16 @@ data class UserModifyData(
     val employmentStatus : String,
     val employCategory : String
 )
-data class Certification(
-    val certification_id: Int,
-    val name: String,
-    val category: String
-)
 data class UserResponseCertification(
     val success: Boolean,
     val message: String,
-    val data: Certification?
+    val data: List<Certification> // ✅ data 필드가 리스트로 들어감
+)
+
+data class Certification(
+    @SerializedName("id") val certificationId: Int,
+    val name: String,
+    val category: String
 )
 data class UserResponseDetail(
     val success: Boolean,
@@ -68,4 +71,54 @@ data class CertificationDetail(
     val passingCriteria: String,
     val fee: String,
     val announcementSchedule: String
+)
+
+data class UserResponseIdMonth(
+    val dates: List<Dates>,
+    val message: String
+)
+
+data class Dates(
+    val date: String,
+    val scheduleId: Int
+)
+
+data class UserResponseNotifications(
+    val success: Boolean,
+    val message: String
+)
+
+data class UserCalendarExamInput(
+    val success: Boolean,
+    val message: String,
+    val data: CalendarData,
+
+)
+
+data class CalendarData(
+    val id: Int,
+    val userId: Int,
+    val title: String,
+    val examStart: String,
+    val examEnd: String,
+    val remindState: Boolean,
+    val createAt: String,
+    val updateAt: String,
+)
+
+data class CalendarUsers(
+    val success: Boolean,
+    val data: List<CalendarUserData>
+)
+
+data class CalendarUserData(
+    val title: String,
+    val examStart: String,
+    val examEnd: String,
+    val remindState: Boolean,
+)
+
+data class DeleteCalendarExam(
+    val success: Boolean,
+    val message: String
 )

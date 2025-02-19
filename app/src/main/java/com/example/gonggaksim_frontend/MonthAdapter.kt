@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.Date
 
 // RecyclerView.Adapter 상속, 날짜 리스트 매개변수로 받음
-class MonthAdapter(var context: CalenderFragment, val date:ArrayList<String>):
+class MonthAdapter(var context: CalenderFragment, val date: MutableList<String>):
     RecyclerView.Adapter<MonthAdapter.MonthViewHolder>() {
         // RecyclerView의 중앙 위치 기준점
         val center = Int.MAX_VALUE/2
@@ -59,7 +59,7 @@ class MonthAdapter(var context: CalenderFragment, val date:ArrayList<String>):
         }
 
         // 일 어댑터 생성 - 현재 월, 날짜 리스트, 일정 있는 날짜 리스트 전송
-        var dayAdapter = DayAdapter(tmpMonth, dayList, DateEvent().date)
+        var dayAdapter = DayAdapter(tmpMonth, dayList, DateEventSingleton.dateEvent.date)
         // RecyclerView와 연결
         holder.layout.findViewById<RecyclerView>(R.id.fragment_calender_dayRv).apply {
             // GridLayoutManager를 사용하여 7개의 열로 된 그리드 레이아웃 설정 후 연결

@@ -4,7 +4,9 @@ import retrofit2.Call // ✅ 올바른 import 추가
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -12,17 +14,67 @@ interface ApiService {
     fun getUserMypage(
         @Header("Authorization") authToken: String,  // OAuth2 토큰 인증
         @Query("provider") provider: String  // Google, Kakao 등
-    ): Call<UserResponse>
+    ):Call<UserResponseMypage>
 
-    @GET("api/v1/users/mypage")
-    fun getUserInfo(
-        @Header("Authorization") token: String
-    ): Call<UserResponse>
+    @PATCH("api/v1/users/mypage/user-edit")
+    fun modifyProfile(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Query("provider") provider : String,  //
+        @Body request : UserModifyData
+    ):Call<UserResponseModify>
 
-    // 회원가입
-    @POST("oauth2/register")
+    @POST("/oauth2/register")
     fun signup(@Body request: SignupRequest): Call<SignupResponse>
 
     @POST("oauth2/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
+
+    @GET("api/v1/certifications")
+    fun getAllCertifies(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Query("provider") provider : String,  //
+    ):Call<UserResponseCertification>
+    @GET("api/v1/certifications/category/{category}")
+    fun getCategoryCertifies(
+        @Header("Authorization") authToken: String,
+        @Path("category") category: String,  // @Path가 @Query보다 먼저 정의되어야 함
+        @Query("provider") provider: String
+    ): Call<UserResponseCertification>
+    @GET("api/v1/certifications/{certificationId}")
+    fun getCertificationDetails(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("certificationId") certificationId : String,
+        @Query("provider") provider : String  //
+    ):Call<UserResponseDetail>
+    @GET("api/v1/certifications/{certificationId}/schedules/{month}")
+    fun getCertificationIdMonth(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("certificationId") certificationId : String,
+        @Path("month") month : Int,
+        @Query("provider") provider : String
+    ):Call<UserResponseIdMonth>
+    @POST("api/v1/certifications/{certificationId}/notifications")
+    fun getCertificationNotifications(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("certificationId") certificationId : String,
+        @Query("provider") provider : String
+    ):Call<UserResponseNotifications>
+
+
+    @GET("api/v1/calander/exams")
+    @POST("api/v1/calander/exams")
+    fun getCalendarExamInput(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("userId") userId : Int,
+        @Query("provider") provider : String
+    ):Call<UserCalendarExamInput>
+
+
+    @GET("api/v1/calander/exams/{examId}")
+    fun deleteCalendarExam(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("userId") userId : Int,
+        @Path("certificationId") certificationId : String,
+        @Query("provider") provider : String
+    ):Call<DeleteCalendarExam>
 }

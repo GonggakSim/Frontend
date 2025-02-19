@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,7 +110,12 @@ class SearchFragment : Fragment() {
 
     // 🔹 API 호출 함수
     private fun fetchSearchResults(query: String) {
-        RetrofitClient.apiService.searchCertificates(query).enqueue(object : Callback<SearchResponse> {
+        RetrofitClient.apiService.searchCertificates(
+            query,
+            query = "provider",
+            provider = "컴",
+            category = "전산"
+        ).enqueue(object : Callback<SearchResponse> {
             override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
                 if (response.isSuccessful) {
                     val body = response.body()
@@ -125,6 +131,7 @@ class SearchFragment : Fragment() {
                         showToast("검색 실패: ${body?.message}")
                     }
                 } else {
+                    Log.e("API Error", "서버 오류 발생: ${response.code()} - ${response.message()}")
                     showToast("서버 응답 오류: ${response.code()} - ${response.message()}")
                 }
             }

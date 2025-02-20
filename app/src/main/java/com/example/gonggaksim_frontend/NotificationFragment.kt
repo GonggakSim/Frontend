@@ -52,7 +52,10 @@ class NotificationFragment : Fragment() {
 
         return binding.root
     }
-
+    private fun getToken(): String? {
+        val sharedPreferences = requireActivity().getSharedPreferences("auth", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("accessToken", null)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // 메모리 누수 방지
@@ -145,7 +148,8 @@ class NotificationFragment : Fragment() {
     }
 
     private fun fetchQuizData(quizSettings: QuizSettings) {
-        val authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM" // 실제 토큰으로 대체
+        val token : String? = getToken()
+        val authToken = "Bearer ${token}" // 실제 토큰으로 대체
         val call = quizService.getQuizData(authToken, quizSettings)
 
         call.enqueue(object : Callback<UserResponseQuiz> {

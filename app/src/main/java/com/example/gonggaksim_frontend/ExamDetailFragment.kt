@@ -1,5 +1,6 @@
 package com.example.gonggaksim_frontend
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -41,6 +42,10 @@ class ExamDetailFragment : Fragment() {
         return view
     }
 
+    private fun getToken(): String? {
+        val sharedPreferences = requireActivity().getSharedPreferences("auth", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("accessToken", null)
+    }
 
     private fun openExamDivPointActivity() {
         val intent = Intent(requireContext(), ExamDivPointActivity::class.java)
@@ -65,8 +70,9 @@ class ExamDetailFragment : Fragment() {
         _binding = null
     }
     private fun fetchCertificationDetails(certificationId: Int) {
+        val token : String? = getToken()
         val call = certiService.getCertificationDetails(
-            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM",
+            authToken = "Bearer ${token}",
             provider = "",
             certificationId = certificationId.toString()
         )

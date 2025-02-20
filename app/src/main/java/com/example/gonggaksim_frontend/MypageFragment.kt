@@ -1,6 +1,7 @@
 package com.example.gonggaksim_frontend
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -32,6 +33,11 @@ class MypageFragment : Fragment() {
         return binding.root
     }
 
+    private fun getToken(): String? {
+        val sharedPreferences = requireActivity().getSharedPreferences("auth", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("accessToken", null)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,7 +58,8 @@ class MypageFragment : Fragment() {
         fetchUserData()
     }
     private fun fetchUserData() {
-        val authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM"
+        val token : String? = getToken()
+        val authToken = "Bearer ${token}"
         val provider = ""
 
         profileService.getUserMypage(authToken, provider).enqueue(object : Callback<UserResponseMypage> {

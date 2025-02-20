@@ -1,5 +1,6 @@
 package com.example.gonggaksim_frontend
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -37,6 +38,11 @@ class TestFragment : Fragment() {
         startScrollButtonAnimation()
 
         return view
+    }
+
+    private fun getToken(): String? {
+        val sharedPreferences = requireActivity().getSharedPreferences("auth", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("accessToken", null)
     }
 
     private fun setupRecyclerView() {
@@ -132,12 +138,12 @@ class TestFragment : Fragment() {
     }
 
     private fun fetchCertifications(category: String?) {
+        val token : String? = getToken()
         val call = if (category == null) {
-            certiService.getAllCertifies("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM", "")
+            certiService.getAllCertifies("Bearer ${token}", "")
         } else {
             Log.e("fetch", "선택된 카테고리 : ${category}")
-            certiService.getCategoryCertifies("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkbGF0bnFsczkyMUBkYXVtLm5ldCIsImlhdCI6MTczOTU4NzcyMCwiZXhwIjoxNzQwMTkyNTIwfQ.ECvsnse9k1a9QVkm6KJA4zS3gv9JhTGou6Q8AqCcPxM", category, "")
-
+            certiService.getCategoryCertifies("Bearer ${token}", category,"")
         }
 
         call.enqueue(object : Callback<UserResponseCertification> { // ✅ 올바른 타입

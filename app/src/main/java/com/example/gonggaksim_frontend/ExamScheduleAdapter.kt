@@ -2,7 +2,6 @@ package com.example.gonggaksim_frontend
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gonggaksim_frontend.databinding.ItemScheduleButtonBinding
 
@@ -10,18 +9,18 @@ class ExamScheduleAdapter(
     private val onSelectionChanged: (Boolean) -> Unit
 ) : RecyclerView.Adapter<ExamScheduleAdapter.ExamScheduleViewHolder>() {
 
-    private val scheduleList = mutableListOf<String>()
+    private val scheduleList = mutableListOf<Dates>()
     private var selectedPosition: Int = RecyclerView.NO_POSITION // 선택된 버튼 위치
 
-    fun submitList(data: List<String>) {
+    fun submitList(data: List<Dates>) {
         scheduleList.clear()
         scheduleList.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun getSelectedButtonText(): String? {
+    fun getSelectedScheduleId(): Int? {
         return if (selectedPosition != RecyclerView.NO_POSITION) {
-            scheduleList[selectedPosition]
+            scheduleList[selectedPosition].scheduleId
         } else {
             null
         }
@@ -43,8 +42,8 @@ class ExamScheduleAdapter(
     inner class ExamScheduleViewHolder(private val binding: ItemScheduleButtonBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(schedule: String, position: Int) {
-            binding.scheduleButton.text = schedule
+        fun bind(schedule: Dates, position: Int) {
+            binding.scheduleButton.text = schedule.date
 
             // 버튼 선택 상태 설정
             binding.scheduleButton.isSelected = position == selectedPosition
@@ -64,7 +63,7 @@ class ExamScheduleAdapter(
                     // 동일한 버튼 클릭 시 선택 해제
                     selectedPosition = RecyclerView.NO_POSITION
                     notifyItemChanged(position)
-                    onSelectionChanged(false) //일정 추가하기 버튼 숨김
+                    onSelectionChanged(false) // 일정 추가하기 버튼 숨김
                 } else {
                     // 이전 선택된 버튼 초기화
                     val previousPosition = selectedPosition
@@ -75,9 +74,10 @@ class ExamScheduleAdapter(
 
                     // 새로 선택된 버튼 갱신
                     notifyItemChanged(selectedPosition)
-                    onSelectionChanged(true) //일정 추가하기 버튼 보이기
+                    onSelectionChanged(true) // 일정 추가하기 버튼 보이기
                 }
             }
         }
     }
 }
+

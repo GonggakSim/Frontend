@@ -82,10 +82,29 @@ data class Dates(
     val date: String,
     val scheduleId: Int
 )
+data class UserRequestNotifications(
+    val scheduleId: Int,
+    val userId: Int
+)
 
 data class UserResponseNotifications(
     val success: Boolean,
-    val message: String
+    val message: String,
+    val data: DataNoti,
+)
+
+data class DataNoti(
+    val id: Int,
+    val scheduleId: Int,
+    val alramState: Boolean,
+    val createAt: String,
+    val updateAt: String
+)
+
+data class UserResponseScaduleCheck(
+    val success: Boolean,
+    val message: String,
+    val examLink: String,
 )
 
 data class UserCalendarExamInput(

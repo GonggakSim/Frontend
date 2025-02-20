@@ -113,7 +113,7 @@ class SearchFragment : Fragment() {
     private fun fetchSearchResults(query: String) {
         Log.d("SearchFragment", "fetchSearchResults 도착 ${query}")
         RetrofitClient.apiService.searchCertificates(
-            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImVtYWlsIjoiZGxhdG5xbHM5MjFAZGF1bS5uZXQiLCJpYXQiOjE3Mzk5NzA5MTgsImV4cCI6MTc0MDU3NTcxOH0.4g_UwVYhT4Uj-tfmnVnEu8fVLS7mzf5cHtlyHnUXU2I",
+            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDgsImVtYWlsIjoiZ2dzQGV4bWFwbGUuY29tIiwiaWF0IjoxNzQwMDYwMTA3LCJleHAiOjE3NDA2NjQ5MDd9.5yk8Bbe8oZLNir3epeMoF5F4FfIfD64iQhe9UGD57kI",
             provider = "",
             query = query,
             category = "",

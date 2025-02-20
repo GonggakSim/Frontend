@@ -1,5 +1,4 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -19,48 +18,44 @@
         android:scaleType="centerCrop"
         android:src="@drawable/backbtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="58dp"
-        android:textSize="18dp"
-        android:text="푸시 알림 수신 동의서"
         android:fontFamily="@font/npsfont_regular"
+        android:text="푸시 알림 수신 동의서"
         android:textColor="@color/black"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
         android:layout_marginTop="23dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toTopOf="@id/agreeButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView5"
-        app:layout_constraintBottom_toTopOf="@id/agreeButton">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView5">
 
         <TextView
             android:id="@+id/pushNotificationText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/black"
+            android:breakStrategy="simple"
             android:fontFamily="@font/npsfont_regular"
+            android:gravity="start|top"
+            android:includeFontPadding="false"
             android:lineSpacingExtra="5dp"
             android:padding="0dp"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:gravity="start|top"
-            android:textAlignment="viewStart"
-            android:includeFontPadding="false"
-            android:breakStrategy="simple"
-            android:textDirection="ltr"
             android:text="푸시 알림 수신 동의서\n\n
 1. 푸시 알림의 목적\n
 GGS은 회원에게 보다 원활한 서비스 제공을 위해 아래와 같은 목적으로 푸시 알림을 발송합니다.\n\n
@@ -79,7 +74,10 @@ GGS은 회원에게 보다 원활한 서비스 제공을 위해 아래와 같은
 회원은 푸시 알림 수신 동의를 거부할 수 있으며, 다만 동의하지 않을 경우 일부 맞춤형 알림을 제공받지 못할 수 있습니다.\n\n
 본 동의서에 동의함으로써, 회원은 회사가 제공하는 푸시 알림을 수신하는 것에 동의하게 됩니다.\n\n
 [부칙] 본 동의서는 2025년 02월 21일부터 시행됩니다."
-            />
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textDirection="ltr"
+            android:textSize="14sp" />
     </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -94,5 +92,5 @@ GGS은 회원에게 보다 원활한 서비스 제공을 위해 아래와 같은
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

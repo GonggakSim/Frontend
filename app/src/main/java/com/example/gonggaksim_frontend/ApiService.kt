@@ -29,6 +29,13 @@ interface ApiService {
     @POST("/oauth2/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
+    @POST("oauth2/consent")
+    fun agreeToTerms(
+        @Header("Authorization") accessToken: String,
+        @Query("provider") provider: String?, //  일반 로그인은 null 가능
+        @Body request: TermsAgreementRequest
+    ): Call<TermsAgreementResponse>
+
     @GET("api/v1/certifications")
     fun getAllCertifies(
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
@@ -47,6 +54,39 @@ interface ApiService {
         @Query("provider") provider : String  //
 
     ):Call<UserResponseDetail>
+
+    @GET("api/v1/certifications/{certificationId}/schedules/{month}")
+    fun getCertificationIdMonth(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("certificationId") certificationId : String,
+        @Path("month") month : Int,
+        @Query("provider") provider : String
+    ):Call<UserResponseIdMonth>
+    @POST("api/v1/certifications/{certificationId}/notifications")
+    fun getCertificationNotifications(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("certificationId") certificationId : String,
+        @Query("provider") provider : String
+    ):Call<UserResponseNotifications>
+
+
+    @GET("api/v1/calander/exams")
+    @POST("api/v1/calander/exams")
+    fun getCalendarExamInput(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("userId") userId : Int,
+        @Query("provider") provider : String
+    ):Call<UserCalendarExamInput>
+
+
+    @GET("api/v1/calander/exams/{examId}")
+    fun deleteCalendarExam(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("userId") userId : Int,
+        @Path("certificationId") certificationId : String,
+        @Query("provider") provider : String
+    ):Call<DeleteCalendarExam>
+
     @POST("api/v1/quiz")
     fun getQuizData(
         @Header("Authorization") authToken: String,

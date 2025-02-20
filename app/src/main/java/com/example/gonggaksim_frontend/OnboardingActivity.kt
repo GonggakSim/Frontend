@@ -22,8 +22,6 @@ class OnboardingActivity : AppCompatActivity() {
         // 이메일 로그인 버튼
         val loginButton = findViewById<MaterialCardView>(R.id.old_user_btn)
 
-        /* 회원가입&로그인 부분 주석 처리
-
         // 회원가입 버튼
         val signupButton = findViewById<MaterialCardView>(R.id.new_user_btn)
         // 비밀번호 찾기 버튼
@@ -47,7 +45,7 @@ class OnboardingActivity : AppCompatActivity() {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
 
-        */
+
 
         // 시스템 바 패딩 적용
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -69,12 +67,12 @@ class OnboardingActivity : AppCompatActivity() {
         }
 
         // QA 테스트용 - 로그인 버튼 클릭 시 TestFragment로 이동
-        loginButton.setOnClickListener {
-            Log.d("Onboarding", "QA 테스트: 로그인 버튼 클릭 시 TestFragment로 이동")
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        loginButton.setOnClickListener {
+//            Log.d("Onboarding", "QA 테스트: 로그인 버튼 클릭 시 TestFragment로 이동")
+//
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
     }
 }

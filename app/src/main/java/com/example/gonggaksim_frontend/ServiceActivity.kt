@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -15,11 +16,17 @@ class ServiceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_service)
 
         val backButton = findViewById<ImageButton>(R.id.backBtn)
+        val agreeButton = findViewById<AppCompatButton>(R.id.agreeButton) // 수정된 부분
 
-        val PreviousScreen = Intent(this,TermsActivity::class.java)
+        backButton.setOnClickListener {
+            finish()
+        }
 
-        backButton.setOnClickListener{
-            startActivity(PreviousScreen)
+        // "동의" 버튼 클릭 시 결과 전달 - 수정된 부분
+        agreeButton.setOnClickListener {
+            val resultIntent = Intent()
+            resultIntent.putExtra("AGREE_TERMS", true) // 이용약관 동의 체크 전달
+            setResult(RESULT_OK, resultIntent)
             finish()
         }
 

@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.gonggaksim_frontend.databinding.FragmentCalenderBinding
@@ -50,7 +49,7 @@ class CalenderFragment : Fragment() {
     fun initCalendar(){
 
         // date 값 주고 MonthAdpater 생성
-        monthAdapter = MonthAdapter(this, DateEvent().date)
+        monthAdapter = MonthAdapter(this, DateEventSingleton.dateEvent.date)
         // RecyclerView로 캘린더 사용, 수평 스크롤 되는 레이아웃 메니저 적용
         // .apply를 사용하여 여러 설정을 체이닝 가능
         binding.customCalendar.apply {

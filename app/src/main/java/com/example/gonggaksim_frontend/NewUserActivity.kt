@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
@@ -21,6 +22,13 @@ class NewUserActivity : AppCompatActivity() {
         val emailInput = findViewById<EditText>(R.id.new_email)
         val passwordInput = findViewById<EditText>(R.id.new_password)
         val signupButton = findViewById<Button>(R.id.nextButton)
+        val backButton = findViewById<ImageView>(R.id.new_user_back_btn)
+
+        // 뒤로가기 버튼 클릭 이벤트 추가
+        backButton.setOnClickListener {
+            Log.d("NewUserActivity", "뒤로가기 버튼 클릭됨")
+            finish()
+        }
 
         // 회원가입 버튼 클릭 이벤트
         signupButton.setOnClickListener {
@@ -81,7 +89,7 @@ class NewUserActivity : AppCompatActivity() {
 
     private fun navigateToMain() {
         Log.d("Signup", "메인 화면으로 이동")
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, TermsActivity::class.java))
         finish()
     }
 }

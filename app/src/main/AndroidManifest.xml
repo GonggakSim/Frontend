@@ -97,6 +97,9 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
+            android:name=".ExamActivity"
+            android:exported="false" />
+        <activity
             android:name=".ExamDivPointActivity"
             android:exported="false" />
         <activity

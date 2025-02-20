@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".PushNotificationActivity">
-
 
     <ImageButton
         android:id="@+id/backBtn"
@@ -21,40 +18,70 @@
         android:scaleType="centerCrop"
         android:src="@drawable/backbtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageButton>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="58dp"
-        android:textSize="18dp"
-        android:text="푸시 알림 수신"
         android:fontFamily="@font/npsfont_regular"
+        android:text="푸시 알림 수신 동의서"
         android:textColor="@color/black"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </TextView>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="543dp"
-        android:layout_marginStart="16dp"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="23dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/longsentence"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toTopOf="@id/agreeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5">
+        app:layout_constraintTop_toBottomOf="@id/textView5">
 
-    </ImageView>
-
+        <TextView
+            android:id="@+id/pushNotificationText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:breakStrategy="simple"
+            android:fontFamily="@font/npsfont_regular"
+            android:gravity="start|top"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="5dp"
+            android:padding="0dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="푸시 알림 수신 동의서\n\n
+1. 푸시 알림의 목적\n
+GGS은 회원에게 보다 원활한 서비스 제공을 위해 아래와 같은 목적으로 푸시 알림을 발송합니다.\n\n
+ • 자격증 관련 정보 및 시험 일정 알림\n
+ • 맞춤형 퀴즈 및 학습 리마인더 알림\n
+ • 서비스 업데이트 및 공지사항 전달\n
+ • 이벤트, 프로모션 및 혜택 안내\n
+ • 고객 문의 및 서비스 이용 관련 알림\n\n
+2. 수신 동의 및 철회\n
+ 1. 회원은 서비스 이용 과정에서 푸시 알림 수신에 동의할 수 있으며, 동의한 경우 관련 정보를 받을 수 있습니다.\n
+ 2. 회원은 언제든지 앱 설정에서 푸시 알림 수신 여부를 변경할 수 있습니다.\n
+ 3. 푸시 알림 수신을 거부할 경우 일부 맞춤형 서비스 이용에 제한이 있을 수 있습니다.\n\n
+3. 개인정보 보호\n
+회사는 푸시 알림 발송과 관련하여 회원의 개인정보를 안전하게 보호하며, 관련 법령 및 회사의 개인정보 처리방침을 준수합니다.\n\n
+4. 동의 거부 권리 및 불이익 안내\n
+회원은 푸시 알림 수신 동의를 거부할 수 있으며, 다만 동의하지 않을 경우 일부 맞춤형 알림을 제공받지 못할 수 있습니다.\n\n
+본 동의서에 동의함으로써, 회원은 회사가 제공하는 푸시 알림을 수신하는 것에 동의하게 됩니다.\n\n
+[부칙] 본 동의서는 2025년 02월 21일부터 시행됩니다."
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textDirection="ltr"
+            android:textSize="14sp" />
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/agreeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -65,5 +92,5 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

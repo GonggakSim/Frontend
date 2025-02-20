@@ -2,6 +2,7 @@ package com.example.gonggaksim_frontend
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class ExamDetailFragment : Fragment() {
         _binding = FragmentExamDetailBinding.inflate(inflater, container, false)
         val view = binding.root
         val certificationId = arguments?.getInt("CERTIFICATION_ID") ?: -1
+        Log.d("SearchFragment", "제대로 수신 $certificationId")
         fetchCertificationDetails(certificationId)
 
         // "시험일정 추천받기" 버튼 클릭 이벤트 추가
@@ -33,7 +35,7 @@ class ExamDetailFragment : Fragment() {
 
         // "시험일정 확인하기" 버튼 클릭 이벤트 추가
         binding.btnCheckSchedule.setOnClickListener {
-            openExamScheduleFragment()
+            openExamScheduleFragment(certificationId)
         }
 
         return view
@@ -45,9 +47,15 @@ class ExamDetailFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun openExamScheduleFragment() {
+    private fun openExamScheduleFragment(certificationId: Int) {
+        val bundle = Bundle()
+        bundle.putInt("CERTIFICATION_ID", certificationId)
+
+        val examScheduleFragment = ExamScheduleFragment()
+        examScheduleFragment.arguments = bundle
+
         val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.main_container, ExamScheduleFragment())
+        transaction.replace(R.id.main_container, examScheduleFragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
@@ -69,6 +77,7 @@ class ExamDetailFragment : Fragment() {
                     val detailResponse = response.body()
                     if (detailResponse?.success == true) {
                         updateCertificationDetailUI(detailResponse.data)
+                        binding.examName.text = detailResponse.data?.name ?: ""
                     } else {
                         Toast.makeText(context, detailResponse?.message ?: "상세 정보 조회 실패", Toast.LENGTH_SHORT).show()
                     }

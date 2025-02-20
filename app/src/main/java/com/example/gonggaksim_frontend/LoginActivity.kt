@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,13 @@ class LoginActivity : AppCompatActivity() {
         val passwordInput = findViewById<EditText>(R.id.new_password)
         val loginButton = findViewById<Button>(R.id.nextButton)
         val forgotPasswordButton = findViewById<TextView>(R.id.forgottenbtn)
+        val backButton = findViewById<ImageView>(R.id.new_user_back_btn)
+
+        // 뒤로가기 버튼 클릭 이벤트 추가
+        backButton.setOnClickListener {
+            Log.d("LoginActivity", "뒤로가기 버튼 클릭됨")
+            finish()
+        }
 
         // 로그인 버튼 클릭 이벤트
         loginButton.setOnClickListener {

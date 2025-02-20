@@ -17,7 +17,11 @@ import retrofit2.Response
 
 class ExamScheduleFragment : Fragment() {
 
-    private var binding: FragmentExamScheduleBinding? = null
+
+    private var _binding: FragmentExamScheduleBinding? = null
+    private val binding get() = _binding!!
+
+    //private var binding: FragmentExamScheduleBinding? = null
     private lateinit var adapter: ExamScheduleAdapter
     private var currentMonth: String = "11월" // 초기 월 설정
 
@@ -26,7 +30,7 @@ class ExamScheduleFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentExamScheduleBinding.inflate(inflater, container, false)
+        _binding = FragmentExamScheduleBinding.inflate(inflater, container, false)
         val certificationId = arguments?.getInt("CERTIFICATION_ID") ?: -1
 
         setupRecyclerView()
@@ -114,13 +118,46 @@ class ExamScheduleFragment : Fragment() {
         return if (index != -1) months[(index + 1) % months.size] else null
     }
 
-    private fun setupRegisterButton() {
+/*    private fun setupRegisterButton() {
         binding?.btnRegister?.isEnabled = false
         binding?.btnRegister?.setOnClickListener {
             adapter.getSelectedButtonText()?.let { selectedText ->
                 showConfirmationPopup(selectedText)
             }
         }
+    }*/
+
+    private fun setupRegisterButton() {
+        binding.btnRegister.isEnabled = false // 기본 비활성화
+
+        binding.btnRegister.setOnClickListener {
+            val certificationId = adapter.getSelectedButtonText() // 선택된 값 가져오기
+            if (certificationId != null) {
+                showConfirmationPopup(certificationId)
+                applyForExam(certificationId) // 시험 접수 API 호출
+            } else {
+                Toast.makeText(binding.root.context, "시험을 선택해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    private fun applyForExam(certificationId: String) {
+        val provider = "provider"
+
+        RetrofitClient.api.registerExam(certificationId, provider).enqueue(object : retrofit2.Callback<ExamResponse> {
+            override fun onResponse(call: Call<ExamResponse>, response: Response<ExamResponse>) {
+                if (response.isSuccessful && response.body()?.success == true) {
+                    Toast.makeText(binding.root.context, "시험 접수 성공!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(binding.root.context, "시험 접수 실패: ${response.body()?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ExamResponse>, t: Throwable) {
+                Toast.makeText(binding.root.context, "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun setupAddToScheduleButton() {
@@ -166,6 +203,6 @@ class ExamScheduleFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 }

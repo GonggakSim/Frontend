@@ -23,11 +23,18 @@ interface ApiService {
         @Body request : UserModifyData
     ):Call<UserResponseModify>
 
-    @POST("/oauth2/register")
+    @POST("oauth2/register")
     fun signup(@Body request: SignupRequest): Call<SignupResponse>
 
     @POST("oauth2/login")
     fun login(@Body request: LoginRequest): Call<LoginResponse>
+
+    @POST("oauth2/consent")
+    fun agreeToTerms(
+        @Header("Authorization") accessToken: String,
+        @Query("provider") provider: String?, //  일반 로그인은 null 가능
+        @Body request: TermsAgreementRequest
+    ): Call<TermsAgreementResponse>
 
     @GET("api/v1/certifications")
     fun getAllCertifies(

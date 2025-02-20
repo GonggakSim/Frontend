@@ -54,34 +54,54 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 Log.d("LoginActivity", "서버 응답 코드: ${response.code()}")
 
-                response.body()?.let { loginResponse ->
-                    Log.d("LoginActivity", "서버 응답 바디: $loginResponse") // 응답 데이터 전체 출력
+                if (response.isSuccessful) {
+                    response.body()?.let { loginResponse ->
+                        Log.d("LoginActivity", "서버 응답 바디: $loginResponse") // 응답 데이터 전체 출력
 
-                    if (loginResponse.success) {
-                        val token = loginResponse.masseage?.token
-                        if (token != null) {
-                            Log.d("LoginActivity", "로그인 성공! 받은 토큰: $token")
-                            saveToken(token)
-                            navigateToMain()
+                        if (loginResponse.success) {
+                            val token = loginResponse.message?.token
+                            if (token != null) {
+                                Log.d("LoginActivity", "로그인 성공! 받은 토큰: $token")
+                                saveToken(token)
+                                navigateToMain()
+                            } else {
+                                Log.w("LoginActivity", "로그인 성공했지만 토큰이 없음")
+                                Toast.makeText(applicationContext, "로그인 실패: 토큰이 없습니다.", Toast.LENGTH_SHORT).show()
+                            }
                         } else {
-                            Log.w("LoginActivity", "로그인 성공했지만 토큰이 없음")
-                            Toast.makeText(applicationContext, "로그인 실패: 토큰이 없습니다.", Toast.LENGTH_SHORT).show()
+                            Log.w("LoginActivity", "로그인 실패 - 서버 응답 실패")
+                            Toast.makeText(applicationContext, "로그인 실패", Toast.LENGTH_SHORT).show()
+                            showLoginFailureMessage()
                         }
-                    } else {
-                        Log.w("LoginActivity", "로그인 실패 - 서버 응답 실패: ${response.errorBody()?.string()}")
-                        Toast.makeText(applicationContext, "로그인 실패", Toast.LENGTH_SHORT).show()
                     }
-                } ?: run {
-                    Log.e("LoginActivity", "서버 응답이 null입니다.")
-                    Toast.makeText(applicationContext, "서버 오류 발생", Toast.LENGTH_SHORT).show()
+                } else {
+                    // 서버 응답이 실패했을 때 errorBody를 사용하여 메시지를 추출
+                    val errorMessage = response.errorBody()?.string()
+                    Log.e("LoginActivity", "로그인 실패 - 응답 코드: ${response.code()}, 오류 내용: $errorMessage")
+
+                    if (response.code() == 401) { // 401 Unauthorized (잘못된 비밀번호)
+                        Toast.makeText(applicationContext, "비밀번호가 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+                        showLoginFailureMessage()
+                    } else {
+                        Toast.makeText(applicationContext, "로그인 실패", Toast.LENGTH_SHORT).show()
+                        showLoginFailureMessage()
+                    }
                 }
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Log.e("LoginActivity", "네트워크 오류 발생 - ${t.message}")
                 Toast.makeText(applicationContext, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
+                showLoginFailureMessage()
             }
         })
+    }
+
+    private fun showLoginFailureMessage() {
+        runOnUiThread {
+            Toast.makeText(applicationContext, "비밀번호가 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+            Log.w("LoginActivity", "로그인 실패: 비밀번호 오류")
+        }
     }
 
 

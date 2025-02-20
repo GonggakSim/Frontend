@@ -81,7 +81,7 @@ class NewUserActivity : AppCompatActivity() {
 
     private fun navigateToMain() {
         Log.d("Signup", "메인 화면으로 이동")
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, TermsActivity::class.java))
         finish()
     }
 }

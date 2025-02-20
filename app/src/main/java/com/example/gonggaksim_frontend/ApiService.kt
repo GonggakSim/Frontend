@@ -1,6 +1,6 @@
 package com.example.gonggaksim_frontend
 
-import retrofit2.Call // ✅ 올바른 import 추가
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header

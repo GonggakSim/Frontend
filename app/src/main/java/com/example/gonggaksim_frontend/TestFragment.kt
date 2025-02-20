@@ -147,7 +147,6 @@ class TestFragment : Fragment() {
                     val certifications = userResponse?.data ?: emptyList() // ✅ data 필드에서 리스트 가져오기
                     Log.d("API Response", "받은 자격증 데이터 개수: ${certifications.size}")
                     Log.d("API Response", "받은 자격증 데이터 : ${certifications}")
-
                     updateMainRecyclerView(certifications)
                 } else {
                     Log.e("API Response", "HTTP 응답 실패: ${response.code()}")

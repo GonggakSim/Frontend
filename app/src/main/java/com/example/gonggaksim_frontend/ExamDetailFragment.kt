@@ -77,6 +77,7 @@ class ExamDetailFragment : Fragment() {
                     val detailResponse = response.body()
                     if (detailResponse?.success == true) {
                         updateCertificationDetailUI(detailResponse.data)
+                        binding.examName.text = detailResponse.data?.name ?: ""
                     } else {
                         Toast.makeText(context, detailResponse?.message ?: "상세 정보 조회 실패", Toast.LENGTH_SHORT).show()
                     }

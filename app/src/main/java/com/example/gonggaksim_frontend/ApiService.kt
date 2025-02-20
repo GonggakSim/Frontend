@@ -1,6 +1,6 @@
 package com.example.gonggaksim_frontend
 
-import retrofit2.Call // ✅ 올바른 import 추가
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -22,6 +22,13 @@ interface ApiService {
         @Query("provider") provider : String,  //
         @Body request : UserModifyData
     ):Call<UserResponseModify>
+
+    @POST("v1/users/user-info")
+    fun updateUserInfo(
+        @Header("Authorization") token: String, // 액세스 토큰 인증
+        @Query("provider") provider: String?,  // OAuth 제공자
+        @Body userInfo: UserInfoRequest         // 사용자 정보 데이터
+    ): Call<UserInfoResponse>
 
     @POST("oauth2/register")
     fun signup(@Body request: SignupRequest): Call<SignupResponse>

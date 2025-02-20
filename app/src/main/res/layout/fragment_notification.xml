@@ -159,6 +159,7 @@
             android:buttonTint="@color/blue"
             android:fontFamily="@font/npsfont_regular"
             android:text="알림만"
+            app:buttonIconTint="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/quizSelDuplicate3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/checkDictate" />
@@ -171,6 +172,7 @@
             android:buttonTint="@color/blue"
             android:fontFamily="@font/npsfont_regular"
             android:text="받아적기"
+            app:buttonIconTint="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/checkAlertOnly"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkOX" />
@@ -184,6 +186,7 @@
             android:buttonTint="@color/blue"
             android:fontFamily="@font/npsfont_regular"
             android:text="기출문제"
+            app:buttonIconTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/checkOX"
             app:layout_constraintTop_toBottomOf="@+id/quizSelDuplicate2" />
@@ -197,6 +200,7 @@
             android:buttonTint="@color/blue"
             android:fontFamily="@font/npsfont_regular"
             android:text="OX"
+            app:buttonIconTint="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/checkMulti"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quizSelDuplicate2" />
@@ -272,11 +276,11 @@
 
         <Button
             android:id="@+id/saveBtn"
-            android:layout_width="356dp"
+            android:layout_width="0dp"
             android:layout_height="55dp"
-            android:layout_marginStart="27dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="91dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="103dp"
             android:backgroundTint="#6996F2"
             android:fontFamily="@font/npsfont_regular"
@@ -333,16 +337,6 @@
                 tools:textAppearance="@style/CustomChipTextAppearance" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip11"
-                style="@style/CustomChipStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/npsfont_regular"
-                android:text="HSK"
-                android:textAppearance="@style/CustomChipTextAppearance"
-                tools:textAppearance="@style/CustomChipTextAppearance" />
-
-            <com.google.android.material.chip.Chip
                 android:id="@+id/chip12"
                 style="@style/CustomChipStyle"
                 android:layout_width="wrap_content"
@@ -357,18 +351,32 @@
             android:id="@+id/makeQuizBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="136dp"
+            android:layout_marginStart="57dp"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="141dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="18dp"
             android:backgroundTint="@color/blue"
             android:fontFamily="@font/npsfont_regular"
             android:text="퀴즈 알림 생성"
             app:layout_constraintBottom_toTopOf="@+id/saveBtn"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/makeQuizBtn2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroupSubject"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupSubject" />
+
+        <Button
+            android:id="@+id/makeQuizBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="144dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="@font/npsfont_regular"
+            android:text="일반 알림 생성"
+            app:layout_constraintBottom_toTopOf="@+id/saveBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/makeQuizBtn"
+            app:layout_constraintTop_toBottomOf="@+id/checkAlertOnly" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -46,8 +46,10 @@ class NotificationFragment : Fragment() {
             val quizSettings = collectQuizSettings()
             Log.d("quizset", quizSettings.toString())
             fetchQuizData(quizSettings)
+        }
 
-
+        binding.makeQuizBtn2.setOnClickListener{
+            showOnlyNotiDialog(requireContext())
         }
 
         return binding.root
@@ -79,6 +81,12 @@ class NotificationFragment : Fragment() {
     fun showOXDialog(context: Context, quizData: QuizData) {
         val dialog = OxDialog(context)
         dialog.setQuizData(quizData)
+        dialog.show()
+    }
+
+    fun showOnlyNotiDialog(context: Context)
+    {
+        val dialog = NotiOnlyDialog(context)
         dialog.show()
     }
 

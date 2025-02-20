@@ -76,10 +76,12 @@ class TestFragment : Fragment() {
                 )// certification_id 전달
             }
         }
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .addToBackStack(null)
-            .commit()
+        requireActivity().runOnUiThread {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.main_container, fragment)
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
+        }
     }
 
     private fun setupInputExamButton() {

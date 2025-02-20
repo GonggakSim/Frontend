@@ -14,6 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.reflect.typeOf
 
 class ExamScheduleFragment : Fragment() {
 
@@ -21,6 +22,7 @@ class ExamScheduleFragment : Fragment() {
     private var _binding: FragmentExamScheduleBinding? = null
     private val binding get() = _binding!!
 
+    private var certificationName: String = ""
     //private var binding: FragmentExamScheduleBinding? = null
     private lateinit var adapter: ExamScheduleAdapter
     private var currentMonth: String = "11월" // 초기 월 설정
@@ -32,6 +34,9 @@ class ExamScheduleFragment : Fragment() {
     ): View {
         _binding = FragmentExamScheduleBinding.inflate(inflater, container, false)
         val certificationId = arguments?.getInt("CERTIFICATION_ID") ?: -1
+        Log.d("ExamSchedule", "제대로 받아오고 있지? ${certificationId}")
+
+        certificationName = arguments?.getString("CERTIFICATION_NAME") ?: ""
 
         setupRecyclerView()
         setupMonthNavigation(certificationId)
@@ -89,6 +94,7 @@ class ExamScheduleFragment : Fragment() {
                 if (response.isSuccessful && response.body() != null) {
                     val scheduleList = response.body()!!.dates.map { it.date }
                     adapter.submitList(scheduleList)
+                    binding.examName.text = certificationName
                     Log.d("ExamSchedule", "정상 작동 !")
                 } else {
                     Log.e("ExamSchedule", "Response unsuccessful: ${response.code()}")

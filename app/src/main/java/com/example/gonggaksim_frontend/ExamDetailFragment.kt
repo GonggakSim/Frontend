@@ -15,18 +15,23 @@ import retrofit2.Response
 
 class ExamDetailFragment : Fragment() {
 
-    private var _binding: FragmentExamDetailBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentExamDetailBinding
+//    private val binding get() = _binding!!
     private val certiService = RetrofitClient.retrofit.create(ApiService::class.java)
+
+    private lateinit var certificationName: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentExamDetailBinding.inflate(inflater, container, false)
+        binding = FragmentExamDetailBinding.inflate(inflater, container, false)
         val view = binding.root
         val certificationId = arguments?.getInt("CERTIFICATION_ID") ?: -1
         Log.d("SearchFragment", "제대로 수신 $certificationId")
+        Log.d("ExamDetail", "제대로 수신 $certificationId")
         fetchCertificationDetails(certificationId)
+        certificationName = ""
 
         // "시험일정 추천받기" 버튼 클릭 이벤트 추가
         binding.btnExamSuggestion.setOnClickListener {
@@ -35,7 +40,7 @@ class ExamDetailFragment : Fragment() {
 
         // "시험일정 확인하기" 버튼 클릭 이벤트 추가
         binding.btnCheckSchedule.setOnClickListener {
-            openExamScheduleFragment(certificationId)
+            openExamScheduleFragment(certificationId, certificationName)
         }
 
         return view
@@ -47,13 +52,17 @@ class ExamDetailFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun openExamScheduleFragment(certificationId: Int) {
+    private fun openExamScheduleFragment(certificationId: Int, certificationName: String) {
         val bundle = Bundle()
         bundle.putInt("CERTIFICATION_ID", certificationId)
 
-        val examScheduleFragment = ExamScheduleFragment()
-        examScheduleFragment.arguments = bundle
 
+        val examScheduleFragment = ExamScheduleFragment().apply {
+            arguments = Bundle().apply {
+                putInt("CERTIFICATION_ID", certificationId)
+                putString("CERTIFICATION_NAME", certificationName)
+            }
+        }
         val transaction = parentFragmentManager.beginTransaction()
         transaction.replace(R.id.main_container, examScheduleFragment)
         transaction.addToBackStack(null)
@@ -62,7 +71,7 @@ class ExamDetailFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding
     }
     private fun fetchCertificationDetails(certificationId: Int) {
         val call = certiService.getCertificationDetails(
@@ -77,7 +86,7 @@ class ExamDetailFragment : Fragment() {
                     val detailResponse = response.body()
                     if (detailResponse?.success == true) {
                         updateCertificationDetailUI(detailResponse.data)
-                        binding.examName.text = detailResponse.data?.name ?: ""
+                        certificationName = detailResponse.data?.name ?: ""
                     } else {
                         Toast.makeText(context, detailResponse?.message ?: "상세 정보 조회 실패", Toast.LENGTH_SHORT).show()
                     }
@@ -95,6 +104,7 @@ class ExamDetailFragment : Fragment() {
         detail?.let {
             binding.examCategory.text = it.category
             binding.examName.text = it.name
+            Log.d("ExamDetail", "${it.name}")
             binding.examQualification.text = it.eligibility
             binding.examSubjects.text = it.subjects
             binding.examQuestionFormat.text = it.examFormat

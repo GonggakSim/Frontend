@@ -2,6 +2,7 @@ package com.example.gonggaksim_frontend
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class ExamDetailFragment : Fragment() {
         _binding = FragmentExamDetailBinding.inflate(inflater, container, false)
         val view = binding.root
         val certificationId = arguments?.getInt("CERTIFICATION_ID") ?: -1
+        Log.d("SearchFragment", "제대로 수신 $certificationId")
         fetchCertificationDetails(certificationId)
 
         // "시험일정 추천받기" 버튼 클릭 이벤트 추가

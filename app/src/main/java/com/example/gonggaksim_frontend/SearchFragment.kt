@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsAnimation
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
@@ -35,6 +33,7 @@ class SearchFragment : Fragment() {
     private lateinit var autoCompleteRecyclerView: RecyclerView
     private lateinit var clearAllButton: TextView
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var dataId: String
 
     private val recentSearches = mutableListOf<String>()
     private val searchSuggestions = mutableListOf<String>()
@@ -44,6 +43,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_search, container, false)
+        dataId = "-1"
 
         // View 초기화
         searchBar = view.findViewById(R.id.search_bar)
@@ -62,7 +62,7 @@ class SearchFragment : Fragment() {
         autoCompleteRecyclerView.adapter = AutoCompleteAdapter(searchSuggestions) { query ->
             saveRecentSearch(query)
             showToast("검색 결과: $query")
-            navigateToExamDetailFragment(query)
+            navigateToExamDetailFragment(dataId)
         }
 
         // 검색창 이벤트 설정
@@ -110,17 +110,27 @@ class SearchFragment : Fragment() {
 
     // 🔹 API 호출 함수
     private fun fetchSearchResults(query: String) {
+        Log.d("SearchFragment", "fetchSearchResults 도착 ${query}")
         RetrofitClient.apiService.searchCertificates(
-            query,
-            query = "provider",
-            provider = "컴",
-            category = "전산"
+            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImVtYWlsIjoiZGxhdG5xbHM5MjFAZGF1bS5uZXQiLCJpYXQiOjE3Mzk5NzA5MTgsImV4cCI6MTc0MDU3NTcxOH0.4g_UwVYhT4Uj-tfmnVnEu8fVLS7mzf5cHtlyHnUXU2I",
+            provider = "",
+            query = query,
+            category = "",
         ).enqueue(object : Callback<SearchResponse> {
             override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
+                Log.d("SearchFragment", "fetchSearch 함수는 작동함")
                 if (response.isSuccessful) {
+                    Log.d("SearchFragment", "서버 통신 성공")
                     val body = response.body()
                     if (body != null && body.success) {
+                        Log.d("SearchFragment", "응답 바디 있음 ${body.data}")
                         val results = body.data
+                        for(i in results) {
+                            Log.d("SearchFragment", "id 제대로 저장 ${i.name} ${query}")
+                            if(i.name == query) {
+                                dataId = i.id.toString()
+                            }
+                        }
 
                         // RecyclerView 업데이트
                         searchSuggestions.clear()
@@ -147,6 +157,7 @@ class SearchFragment : Fragment() {
     private fun setupSearchIconClickListener() {
         searchIcon.setOnClickListener {
             val query = searchBar.text.toString()
+            Log.d("SearchFragment", "setupSearchIconClickListener에서 쿼리 정상적으로 초기화함")
             if (query.isNotBlank()) {
                 showToast("검색: $query")
                 saveRecentSearch(query)
@@ -156,10 +167,11 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun navigateToExamDetailFragment(query: String) {
+    private fun navigateToExamDetailFragment(dataId: String) {
         val fragment = ExamDetailFragment().apply {
             arguments = Bundle().apply {
-                putString("EXAM_NAME", query)
+                putInt("CERTIFICATION_ID", dataId.toInt())
+                Log.d("SearchFragment", "다음 화면으로 넘어가기 직전 $dataId")
             }
         }
         requireActivity().runOnUiThread {
@@ -187,6 +199,7 @@ class SearchFragment : Fragment() {
     private fun loadRecentSearches() {
         recentSearches.clear()
         recentSearches.addAll(sharedPreferences.getStringSet("recent_searches", emptySet()) ?: emptySet())
+        Log.d("SearchFragment", "1. 쿼리 변경 함수")
         updateRecentSearchChips()
     }
 
@@ -195,6 +208,7 @@ class SearchFragment : Fragment() {
             recentSearches.add(0, query)
             if (recentSearches.size > 10) recentSearches.removeAt(10)
             saveRecentSearches()
+            Log.d("SearchFragment", "2. 쿼리 변경 함수")
             updateRecentSearchChips()
         }
     }
@@ -204,6 +218,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun updateRecentSearchChips() {
+        Log.d("SearchFragment", "3. 쿼리 변경 함수")
         // ChipGroup의 모든 뷰를 제거합니다.
         recentSearchChipGroup.removeAllViews()
 
@@ -211,11 +226,18 @@ class SearchFragment : Fragment() {
         val maxChips = 10
         val displaySearches = recentSearches.take(maxChips)
 
+
         // 각 검색어에 대해 칩을 생성하고 ChipGroup에 추가합니다.
         displaySearches.forEach { search ->
             val chip = Chip(requireContext()).apply {
+                Log.d("SearchFragment", "1) 쿼리 변경 ${search}")
                 text = search
-                setOnClickListener { searchBar.setText(search) }
+                setOnClickListener {
+                    searchBar.setText(search)
+                    Log.d("SearchFragment", "2) 쿼리 변경 ${search}")
+                    fetchSearchResults(query = search) // query 값을 업데이트
+                }
+
                 setOnCloseIconClickListener { removeChip(search) }
                 isCloseIconVisible = true
 
@@ -246,6 +268,7 @@ class SearchFragment : Fragment() {
     private fun clearAllChips() {
         recentSearches.clear()
         saveRecentSearches()
+        Log.d("SearchFragment", "4. 쿼리 변경 함수")
         updateRecentSearchChips()
     }
 
@@ -253,6 +276,7 @@ class SearchFragment : Fragment() {
         if (recentSearches.contains(search)) {
             recentSearches.remove(search)
             saveRecentSearches()
+            Log.d("SearchFragment", "5. 쿼리 변경 함수")
             updateRecentSearchChips()
         }
     }

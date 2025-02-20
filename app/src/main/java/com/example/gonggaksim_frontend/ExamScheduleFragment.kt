@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.gonggaksim_frontend.databinding.FragmentExamScheduleBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import retrofit2.Call
+import retrofit2.Response
 
 class ExamScheduleFragment : Fragment() {
 
@@ -94,7 +96,7 @@ class ExamScheduleFragment : Fragment() {
         adapter.submitList(scheduleList)
     }
 
-    private fun setupRegisterButton() {
+/*    private fun setupRegisterButton() {
         binding.btnRegister.isEnabled = false // 기본 비활성화
         binding.btnRegister.setOnClickListener {
             val selectedButtonText = adapter.getSelectedButtonText()
@@ -102,7 +104,40 @@ class ExamScheduleFragment : Fragment() {
                 showConfirmationPopup(selectedButtonText)
             }
         }
+    }*/
+    private fun setupRegisterButton() {
+        binding.btnRegister.isEnabled = false // 기본 비활성화
+
+        binding.btnRegister.setOnClickListener {
+            val certificationId = adapter.getSelectedButtonText() // 선택된 값 가져오기
+            if (certificationId != null) {
+                showConfirmationPopup(certificationId)
+                applyForExam(certificationId) // 시험 접수 API 호출
+            } else {
+                Toast.makeText(binding.root.context, "시험을 선택해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
+
+    private fun applyForExam(certificationId: String) {
+        val provider = "provider"
+
+        RetrofitClient.api.registerExam(certificationId, provider).enqueue(object : retrofit2.Callback<ExamResponse> {
+            override fun onResponse(call: Call<ExamResponse>, response: Response<ExamResponse>) {
+                if (response.isSuccessful && response.body()?.success == true) {
+                    Toast.makeText(binding.root.context, "시험 접수 성공!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(binding.root.context, "시험 접수 실패: ${response.body()?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ExamResponse>, t: Throwable) {
+                Toast.makeText(binding.root.context, "네트워크 오류: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 
     private fun setupAddToScheduleButton() {
         binding.btnAddToSchedule.visibility = View.GONE

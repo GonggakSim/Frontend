@@ -92,4 +92,14 @@ interface ApiService {
         @Header("Authorization") authToken: String,
         @Body quizSettings : QuizSettings
     ):Call<UserResponseQuiz>
+
+    @POST("oauth2/logout")
+    fun logout(
+        @Header("Authorization") authToken: String
+    ):Call<logoutResponse>
+
+    @POST("oauth2/delete-account")
+    fun deleteAccount(
+        @Header("Authorization") authToken: String
+    ):Call<accountDeleteResponse>
 }

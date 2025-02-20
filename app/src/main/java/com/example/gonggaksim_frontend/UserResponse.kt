@@ -152,3 +152,14 @@ data class DeleteCalendarExam(
     val success: Boolean,
     val message: String
 )
+
+data class logoutResponse(
+    val success: Boolean,
+    val message: String?,
+    val reason : String?
+)
+
+data class accountDeleteResponse(
+    val success: Boolean,
+    val message: String?
+)

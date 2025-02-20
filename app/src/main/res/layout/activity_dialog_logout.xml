@@ -30,25 +30,26 @@
         android:layout_marginTop="55dp"
         android:layout_marginEnd="62dp"
         android:fontFamily="@font/npsfont_bold"
-        android:text="로그아웃 하시겠습니까"
+        android:text="로그아웃 하시겠습니까?"
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </TextView>
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="52dp"
         android:fontFamily="@font/npsfont_regular"
-        android:text="잠시 쉬어가는 건 괜찮아요.포기하지만\n\t\t말아요!목표는 여전히 그 자리에,\n\t\t\t\t00님을 기다리고 있어요"
-        android:textSize="16dp"
+        android:gravity="center"
         android:lineSpacingExtra="5dp"
+        android:text="잠시 쉬어가는 건 괜찮아요.포기하지만 말아요!\n목표는 여전히 그 자리에서\n당신을 기다리고 있어요"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"></TextView>
 

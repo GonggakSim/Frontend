@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.gonggaksim_frontend.databinding.FragmentMypageBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -128,12 +129,14 @@ class MypageFragment : Fragment() {
     }
     @SuppressLint("MissingInflatedId")
     private fun showLogoutDialog() {
+
         val dialog = BottomSheetDialog(requireContext())
         val dialogBinding = com.example.gonggaksim_frontend.databinding.ActivityDialogLogoutBinding.inflate(layoutInflater)
 
         dialogBinding.btnConfirm.setOnClickListener {
             // 로그아웃 로직 실행 (예: SharedPreferences 삭제, 로그인 화면 이동)
             dialog.dismiss()
+            logout()
         }
 
         dialogBinding.btnCancel.setOnClickListener {
@@ -158,5 +161,30 @@ class MypageFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null  // 메모리 누수 방지
+    }
+
+    private fun logout(){
+        val token : String? = getToken()
+        val authToken = "Bearer ${token}"
+
+        profileService.logout(authToken).enqueue(object : Callback<logoutResponse> {
+            override fun onResponse(call: Call<logoutResponse>, response: Response<logoutResponse>) {
+                if (response.isSuccessful) {
+                    // ✅ 로그아웃 성공 시 onboarding_new Activity로 이동
+                    val intent = Intent(requireContext(), OnboardingActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK  // 백스택 제거
+                    startActivity(intent)
+                } else {
+                    // ❌ 로그아웃 실패 - 토스트 메시지 표시
+                    Toast.makeText(requireContext(), "로그아웃에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<logoutResponse>, t: Throwable) {
+                // ❌ 네트워크 오류 또는 API 호출 실패
+                Toast.makeText(requireContext(), "네트워크 오류로 로그아웃에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                Log.e("LogoutError", "API 호출 실패: ${t.localizedMessage}")
+            }
+        })
     }
 }

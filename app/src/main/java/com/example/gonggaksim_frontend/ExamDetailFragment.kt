@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.gonggaksim_frontend.api.ExamRecommendationRequest
+import com.example.gonggaksim_frontend.api.ExamRecommendationResponse
 import com.example.gonggaksim_frontend.databinding.FragmentExamDetailBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,6 +38,7 @@ class ExamDetailFragment : Fragment() {
 
         // "시험일정 추천받기" 버튼 클릭 이벤트 추가
         binding.btnExamSuggestion.setOnClickListener {
+            requestExamRecommendation()
             openExamDivPointActivity()
         }
 
@@ -45,6 +48,36 @@ class ExamDetailFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun requestExamRecommendation() {
+        val request = ExamRecommendationRequest(
+            userId = 1, // 실제 userId 가져오기
+            name = "TOEIC",
+            studyExperience = "초급",
+            studyTimePerDay = "3~4시간",
+            studyFrequency = "매일 조금씩",
+            examGoal = "800"
+        )
+
+        RetrofitClient.scheduleApi.getExamRecommendation(provider = "", request).enqueue(object : Callback<ExamRecommendationResponse> {
+            override fun onResponse(call: Call<ExamRecommendationResponse>, response: Response<ExamRecommendationResponse>) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (data?.status == "success") {
+                        Toast.makeText(context, "추천된 일정: ${data.data?.examDate}", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, "추천 실패: ${data?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(context, "서버 응답 오류: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ExamRecommendationResponse>, t: Throwable) {
+                Toast.makeText(context, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun getToken(): String? {

@@ -1,5 +1,6 @@
 package com.example.gonggaksim_frontend
 
+import com.example.gonggaksim_frontend.api.ScheduleApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,11 +23,11 @@ object RetrofitClient {
 
     val api: ExamApi by lazy {
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)  // 기본 URL 설정
-            .addConverterFactory(GsonConverterFactory.create()) // JSON 변환기 설정
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        retrofit.create(ExamApi::class.java) // ExamApi 인터페이스 생성
+        retrofit.create(ExamApi::class.java)
     }
 
     val apiService: SearchApiService by lazy {
@@ -37,5 +38,12 @@ object RetrofitClient {
             .create(SearchApiService::class.java)
     }
 
-
+    // Open AI 시험 일정 추천 API 추가
+    val scheduleApi: ScheduleApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ScheduleApiService::class.java)
+    }
 }

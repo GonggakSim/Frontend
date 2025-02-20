@@ -60,6 +60,7 @@ class SearchFragment : Fragment() {
         // RecyclerView 초기화
         autoCompleteRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         autoCompleteRecyclerView.adapter = AutoCompleteAdapter(searchSuggestions) { query ->
+            searchBar.setText(query)
             saveRecentSearch(query)
             showToast("검색 결과: $query")
             navigateToExamDetailFragment(dataId)
@@ -127,8 +128,10 @@ class SearchFragment : Fragment() {
                         val results = body.data
                         for(i in results) {
                             Log.d("SearchFragment", "id 제대로 저장 ${i.name} ${query}")
-                            if(i.name == query) {
+                            if(i.name.toString() == query.toString()) {
                                 dataId = i.id.toString()
+                                Log.d("SearchFragment", "dataId 제대로 저장 $dataId")
+                                navigateToExamDetailFragment(dataId)
                             }
                         }
 
@@ -233,6 +236,7 @@ class SearchFragment : Fragment() {
                 Log.d("SearchFragment", "1) 쿼리 변경 ${search}")
                 text = search
                 setOnClickListener {
+                    Log.d("SearchFragment", "2-1) 쿼리 변경 ${search}")
                     searchBar.setText(search)
                     Log.d("SearchFragment", "2) 쿼리 변경 ${search}")
                     fetchSearchResults(query = search) // query 값을 업데이트

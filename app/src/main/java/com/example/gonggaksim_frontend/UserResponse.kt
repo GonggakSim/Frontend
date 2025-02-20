@@ -72,3 +72,53 @@ data class CertificationDetail(
     val fee: String,
     val announcementSchedule: String
 )
+
+data class UserResponseIdMonth(
+    val dates: List<Dates>,
+    val message: String
+)
+
+data class Dates(
+    val date: String,
+    val scheduleId: Int
+)
+
+data class UserResponseNotifications(
+    val success: Boolean,
+    val message: String
+)
+
+data class UserCalendarExamInput(
+    val success: Boolean,
+    val message: String,
+    val data: CalendarData,
+
+)
+
+data class CalendarData(
+    val id: Int,
+    val userId: Int,
+    val title: String,
+    val examStart: String,
+    val examEnd: String,
+    val remindState: Boolean,
+    val createAt: String,
+    val updateAt: String,
+)
+
+data class CalendarUsers(
+    val success: Boolean,
+    val data: List<CalendarUserData>
+)
+
+data class CalendarUserData(
+    val title: String,
+    val examStart: String,
+    val examEnd: String,
+    val remindState: Boolean,
+)
+
+data class DeleteCalendarExam(
+    val success: Boolean,
+    val message: String
+)

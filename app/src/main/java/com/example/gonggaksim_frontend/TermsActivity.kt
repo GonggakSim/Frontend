@@ -34,19 +34,20 @@ class TermsActivity : AppCompatActivity() {
         val personalInformationButton = findViewById<ImageButton>(R.id.checkPrivacyBtn)
         val pushNotificationButton = findViewById<ImageButton>(R.id.checkPushBtn)
 
-        // 서비스 이용약관 상세 페이지 이동
+        // 약관 상세 페이지 이동 (결과 데이터 요청) - 수정된 부분
         serviceButton.setOnClickListener {
-            startActivity(Intent(this, ServiceActivity::class.java))
+            val intent = Intent(this, ServiceActivity::class.java)
+            startActivityForResult(intent, REQUEST_TERMS)
         }
 
-        // 개인정보 처리방침 상세 페이지 이동
         personalInformationButton.setOnClickListener {
-            startActivity(Intent(this, PersonalInformationActivity::class.java))
+            val intent = Intent(this, PersonalInformationActivity::class.java)
+            startActivityForResult(intent, REQUEST_PRIVACY)
         }
 
-        // 푸시 알림 안내 상세 페이지 이동
         pushNotificationButton.setOnClickListener {
-            startActivity(Intent(this, PushNotificationActivity::class.java))
+            val intent = Intent(this, PushNotificationActivity::class.java)
+            startActivityForResult(intent, REQUEST_PUSH)
         }
 
         // 전체 동의 체크박스 선택 시, 모든 개별 체크박스 선택 및 버튼 활성화
@@ -72,11 +73,34 @@ class TermsActivity : AppCompatActivity() {
             sendAgreementStatus(checkTerms.isChecked, checkPrivacy.isChecked, checkPush.isChecked)
         }
 
+        // 이용약관 상세 페이지에서 돌아올 때 체크박스 반영 - 수정된 부분
+        val isServiceAgreed = intent.getBooleanExtra("AGREE_TERMS", false)
+        val isPrivacyAgreed = intent.getBooleanExtra("AGREE_PRIVACY", false)
+        val isPushAgreed = intent.getBooleanExtra("AGREE_PUSH", false)
+
+        if (isServiceAgreed) checkTerms.isChecked = true
+        if (isPrivacyAgreed) checkPrivacy.isChecked = true
+        if (isPushAgreed) checkPush.isChecked = true
+
         // 시스템 바 패딩 적용 (화면 상단, 하단 안전 영역 확보)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+    // onActivityResult에서 체크박스 처리 - 수정된 부분
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            data?.let {
+                when (requestCode) {
+                    REQUEST_TERMS -> findViewById<CheckBox>(R.id.checkTerms).isChecked = true
+                    REQUEST_PRIVACY -> findViewById<CheckBox>(R.id.checkPrivacy).isChecked = true
+                    REQUEST_PUSH -> findViewById<CheckBox>(R.id.checkPush).isChecked = true
+                }
+            }
         }
     }
 
@@ -90,7 +114,7 @@ class TermsActivity : AppCompatActivity() {
             return
         }
 
-        val agreements = listOf(true, true, true) // 동의 상태를 리스트로 변환
+        val agreements = listOf(required1, required2, optional) // 동의 상태를 리스트로 변환 (수정됨)
         val request = TermsAgreementRequest(agreements) // 요청 객체 생성
         val provider: String? = null
 
@@ -105,7 +129,10 @@ class TermsActivity : AppCompatActivity() {
                         Log.d("TermsActivity", "이용약관 동의 성공")
                         navigateToNextScreen() // 성공 시 다음 화면으로 이동
                     } else {
-                        Log.e("TermsActivity", "이용약관 동의 실패 - 응답 코드: ${response.code()}, 오류 내용: ${response.errorBody()?.string()}")
+                        Log.e(
+                            "TermsActivity",
+                            "이용약관 동의 실패 - 응답 코드: ${response.code()}, 오류 내용: ${response.errorBody()?.string()}"
+                        )
                         Toast.makeText(applicationContext, "이용약관 동의 실패", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -115,9 +142,7 @@ class TermsActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
                 }
             })
-
     }
-
 
     private fun navigateToNextScreen() {
         Log.d("TermsActivity", "회원 정보 입력 화면으로 이동")
@@ -128,7 +153,16 @@ class TermsActivity : AppCompatActivity() {
     private fun getAccessToken(): String {
         val sharedPreferences = getSharedPreferences("auth", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("accessToken", "") ?: ""
-        Log.d("TermsActivity", "저장된 액세스 토큰 가져오기: ${if (token.isNotEmpty()) "토큰 있음" else "토큰 없음"}")
+        Log.d(
+            "TermsActivity",
+            "저장된 액세스 토큰 가져오기: ${if (token.isNotEmpty()) "토큰 있음" else "토큰 없음"}"
+        )
         return token
+    }
+
+    companion object {
+        const val REQUEST_TERMS = 1
+        const val REQUEST_PRIVACY = 2
+        const val REQUEST_PUSH = 3
     }
 }

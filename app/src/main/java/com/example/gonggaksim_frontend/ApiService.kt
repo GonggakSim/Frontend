@@ -66,8 +66,16 @@ interface ApiService {
     fun getCertificationNotifications(
         @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
         @Path("certificationId") certificationId : String,
+        @Body request: UserRequestNotifications,
         @Query("provider") provider : String
     ):Call<UserResponseNotifications>
+    @GET("api/v1/certifications/{certificationId}/schedules/{scheduleId}/check")
+    fun getCertificationSchedulesCheck(
+        @Header("Authorization") authToken : String,  // OAuth2 토큰 인증
+        @Path("certificationId") certificationId : String,
+        @Path("scheduleId") scheduleId : Int,
+        @Query("provider") provider : String
+    ):Call<UserResponseScaduleCheck>
 
 
     @GET("api/v1/calander/exams")

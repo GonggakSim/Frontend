@@ -12,6 +12,7 @@ import retrofit2.Response
 
 class ExamNotOpenPopUp(
     context: Context,
+    private var authToken: String,
     private var message: String,
     private var certificationId: String,
     private val scheduleId: Int,  // scheduleId 추가
@@ -35,7 +36,7 @@ class ExamNotOpenPopUp(
 
         binding.btnCheck.setOnClickListener {
             val call = scheduleService.getCertificationNotifications(
-                authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDgsImVtYWlsIjoiZ2dzQGV4bWFwbGUuY29tIiwiaWF0IjoxNzQwMDYwMTA3LCJleHAiOjE3NDA2NjQ5MDd9.5yk8Bbe8oZLNir3epeMoF5F4FfIfD64iQhe9UGD57kI",
+                authToken = authToken,
                 certificationId = certificationId,
                 request = UserRequestNotifications(scheduleId, userId),
                 provider = ""

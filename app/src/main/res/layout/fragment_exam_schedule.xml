@@ -156,10 +156,12 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/schedule_scroll_view"
-        android:layout_width="409dp"
-        android:layout_height="302dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/month_selection"
@@ -187,6 +189,7 @@
         android:text="접수하기"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:layout_marginBottom="70dp"
         app:cornerRadius="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

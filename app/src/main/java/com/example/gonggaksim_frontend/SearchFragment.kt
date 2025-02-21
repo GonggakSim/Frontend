@@ -1,5 +1,6 @@
 package com.example.gonggaksim_frontend
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -81,6 +82,11 @@ class SearchFragment : Fragment() {
         return view
     }
 
+    private fun getToken(): String? {
+        val sharedPreferences = requireActivity().getSharedPreferences("auth", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("accessToken", null)
+    }
+
     private fun setupSearchBar() {
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -111,12 +117,17 @@ class SearchFragment : Fragment() {
 
     // 🔹 API 호출 함수
     private fun fetchSearchResults(query: String) {
+        val token : String? = getToken()
+        val authToken = "Bearer ${token}"
+        val provider = ""
+        val category = ""
+
         Log.d("SearchFragment", "fetchSearchResults 도착 ${query}")
         RetrofitClient.apiService.searchCertificates(
-            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDgsImVtYWlsIjoiZ2dzQGV4bWFwbGUuY29tIiwiaWF0IjoxNzQwMDYwMTA3LCJleHAiOjE3NDA2NjQ5MDd9.5yk8Bbe8oZLNir3epeMoF5F4FfIfD64iQhe9UGD57kI",
-            provider = "",
+            authToken = authToken,
+            provider = provider,
             query = query,
-            category = "",
+            category = category,
         ).enqueue(object : Callback<SearchResponse> {
             override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
                 Log.d("SearchFragment", "fetchSearch 함수는 작동함")

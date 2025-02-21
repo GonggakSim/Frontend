@@ -1,5 +1,6 @@
 package com.example.gonggaksim_frontend
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -51,6 +52,11 @@ class ExamScheduleFragment : Fragment() {
         return binding!!.root
     }
 
+    private fun getToken(): String? {
+        val sharedPreferences = requireActivity().getSharedPreferences("auth", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("accessToken", null)
+    }
+
     private fun setupRecyclerView() {
         adapter = ExamScheduleAdapter(::onScheduleButtonSelectionChanged)
         binding?.scheduleRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 3)
@@ -82,9 +88,13 @@ class ExamScheduleFragment : Fragment() {
             monthItem = currentMonth.substring(0,1).trim()
         }
 
+        val token : String? = getToken()
+        val authToken = "Bearer ${token}"
+        val provider = ""
+
         val call = scheduleService.getCertificationIdMonth(
-            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDgsImVtYWlsIjoiZ2dzQGV4bWFwbGUuY29tIiwiaWF0IjoxNzQwMDYwMTA3LCJleHAiOjE3NDA2NjQ5MDd9.5yk8Bbe8oZLNir3epeMoF5F4FfIfD64iQhe9UGD57kI",
-            provider = "",
+            authToken = authToken,
+            provider = provider,
             certificationId = certificationId.toString(),
             month = monthItem.toInt()
         )
@@ -143,9 +153,13 @@ class ExamScheduleFragment : Fragment() {
     }
 
     private fun applyForExam(certificationId: String, scheduleId: Int) {
+        val token : String? = getToken()
+        val authToken = "Bearer ${token}"
+        val provider = ""
+
         val callApply = scheduleService.getCertificationSchedulesCheck(
-            authToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDgsImVtYWlsIjoiZ2dzQGV4bWFwbGUuY29tIiwiaWF0IjoxNzQwMDYwMTA3LCJleHAiOjE3NDA2NjQ5MDd9.5yk8Bbe8oZLNir3epeMoF5F4FfIfD64iQhe9UGD57kI",
-            provider = "",
+            authToken = authToken,
+            provider = provider,
             scheduleId = scheduleId,
             certificationId = certificationId
         )
@@ -175,9 +189,10 @@ class ExamScheduleFragment : Fragment() {
                         val dialogMessage = response.body()!!.message
                         val dialog = ExamNotOpenPopUp(
                             binding.root.context,
+                            authToken,
                             dialogMessage,
                             certificationId,
-                            userId = 2,
+                            userId = 24,
                             scheduleId = scheduleId
                         ) { isConfirmed ->
                             if (isConfirmed) { }

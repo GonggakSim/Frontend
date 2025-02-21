@@ -38,8 +38,7 @@ class ExamDetailFragment : Fragment() {
 
         // "시험일정 추천받기" 버튼 클릭 이벤트 추가
         binding.btnExamSuggestion.setOnClickListener {
-            requestExamRecommendation()
-            openExamDivPointActivity()
+            getToken()?.let { it1 -> openExamDivPointActivity(it1) }
         }
 
         // "시험일정 확인하기" 버튼 클릭 이벤트 추가
@@ -50,43 +49,16 @@ class ExamDetailFragment : Fragment() {
         return view
     }
 
-    private fun requestExamRecommendation() {
-        val request = ExamRecommendationRequest(
-            userId = 1, // 실제 userId 가져오기
-            name = "TOEIC",
-            studyExperience = "초급",
-            studyTimePerDay = "3~4시간",
-            studyFrequency = "매일 조금씩",
-            examGoal = "800"
-        )
-
-        RetrofitClient.scheduleApi.getExamRecommendation(provider = "", request).enqueue(object : Callback<ExamRecommendationResponse> {
-            override fun onResponse(call: Call<ExamRecommendationResponse>, response: Response<ExamRecommendationResponse>) {
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    if (data?.status == "success") {
-                        Toast.makeText(context, "추천된 일정: ${data.data?.examDate}", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(context, "추천 실패: ${data?.message}", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Toast.makeText(context, "서버 응답 오류: ${response.code()}", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ExamRecommendationResponse>, t: Throwable) {
-                Toast.makeText(context, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
     private fun getToken(): String? {
         val sharedPreferences = requireActivity().getSharedPreferences("auth", Context.MODE_PRIVATE)
         return sharedPreferences.getString("accessToken", null)
     }
 
-    private fun openExamDivPointActivity() {
+    private fun openExamDivPointActivity(token: String) {
         val intent = Intent(requireContext(), ExamDivPointActivity::class.java)
+        intent.apply {
+            putExtra("token", token)
+        }
         startActivity(intent)
     }
 

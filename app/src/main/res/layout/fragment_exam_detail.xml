@@ -206,7 +206,7 @@
             <TextView
                 android:id="@+id/exam_passing_criteria"
                 android:layout_width="221dp"
-                android:layout_height="55dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/npsfont_regular"
@@ -232,7 +232,7 @@
             <TextView
                 android:id="@+id/exam_fee"
                 android:layout_width="220dp"
-                android:layout_height="29dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="20dp"
@@ -240,6 +240,7 @@
                 android:gravity="start"
                 android:textColor="@color/grayscale_10"
                 android:textSize="18sp"
+                android:lineSpacingExtra="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/exam_passing_criteria" />
 

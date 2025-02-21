@@ -99,6 +99,7 @@
                 android:layout_height="40dp"
                 android:padding="8dp"
                 android:text="전체동의"
+                app:buttonTint="@color/main_01"
                 android:fontFamily="@font/npsfont_regular"
                 android:textColor="#000000"
                 android:textSize="16sp" />
@@ -127,6 +128,7 @@
                 android:fontFamily="@font/npsfont_regular"
                 android:text="이용약관 동의 (필수)"
                 android:textColor="@color/black"
+                app:buttonTint="@color/main_01"
                 android:textSize="14sp" />
 
             <ImageButton
@@ -153,6 +155,7 @@
                 android:padding="8dp"
                 android:fontFamily="@font/npsfont_regular"
                 android:text="개인정보 수집 및 이용 동의 (필수)"
+                app:buttonTint="@color/main_01"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -180,6 +183,7 @@
                 android:padding="8dp"
                 android:fontFamily="@font/npsfont_regular"
                 android:text="푸시 알림 수신 동의 (선택)"
+                app:buttonTint="@color/main_01"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 

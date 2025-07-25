@@ -291,7 +291,7 @@
         android:fadeScrollbars="false"
         android:padding="3dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@id/btn_input_exam"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
